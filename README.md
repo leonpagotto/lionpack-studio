@@ -30,7 +30,7 @@
 
 ## 🧠 LionPack Ethos
 
-> *We build tools for those who move fast, think freely, and create together.*  
+> *We build tools for those who move fast, think freely, and create together.*
 > *One pack, one flow, one hunt.*
 
 ---
@@ -244,6 +244,6 @@ Built with ❤️ by the LionPack community.
 
 ---
 
-**Status**: 🚧 Early Access (Phase 1 - Backend Integration)  
-**Latest Release**: v0.1.0  
+**Status**: 🚧 Early Access (Phase 1 - Backend Integration)
+**Latest Release**: v0.1.0
 **Last Updated**: October 24, 2025

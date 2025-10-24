@@ -46,7 +46,7 @@ import { Orchestrator as LEOOrchestrator } from 'leo-workflow-kit'
 
 export class Orchestrator {
   private leo: LEOOrchestrator
-  
+
   constructor(config: OrchestratorConfig) {
     this.leo = new LEOOrchestrator({
       modelPreference: config.modelPreference || 'sonnet',
@@ -68,7 +68,7 @@ export class Orchestrator {
   async createWorkflow(spec: SpecInput): Promise<Workflow> {
     // LEO creates GitHub issue, generates code, etc
     const result = await this.leo.executeWorkflow(spec)
-    
+
     return {
       id: result.issueNumber,
       spec: result.spec,
@@ -81,7 +81,7 @@ export class Orchestrator {
   async generateSpec(description: string, model: 'sonnet' | '4' | '4-5' | 'haiku') {
     // Multi-model spec generation
     const spec = await this.leo.generateSpec(description, { model })
-    
+
     return {
       title: spec.title,
       description: spec.description,
@@ -128,7 +128,7 @@ export const useLEOOrchestrator = () => {
       description,
       source: 'morphy-chat',
     })
-    
+
     return workflow
   }, [])
 
@@ -208,10 +208,10 @@ OpenCode (local) ↔️ Yjs (shared state) ↔️ Supabase (persistence)
 // Terminal output synced to all pack members
 export const useTerminal = () => {
   const { provider } = useYjs()
-  
+
   const executeCommand = async (command: string) => {
     const output = await runCommand(command)
-    
+
     // Broadcast to awareness
     provider.awareness.setLocalState({
       terminalCommand: command,
@@ -219,10 +219,10 @@ export const useTerminal = () => {
       author: currentUser.id,
       timestamp: Date.now(),
     })
-    
+
     return output
   }
-  
+
   return { executeCommand }
 }
 ```
@@ -321,14 +321,14 @@ export const useApplyMorphySuggestion = () => {
 
   const apply = (code: string, action: 'insert' | 'replace' = 'insert') => {
     const update = ydoc.getMap('files').get(editor.currentFile)
-    
+
     if (action === 'insert') {
       update.insert(editor.cursorPosition, code)
     } else {
       update.delete(editor.selection.start, editor.selection.length)
       update.insert(editor.selection.start, code)
     }
-    
+
     // Yjs automatically syncs via provider
   }
 
@@ -349,11 +349,11 @@ import { WebsocketProvider } from 'y-websocket'
 
 export const initializeCollaboration = async (projectId: string) => {
   const ydoc = new Y.Doc()
-  
+
   // Create shared types
   const yfiles = ydoc.getMap('files')
   const ytasks = ydoc.getArray('tasks')
-  
+
   // Connect to Supabase Realtime
   const provider = new WebsocketProvider(
     process.env.NEXT_PUBLIC_SUPABASE_REALTIME_URL,
@@ -363,7 +363,7 @@ export const initializeCollaboration = async (projectId: string) => {
 
   // Awareness (presence info)
   const awareness = provider.awareness
-  
+
   return { ydoc, provider, yfiles, ytasks, awareness }
 }
 ```

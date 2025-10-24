@@ -94,7 +94,7 @@ We build on open-source foundations and open collaboration.
 
 ### Emotional Brand Promise
 
-> *We build tools for those who move fast, think freely, and create together.*  
+> *We build tools for those who move fast, think freely, and create together.*
 > *One pack, one flow, one hunt.*
 
 ### What This Signals
