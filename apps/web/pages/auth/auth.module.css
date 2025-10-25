@@ -1,0 +1,529 @@
+/**
+ * Authentication Styles
+ * Responsive design for login page
+ */
+
+.authContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.authBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.authCard {
+  position: relative;
+  z-index: 1;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 420px;
+  padding: 48px 40px;
+  animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header Section */
+.authHeader {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.authTitle {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a202c;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.5px;
+}
+
+.authSubtitle {
+  font-size: 14px;
+  color: #718096;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Content Section */
+.authContent {
+  margin-bottom: 32px;
+}
+
+.sectionTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2d3748;
+  margin: 0 0 24px 0;
+}
+
+/* Error Alert */
+.errorAlert {
+  display: flex;
+  gap: 12px;
+  padding: 12px 16px;
+  background-color: #fed7d7;
+  border: 1px solid #fc8181;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  animation: shake 0.4s ease-out;
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+.errorIcon {
+  flex-shrink: 0;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.errorMessage {
+  flex: 1;
+  margin: 0;
+}
+
+.errorTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #c53030;
+  margin: 0 0 4px 0;
+}
+
+.errorText {
+  font-size: 14px;
+  color: #742a2a;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* GitHub Button */
+.githubButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 16px;
+  background-color: #1a202c;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: none;
+  line-height: 1.5;
+  position: relative;
+  overflow: hidden;
+}
+
+.githubButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  transition: left 0.3s ease;
+  z-index: 0;
+}
+
+.githubButton:hover:not(:disabled)::before {
+  left: 100%;
+}
+
+.githubButton:hover:not(:disabled) {
+  background-color: #0d1117;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.githubButton:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.githubButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: #4a5568;
+}
+
+.githubButton > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Icon */
+.icon {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+/* Spinner */
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Loading Message */
+.loadingMessage {
+  text-align: center;
+  font-size: 13px;
+  color: #718096;
+  margin-top: 16px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Footer Section */
+.authFooter {
+  border-top: 1px solid #e2e8f0;
+  padding-top: 24px;
+  text-align: center;
+}
+
+.footerText {
+  font-size: 13px;
+  color: #718096;
+  margin: 0 0 12px 0;
+  line-height: 1.5;
+}
+
+.footerLinks {
+  font-size: 12px;
+  color: #a0aec0;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.link {
+  color: #667eea;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  font-weight: 500;
+}
+
+.link:hover {
+  color: #764ba2;
+  text-decoration: underline;
+}
+
+.link:focus {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .authCard {
+    padding: 32px 24px;
+    max-width: calc(100% - 32px);
+  }
+
+  .authTitle {
+    font-size: 24px;
+  }
+
+  .authSubtitle {
+    font-size: 13px;
+  }
+
+  .sectionTitle {
+    font-size: 16px;
+  }
+
+  .githubButton {
+    padding: 14px 16px;
+    font-size: 14px;
+  }
+
+  .icon {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (max-width: 400px) {
+  .authContainer {
+    padding: 16px;
+  }
+
+  .authCard {
+    padding: 24px 16px;
+  }
+
+  .authHeader {
+    margin-bottom: 32px;
+  }
+
+  .authTitle {
+    font-size: 20px;
+  }
+
+  .authContent {
+    margin-bottom: 24px;
+  }
+
+  .sectionTitle {
+    font-size: 15px;
+  }
+
+  .githubButton {
+    padding: 12px 14px;
+    font-size: 13px;
+    gap: 8px;
+  }
+
+  .icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .footerLinks {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .authContainer {
+    background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+  }
+
+  .authCard {
+    background: #1a202c;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  }
+
+  .authTitle {
+    color: #f7fafc;
+  }
+
+  .authSubtitle {
+    color: #cbd5e0;
+  }
+
+  .sectionTitle {
+    color: #e2e8f0;
+  }
+
+  .link {
+    color: #90cdf4;
+  }
+
+  .link:hover {
+    color: #63b3ed;
+  }
+
+  .footerText,
+  .footerLinks {
+    color: #a0aec0;
+  }
+}
+
+/* Accessibility - Focus Visible */
+.githubButton:focus-visible {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+/* Accessibility - Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .authCard,
+  .githubButton::before,
+  .githubButton:hover:not(:disabled),
+  .loadingMessage,
+  .spinner {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* Callback Page Styles */
+.callbackContent {
+  text-align: center;
+  padding: 40px 0;
+}
+
+.callbackSpinner {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 24px;
+  border: 4px solid #e2e8f0;
+  border-top-color: #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.callbackTitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a202c;
+  margin: 0 0 12px 0;
+}
+
+.callbackSubtitle {
+  font-size: 15px;
+  color: #718096;
+  margin: 0 0 24px 0;
+  line-height: 1.6;
+}
+
+.callbackRedirect {
+  font-size: 13px;
+  color: #a0aec0;
+  margin: 16px 0 0 0;
+}
+
+.successIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 20px;
+  background-color: #c6f6d5;
+  color: #22543d;
+  border-radius: 50%;
+  font-size: 32px;
+  font-weight: 700;
+  animation: scaleIn 0.4s ease-out;
+}
+
+.errorIconLarge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 20px;
+  background-color: #fed7d7;
+  color: #742a2a;
+  border-radius: 50%;
+  font-size: 32px;
+  font-weight: 700;
+  animation: scaleIn 0.4s ease-out;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Callback Responsive */
+@media (max-width: 600px) {
+  .callbackContent {
+    padding: 32px 0;
+  }
+
+  .callbackTitle {
+    font-size: 20px;
+  }
+
+  .callbackSpinner {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto 20px;
+    border-width: 3px;
+  }
+
+  .successIcon,
+  .errorIconLarge {
+    width: 56px;
+    height: 56px;
+    font-size: 28px;
+  }
+}
+
+/* Dark Mode - Callback */
+@media (prefers-color-scheme: dark) {
+  .callbackTitle {
+    color: #f7fafc;
+  }
+
+  .callbackSubtitle,
+  .callbackRedirect {
+    color: #cbd5e0;
+  }
+
+  .callbackSpinner {
+    border-color: #2d3748;
+    border-top-color: #667eea;
+  }
+
+  .successIcon {
+    background-color: #22543d;
+    color: #c6f6d5;
+  }
+
+  .errorIconLarge {
+    background-color: #742a2a;
+    color: #fed7d7;
+  }
+}
