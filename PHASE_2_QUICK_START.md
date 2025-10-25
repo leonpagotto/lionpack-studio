@@ -1,8 +1,8 @@
 # 🚀 Phase 2 Implementation: Quick Start Guide
 
-**Status:** ✅ **READY TO LAUNCH**  
-**Start Date:** November 1, 2025  
-**Duration:** 14 weeks  
+**Status:** ✅ **READY TO LAUNCH**
+**Start Date:** November 1, 2025
+**Duration:** 14 weeks
 **End Date:** January 30, 2026
 
 ---
@@ -10,19 +10,24 @@
 ## TL;DR (Too Long; Didn't Read)
 
 ### What's Happening?
+
 Converting the Spike #5 prototype into production code across 3 stories:
+
 - **Story 3.8:** Mode Router (intent detection & routing)
 - **Story 3.9:** Coder Mode (AI code generation)
 - **Story 3.10:** Verifier Module (quality validation)
 
 ### Who's Involved?
+
 4-person team:
+
 - Backend Lead
 - Senior Backend Developer
 - QA/Integration Engineer
 - DevOps Engineer (optional)
 
 ### Timeline
+
 - **Weeks 1-2:** Mode Router + Coder start
 - **Weeks 3-4:** Mode Router done ✅
 - **Weeks 5-6:** Coder Mode done ✅
@@ -32,6 +37,7 @@ Converting the Spike #5 prototype into production code across 3 stories:
 - **Weeks 13-14:** Launch 🎉
 
 ### Success Criteria
+
 - ✅ All 3 modules v1.0 complete
 - ✅ >85% test coverage
 - ✅ <3s latency for code generation
@@ -44,6 +50,7 @@ Converting the Spike #5 prototype into production code across 3 stories:
 ### Prerequisites Checklist
 
 **Development Environment:**
+
 - [ ] Clone repo (done)
 - [ ] Install Node.js 18+
 - [ ] Install dependencies: `npm install`
@@ -51,6 +58,7 @@ Converting the Spike #5 prototype into production code across 3 stories:
 - [ ] Environment variables: `.env.local` created
 
 **Repository Setup:**
+
 - [ ] Create feature branches:
   - `feature/3.8-mode-router`
   - `feature/3.9-coder-mode`
@@ -59,21 +67,24 @@ Converting the Spike #5 prototype into production code across 3 stories:
 - [ ] Main branch protection enabled
 
 **Team Setup:**
+
 - [ ] 4 developers assigned
 - [ ] Slack/Discord channel created
 - [ ] GitHub Projects board setup
 - [ ] Calendar invites sent (daily standups, weekly sprints)
 
 **Documentation:**
+
 - [ ] Spike #5 prototype reviewed
 - [ ] Architecture docs read
 - [ ] This roadmap reviewed
 
 ### First Meeting (Nov 1, 9:00 AM)
 
-**Attendees:** All 4 team members + lead  
-**Duration:** 1 hour  
+**Attendees:** All 4 team members + lead
+**Duration:** 1 hour
 **Agenda:**
+
 1. Welcome & team introductions (10 min)
 2. Phase 2 goals & timeline review (15 min)
 3. Story breakdown & assignments (15 min)
@@ -85,28 +96,33 @@ Converting the Spike #5 prototype into production code across 3 stories:
 ## Story Assignments
 
 ### 📍 Story 3.8: Mode Router
-**Role:** Backend Lead  
-**Weeks:** 1-2 (development), 3-4 (testing + merge)  
-**Size:** ~500-800 lines  
+
+**Role:** Backend Lead
+**Weeks:** 1-2 (development), 3-4 (testing + merge)
+**Size:** ~500-800 lines
 
 **What to build:**
+
 - Intent classifier (detect user intent from text)
 - Router (route to appropriate mode)
 - Preferences system (remember user choices)
 - Graceful fallbacks
 
 **Acceptance Criteria:**
+
 - [ ] Intent detection >90% accurate
 - [ ] Routes correct >95% of cases
 - [ ] <100ms latency
-- [ ] >85% test coverage
+- [ ] > 85% test coverage
 
 ### 💻 Story 3.9: Coder Mode
-**Role:** Senior Backend Developer  
-**Weeks:** 1-6 (development), 6 (testing + merge)  
+
+**Role:** Senior Backend Developer
+**Weeks:** 1-6 (development), 6 (testing + merge)
 **Size:** ~1500-2000 lines
 
 **What to build:**
+
 - Claude API integration
 - Multi-language code generation
 - Real-time streaming
@@ -114,17 +130,20 @@ Converting the Spike #5 prototype into production code across 3 stories:
 - Rate limiting
 
 **Acceptance Criteria:**
+
 - [ ] Generation latency <3s (p95)
 - [ ] Generated code >90% verification pass
 - [ ] 5+ languages supported
-- [ ] >85% test coverage
+- [ ] > 85% test coverage
 
 ### ✅ Story 3.10: Verifier Module
-**Role:** QA/Integration Engineer  
-**Weeks:** 2-8 (development), 8 (testing + merge)  
+
+**Role:** QA/Integration Engineer
+**Weeks:** 2-8 (development), 8 (testing + merge)
 **Size:** ~800-1200 lines
 
 **What to build:**
+
 - Jest test integration
 - Linting (ESLint)
 - Type checking (TypeScript)
@@ -132,10 +151,11 @@ Converting the Spike #5 prototype into production code across 3 stories:
 - Performance metrics
 
 **Acceptance Criteria:**
+
 - [ ] Verification latency <500ms (p95)
 - [ ] Catches >90% of errors
 - [ ] Scoring accurate
-- [ ] >85% test coverage
+- [ ] > 85% test coverage
 
 ---
 
@@ -144,6 +164,7 @@ Converting the Spike #5 prototype into production code across 3 stories:
 ### Morning (9:00 AM PST)
 
 **Daily Standup (15 min)**
+
 ```
 What did you do yesterday?
 What will you do today?
@@ -155,6 +176,7 @@ Any blockers?
 ### Throughout Day
 
 **Commit & Push:**
+
 ```bash
 git add .
 git commit -m "feat(story-3.8): add intent classifier (#5)"
@@ -162,6 +184,7 @@ git push origin feature/3.8-mode-router
 ```
 
 **Update GitHub Issue:**
+
 - Move card across project board
 - Add comments/progress updates
 - Link PRs to issues
@@ -169,6 +192,7 @@ git push origin feature/3.8-mode-router
 ### End of Day
 
 **Quick sync:**
+
 - Update issue status
 - Commit final changes
 - Tomorrow priorities
@@ -178,7 +202,8 @@ git push origin feature/3.8-mode-router
 ## Weekly Rhythm
 
 ### Monday 9:30 AM | Sprint Planning
-**Duration:** 30 minutes  
+
+**Duration:** 30 minutes
 **Goal:** Plan week's work
 
 - Review backlog
@@ -187,7 +212,8 @@ git push origin feature/3.8-mode-router
 - Identify risks
 
 ### Wednesday 2:00 PM | Risk Review
-**Duration:** 15 minutes  
+
+**Duration:** 15 minutes
 **Goal:** Check risks and blockers
 
 - Any new risks?
@@ -195,7 +221,8 @@ git push origin feature/3.8-mode-router
 - Mitigation working?
 
 ### Friday 3:00 PM | Sprint Review
-**Duration:** 30 minutes  
+
+**Duration:** 30 minutes
 **Goal:** Review what got done
 
 - Demo completed work
@@ -208,6 +235,7 @@ git push origin feature/3.8-mode-router
 ## Sprint Breakdown
 
 ### Sprint 1 (Weeks 1-2)
+
 **Focus:** Mode Router Foundation + Coder Mode Setup
 
 ```
@@ -231,6 +259,7 @@ Week 2:
 ---
 
 ### Sprint 2 (Weeks 3-4)
+
 **Focus:** Mode Router Complete + Coder Mode Progress
 
 ```
@@ -254,6 +283,7 @@ Week 4:
 ---
 
 ### Sprint 3 (Weeks 5-6)
+
 **Focus:** Coder Mode Complete + Verifier Start
 
 ```
@@ -277,6 +307,7 @@ Week 6:
 ---
 
 ### Sprint 4 (Weeks 7-8)
+
 **Focus:** Verifier Complete + Integration
 
 ```
@@ -300,6 +331,7 @@ Week 8:
 ---
 
 ### Sprint 5 (Weeks 9-10)
+
 **Focus:** Performance & Security
 
 ```
@@ -323,6 +355,7 @@ Week 10:
 ---
 
 ### Sprint 6 (Weeks 11-12)
+
 **Focus:** Beta Testing
 
 ```
@@ -346,6 +379,7 @@ Week 12:
 ---
 
 ### Sprint 7 (Weeks 13-14)
+
 **Focus:** Launch
 
 ```
@@ -371,6 +405,7 @@ Week 14:
 ## Key Files & References
 
 ### Spike #5 Prototype (Your Reference)
+
 ```
 /packages/leo-client/src/spike-5-prototype/
 ├── mode-router.ts       (151 lines - reference for Story 3.8)
@@ -381,6 +416,7 @@ Week 14:
 ```
 
 ### Documentation
+
 ```
 /docs/spike-5/
 ├── README.md            (master summary)
@@ -393,6 +429,7 @@ PHASE_2_ROADMAP_14_WEEKS.md           (sprint breakdown)
 ```
 
 ### GitHub Issues
+
 ```
 Issues #5-19 (15 total)
 ├── #5-6:   Story 3.8 (Mode Router)
@@ -405,6 +442,7 @@ Issues #5-19 (15 total)
 ## Development Checklist
 
 ### Setup (Before Nov 1)
+
 - [ ] Clone repository
 - [ ] Install dependencies
 - [ ] Create feature branch
@@ -414,6 +452,7 @@ Issues #5-19 (15 total)
 - [ ] Read architecture docs
 
 ### Week 1
+
 - [ ] Attend kickoff meeting
 - [ ] Create development environment
 - [ ] Write first unit test
@@ -422,6 +461,7 @@ Issues #5-19 (15 total)
 - [ ] Understand CI/CD pipeline
 
 ### Every Sprint
+
 - [ ] Attend all standups
 - [ ] Keep GitHub issue updated
 - [ ] Write tests for new code
@@ -430,6 +470,7 @@ Issues #5-19 (15 total)
 - [ ] Maintain >85% test coverage
 
 ### Before Merge
+
 - [ ] Tests passing locally: `npm test`
 - [ ] Tests passing in CI: GitHub Actions ✅
 - [ ] Code coverage >85%: `npm test -- --coverage`
@@ -443,23 +484,27 @@ Issues #5-19 (15 total)
 ## Communication & Support
 
 ### Slack/Discord
+
 - Daily channel for quick questions
 - Thread replies to keep organized
 - 🎯 Use threads for topic discussions
 
 ### GitHub Issues
+
 - Update issues daily
 - Link PRs to issues
 - Use comments for discussions
 - Mention @team-lead for blockers
 
 ### Meetings
+
 - **Daily Standup:** 9:00 AM PST (15 min)
 - **Sprint Planning:** Monday 9:30 AM PST (30 min)
 - **Risk Review:** Wednesday 2:00 PM PST (15 min)
 - **Sprint Review:** Friday 3:00 PM PST (30 min)
 
 ### Escalation
+
 - Blocker? → Mention in standup
 - Need decision? → Ask lead immediately
 - Stuck on task? → Pair program with teammate
@@ -469,26 +514,31 @@ Issues #5-19 (15 total)
 ## Success Indicators
 
 ### Week 2
+
 - [ ] Mode Router passes tests
 - [ ] Coder Mode can generate code
 - [ ] CI/CD working smoothly
 
 ### Week 4
+
 - [ ] Mode Router merged ✅
 - [ ] Team velocity established
 - [ ] Coder Mode progressing
 
 ### Week 8
+
 - [ ] All 3 modules merged ✅
 - [ ] All integrated and working
 - [ ] Performance on track
 
 ### Week 12
+
 - [ ] Beta phase successful
 - [ ] User feedback positive
 - [ ] Ready to launch
 
 ### Week 14
+
 - [ ] Production launch ✅
 - [ ] System stable
 - [ ] Team ready for Phase 3
@@ -497,13 +547,13 @@ Issues #5-19 (15 total)
 
 ## Tools & Stack
 
-**Languages:** TypeScript  
-**Runtime:** Node.js  
-**Testing:** Jest  
-**API:** Claude (Anthropic)  
-**Database:** Supabase (PostgreSQL)  
-**Deployment:** Vercel  
-**CI/CD:** GitHub Actions  
+**Languages:** TypeScript
+**Runtime:** Node.js
+**Testing:** Jest
+**API:** Claude (Anthropic)
+**Database:** Supabase (PostgreSQL)
+**Deployment:** Vercel
+**CI/CD:** GitHub Actions
 **Monitoring:** Sentry + Datadog
 
 ---
@@ -537,18 +587,21 @@ npm test -- story-3.8  # Run specific story tests
 ## Troubleshooting
 
 ### Tests Failing?
+
 1. Check the error message carefully
 2. Run locally first: `npm test`
 3. Ask team in Slack
 4. Pair program if stuck >1 hour
 
 ### CI Pipeline Failing?
+
 1. Check GitHub Actions logs
 2. Reproduce locally
 3. Fix locally first
 4. Push fix to branch
 
 ### Need Help?
+
 1. Team Slack channel first
 2. Mention team lead if urgent
 3. Schedule pair programming
@@ -559,22 +612,24 @@ npm test -- story-3.8  # Run specific story tests
 ## Phase 2 is GO! 🚀
 
 ### You Have Everything You Need
-✅ Clear timeline (14 weeks)  
-✅ Story breakdown (3 stories)  
-✅ Sprint plan (7 sprints)  
-✅ Team assigned (4 developers)  
-✅ Prototype reference (Spike #5)  
-✅ Success criteria (defined)  
-✅ Documentation (comprehensive)  
+
+✅ Clear timeline (14 weeks)
+✅ Story breakdown (3 stories)
+✅ Sprint plan (7 sprints)
+✅ Team assigned (4 developers)
+✅ Prototype reference (Spike #5)
+✅ Success criteria (defined)
+✅ Documentation (comprehensive)
 
 ### Next Step
+
 **November 1, 2025 - Team Kickoff at 9:00 AM PST**
 
 Let's build! 🎯
 
 ---
 
-**Document:** Phase 2 Quick Start Guide  
-**Created:** October 25, 2025  
-**Valid:** November 1, 2025 - January 30, 2026  
+**Document:** Phase 2 Quick Start Guide
+**Created:** October 25, 2025
+**Valid:** November 1, 2025 - January 30, 2026
 **Status:** ✅ READY

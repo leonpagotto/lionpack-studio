@@ -1,6 +1,9 @@
 # 🏗️ LionPack Studio - Architecture
 
-## System Overview
+## 🎯 System Overview: Hybrid Multi-Mode Agent IDE
+
+> **Updated 2025-10-25:** Architecture now includes multi-mode AI agent system inspired by KiloCode
+> See [ADR-001](./ADR-001-HYBRID_MULTI_MODE_AGENT_IDE.md) for decision rationale
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -10,10 +13,11 @@
 │  ┌─────────────────────────────────────────────────────────┐   │
 │  │        Next.js Frontend (apps/web)                      │   │
 │  │  ┌──────────────────┐  ┌──────────────────────────────┐ │   │
-│  │  │  OpenCode Editor │  │  Morphy AI Chat Sidebar     │ │   │
-│  │  │  • File browser  │  │  • Context awareness         │ │   │
-│  │  │  • Code editor   │  │  • Suggestions               │ │   │
-│  │  │  • Terminal      │  │  • Pack management           │ │   │
+│  │  │ Monaco Editor    │  │ Multi-Mode Chat Sidebar     │ │   │
+│  │  │  • File browser  │  │  🏗️  Architect Mode        │ │   │
+│  │  │  • Code editor   │  │  💻 Coder Mode (+ verify)   │ │   │
+│  │  │  • Terminal      │  │  🐛 Debugger Mode           │ │   │
+│  │  │  • Git ops       │  │  ✅ Reviewer Mode           │ │   │
 │  │  └──────────────────┘  └──────────────────────────────┘ │   │
 │  │                                                              │   │
 │  │  ┌──────────────────────────────────────────────────────┐ │   │
@@ -113,6 +117,7 @@ apps/web/
 ```
 
 **Key Technologies**:
+
 - Next.js 14+
 - React 18+
 - TypeScript
@@ -146,28 +151,55 @@ apps/api/
 
 ### `packages/leo-client` — LEO Kit Integration
 
-**Purpose**: Wrapper around leo-workflow-kit providing convenient APIs
+**Purpose**: Wrapper around leo-workflow-kit providing convenient APIs and multi-mode AI agent orchestration
 
 ```
 packages/leo-client/
 ├── src/
-│   ├── orchestrator.ts       # LEO orchestration
-│   ├── workflow-manager.ts   # Workflow operations
-│   ├── spec-generator.ts     # Spec generation
-│   ├── github-client.ts      # GitHub operations
+│   ├── orchestrator.ts           # LEO orchestration + Mode routing
+│   ├── workflow-manager.ts       # Workflow operations
+│   ├── spec-generator.ts         # Spec generation
+│   ├── github-client.ts          # GitHub operations
+│   ├── ai-modes/
+│   │   ├── architect-mode.ts     # Planning & design (no verification)
+│   │   ├── coder-mode.ts         # Code generation + auto-test verification
+│   │   ├── debugger-mode.ts      # Bug analysis & fixing (with verification)
+│   │   ├── reviewer-mode.ts      # Quality gate (automated review)
+│   │   └── mode-router.ts        # Intent detection & routing
+│   ├── verification/
+│   │   ├── test-verifier.ts      # Runs tests, validates coverage >80%
+│   │   ├── type-checker.ts       # TypeScript validation
+│   │   └── lint-checker.ts       # Code quality checks
 │   └── types.ts
 ├── tests/
 └── package.json
 ```
 
 **Exports**:
+
 ```typescript
-export { Orchestrator } from './orchestrator'
-export { WorkflowManager } from './workflow-manager'
-export { SpecGenerator } from './spec-generator'
-export { GitHubClient } from './github-client'
-export * from './types'
+export { Orchestrator } from "./orchestrator";
+export { WorkflowManager } from "./workflow-manager";
+export { SpecGenerator } from "./spec-generator";
+export { GitHubClient } from "./github-client";
+export {
+  ModeRouter,
+  ArchitectMode,
+  CoderMode,
+  DebuggerMode,
+  ReviewerMode,
+} from "./ai-modes";
+export * from "./types";
 ```
+
+**Multi-Mode AI Agent System**:
+
+| Mode          | Trigger                            | Process                                  | Verification                             |
+| ------------- | ---------------------------------- | ---------------------------------------- | ---------------------------------------- |
+| **Architect** | "design", "plan", "architecture"   | Generates specs, diagrams, design docs   | None (planning phase)                    |
+| **Coder**     | "implement", "code", "build"       | Generates code + unit tests              | AUTO: Run tests, verify coverage >80%    |
+| **Debugger**  | "fix", "debug", "error"            | Analyzes errors, generates fixes + tests | AUTO: Verify fix resolves issue          |
+| **Reviewer**  | "review", "merge", "check quality" | Checks coverage, style, security         | AUTO: Enforce >80% coverage, no warnings |
 
 ### `packages/types` — Shared TypeScript Types
 
@@ -221,31 +253,160 @@ packages/editor/
 
 ## 🔄 Data Flow
 
-### User Creates Workflow
+### Multi-Mode AI Agent Orchestration
+
+```
+User sends request in chat
+   ↓
+Mode Router analyzes intent:
+  • "design/plan" → Architect Mode
+  • "implement/code" → Coder Mode (with AUTO verification)
+  • "fix/debug" → Debugger Mode (with AUTO verification)
+  • "review/quality" → Reviewer Mode (with AUTO verification)
+   ↓
+Selected Mode processes:
+  • Context injection (files, history)
+  • AI processing (Claude 4.5/Haiku)
+  • Output generation
+   ↓
+[IF Coder/Debugger/Reviewer]
+  • Auto-run tests & validation
+  • Verify coverage threshold
+  • Check for errors/warnings
+   ↓
+[IF Verification fails]
+  • Regenerate with feedback
+  • Retry up to N times
+  • Or escalate to human review
+   ↓
+Result returned to chat
+   ↓
+User sees:
+  • Generated content
+  • Test results badge
+  • Coverage % (if applicable)
+  • Time taken
+   ↓
+User can accept/reject/refine
+```
+
+### User Creates Workflow with Multi-Mode Support
 
 ```
 1. User opens editor
    ↓
-2. Types idea in chat → Morphy processes
+2. Types in chat with intent (e.g., "implement login button")
    ↓
-3. User confirms spec in sidebar
+3. Mode Router routes to Coder Mode (intent: "implement")
    ↓
-4. Frontend calls /api/workflows/create
+4. Coder Mode:
+   - Injects file context (Button.tsx, Button.test.tsx)
+   - Generates component code
+   - AUTO generates unit tests
+   - Runs: npm test
+   - Verifies: coverage > 80%
    ↓
-5. API calls leo-client.orchestrator.createWorkflow()
+5. [If tests pass]
+   - Shows "✅ Tests passed (95% coverage)"
+   - User reviews output
    ↓
-6. LEO Kit:
-   - Creates GitHub issue
-   - Generates spec
-   - Routes to agents
-   - Updates project
+6. [If tests fail]
+   - Shows error, regenerates with fixes
+   - Retries verification
    ↓
-7. Result broadcasts to all pack members via Yjs
+7. User confirms & accepts
    ↓
-8. UI updates in real-time
+8. Frontend calls /api/workflows/create
+   ↓
+9. API integrates verified code into project
+   ↓
+10. Broadcasts to pack via Yjs
+    ↓
+11. All members see change in real-time
 ```
 
-### Real-Time Collaboration
+---
+
+## 🛠️ Tool System & Verification Framework
+
+### MCP-Inspired Tool Registry
+
+```typescript
+// Tool types that AI modes can call
+type ToolType =
+  | "file-read"
+  | "file-write"
+  | "file-delete"
+  | "file-search"
+  | "terminal-exec"
+  | "test-run"
+  | "git-commit"
+  | "git-push"
+  | "git-branch"
+  | "type-check"
+  | "lint-check";
+
+interface Tool {
+  id: string;
+  name: string;
+  description: string;
+  type: ToolType;
+  schema: JSONSchema;
+  timeout: number;
+  sandbox: boolean;
+}
+```
+
+**Available Tools**:
+
+| Tool            | Modes                     | Purpose                  |
+| --------------- | ------------------------- | ------------------------ |
+| `file-read`     | All                       | Read file content        |
+| `file-write`    | Coder, Debugger           | Write/update files       |
+| `file-delete`   | Coder, Debugger           | Delete files             |
+| `file-search`   | All                       | Search content           |
+| `terminal-exec` | Coder, Debugger           | Run commands (sandboxed) |
+| `test-run`      | Coder, Debugger, Reviewer | Execute tests + coverage |
+| `git-commit`    | Coder, Debugger           | Commit changes           |
+| `type-check`    | Reviewer                  | TypeScript validation    |
+| `lint-check`    | Reviewer                  | ESLint validation        |
+
+### Verification Framework
+
+**Coder Mode Verification**:
+
+```bash
+1. Generate code + tests
+2. Write to filesystem
+3. npm test
+4. Check coverage report
+5. Coverage >= 80% ? PASS : FAIL
+6. If FAIL: Regenerate with error feedback
+```
+
+**Debugger Mode Verification**:
+
+```bash
+1. Generate fix based on error
+2. Apply to code
+3. npm test (regression)
+4. If tests pass: Mark as VERIFIED
+5. If tests fail: Analyze & retry
+```
+
+**Reviewer Mode Verification**:
+
+```bash
+1. Check TypeScript compilation: tsc --noEmit
+2. Run ESLint: eslint . --max-warnings 0
+3. Check test coverage: jest --coverage
+4. Coverage >= 80% && No TS errors && No linting errors ? PASS : FAIL
+5. Generate report with issues
+```
+
+---
+
+## 🌐 Real-Time Collaboration
 
 ```
 User A edits code
@@ -391,6 +552,7 @@ CREATE TABLE workflows (
 ## 🚀 Deployment Architecture
 
 ### Development
+
 ```
 Local machine
   ├── npm run dev (Next.js on :3000)
@@ -399,6 +561,7 @@ Local machine
 ```
 
 ### Production
+
 ```
 Vercel (frontend)
   ↓
@@ -418,12 +581,12 @@ Plus:
 
 ## 📈 Performance Considerations
 
-| Metric | Target | Strategy |
-|--------|--------|----------|
-| Initial load | < 2s | SSR + code splitting |
+| Metric                | Target  | Strategy                |
+| --------------------- | ------- | ----------------------- |
+| Initial load          | < 2s    | SSR + code splitting    |
 | Editor responsiveness | < 100ms | Local state, debouncing |
-| Collab latency | < 500ms | Optimistic updates |
-| Database queries | < 100ms | Indexing, caching |
+| Collab latency        | < 500ms | Optimistic updates      |
+| Database queries      | < 100ms | Indexing, caching       |
 
 ---
 
@@ -433,15 +596,15 @@ Plus:
 
 ```typescript
 // leo-client wraps leo-workflow-kit
-import { Orchestrator } from 'leo-client'
+import { Orchestrator } from "leo-client";
 
 const orchestrator = new Orchestrator({
-  modelPreference: 'opus-4-5',
+  modelPreference: "opus-4-5",
   githubToken: process.env.GITHUB_TOKEN,
-})
+});
 
 // Call orchestrator methods
-const workflow = await orchestrator.createWorkflow(spec)
+const workflow = await orchestrator.createWorkflow(spec);
 ```
 
 ### OpenCode Integration
@@ -473,11 +636,7 @@ import { MorphyChat } from '@morphy/react'
 
 ```typescript
 // Yjs binding to Supabase
-const provider = new WebsocketProvider(
-  supabaseRealtimeUrl,
-  roomName,
-  ydoc
-)
+const provider = new WebsocketProvider(supabaseRealtimeUrl, roomName, ydoc);
 ```
 
 ---

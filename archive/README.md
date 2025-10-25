@@ -2,7 +2,7 @@
 
 This directory contains historical documentation and phase-specific files that have been archived to keep the root directory clean and organized.
 
-**Archive Date:** October 25, 2025  
+**Archive Date:** October 25, 2025
 **Purpose:** Preserve project history while maintaining a clean repository structure
 
 ---
@@ -10,9 +10,11 @@ This directory contains historical documentation and phase-specific files that h
 ## Directory Structure
 
 ### `/archive/phase-1/` - Phase 1 Documentation
+
 Phase 1 (Spike #5 Investigation) completed October 25, 2025.
 
 **Contains:**
+
 - Phase 1 completion reports and checklists
 - Phase 1 launch summaries and progress tracking
 - Phase 1 readiness checklists
@@ -25,9 +27,11 @@ Phase 1 (Spike #5 Investigation) completed October 25, 2025.
 ---
 
 ### `/archive/spike-5/` - Spike #5 Investigation
+
 Spike #5 investigation files consolidated into `/docs/spike-5/`
 
 **Contains:**
+
 - Day-by-day execution summaries
 - Investigation guides
 - Test execution reports
@@ -38,6 +42,7 @@ Spike #5 investigation files consolidated into `/docs/spike-5/`
 **Use Case:** Historical record of investigation process
 
 **Current Location:** Content consolidated in `/docs/spike-5/` (4 master documents):
+
 - `/docs/spike-5/README.md` - Master summary
 - `/docs/spike-5/TEST_RESULTS.md` - Test metrics
 - `/docs/spike-5/DECISION.md` - GO/NO-GO decision
@@ -48,9 +53,11 @@ Spike #5 investigation files consolidated into `/docs/spike-5/`
 ---
 
 ### `/archive/sessions/` - Session Summaries
+
 Session completion summaries and notes from various work sessions
 
 **Contains:**
+
 - Session bootstrap notes
 - Session completion summaries
 - Session spike5 summaries
@@ -63,9 +70,11 @@ Session completion summaries and notes from various work sessions
 ---
 
 ### `/archive/planning/` - Implementation & Spec Files
+
 Implementation plans, specifications, and planning documents
 
 **Contains:**
+
 - Implementation kickoff documents
 - Implementation-ready checklists
 - Spec approval workflows
@@ -83,9 +92,11 @@ Implementation plans, specifications, and planning documents
 ---
 
 ### `/archive/kilocode/` - KiloCode Analysis
+
 Analysis and investigation files related to KiloCode competitive analysis
 
 **Contains:**
+
 - KiloCode executive summaries
 - KiloCode investigation summaries
 - KiloCode analysis comparisons
@@ -98,9 +109,11 @@ Analysis and investigation files related to KiloCode competitive analysis
 ---
 
 ### Root of Archive `/archive/`
+
 High-level documentation related to cleanup
 
 **Contains:**
+
 - `DOCUMENTATION_CLEANUP_REPORT.md` - Original cleanup report
 - `DOCUMENTATION_ORGANIZATION_COMPLETE.md` - Organization summary
 
@@ -128,6 +141,7 @@ ls -la archive/*/
 ## Current Documentation Structure
 
 ### Root (Clean - 3 files)
+
 ```
 ├── README.md          ← Main project README
 ├── CONTRIBUTING.md    ← Contribution guidelines
@@ -135,6 +149,7 @@ ls -la archive/*/
 ```
 
 ### /docs/ (Organized)
+
 ```
 docs/
 ├── ARCHITECTURE.md
@@ -150,6 +165,7 @@ docs/
 ```
 
 ### /archive/ (Historical)
+
 ```
 archive/
 ├── phase-1/          ← Phase 1 documentation
@@ -167,12 +183,14 @@ archive/
 ## Why Archive?
 
 **Before Cleanup:**
+
 - 48 markdown files in root directory
 - Difficult to navigate
 - Duplication of information
 - Poor project organization
 
 **After Cleanup:**
+
 - 3 essential files in root
 - Clear, organized structure
 - Single sources of truth in `/docs/spike-5/`
@@ -184,18 +202,20 @@ archive/
 ## Access Pattern
 
 ### Find Current Information
+
 ```
 For current project info:
   INDEX.md → /docs/ subdirectories
 
 For spike #5 results:
   INDEX.md → /docs/spike-5/README.md
-  
+
 For architecture:
   INDEX.md → /docs/ARCHITECTURE.md
 ```
 
 ### Find Historical Information
+
 ```
 For Phase 1 history:
   /archive/phase-1/
@@ -212,6 +232,7 @@ For planning documents:
 ## Standards Applied
 
 **LEO Workflow Kit Standards:**
+
 - ✅ Clean repository (only essential files in root)
 - ✅ Organized structure (topic-based folders)
 - ✅ Single sources of truth (no duplication)
@@ -230,6 +251,6 @@ For planning documents:
 
 ---
 
-**Archive Last Updated:** October 25, 2025  
-**Maintained By:** GitHub Copilot (LEO Orchestrator)  
+**Archive Last Updated:** October 25, 2025
+**Maintained By:** GitHub Copilot (LEO Orchestrator)
 **For Questions:** See `/docs/` for current documentation structure

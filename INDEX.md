@@ -1,7 +1,7 @@
 # Lionpack Studio - Project Navigation Index
 
-**Project:** Multi-Mode AI Agent IDE (KiloCode-Competitive)  
-**Status:** Phase 2 Ready (Nov 1, 2025 - Jan 30, 2026)  
+**Project:** Multi-Mode AI Agent IDE (KiloCode-Competitive)
+**Status:** Phase 2 Ready (Nov 1, 2025 - Jan 30, 2026)
 **Last Updated:** October 25, 2025
 
 ---
@@ -9,20 +9,26 @@
 ## 🚀 Quick Start
 
 ### For Stakeholders
+
 👉 **Read This First:**
+
 1. [ROADMAP.md](ROADMAP.md) - High-level project overview
 2. [docs/spike-5/README.md](docs/spike-5/README.md) - Spike #5 summary
 3. [docs/spike-5/DECISION.md](docs/spike-5/DECISION.md) - GO/NO-GO decision
 
 ### For Developers
+
 👉 **Start Here:**
+
 1. [README.md](README.md) - Project setup & architecture
 2. [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) - System design (649 lines)
 3. [docs/QUICK_START.md](docs/QUICK_START.md) - Development setup
 4. [CONTRIBUTING.md](CONTRIBUTING.md) - Contribution guidelines
 
 ### For Phase 2 Team
+
 👉 **Before Starting:**
+
 1. [docs/spike-5/DECISION.md](docs/spike-5/DECISION.md) - Decision & timeline
 2. Phase 2 planning documents (TBD)
 3. Sprint templates (TBD)
@@ -32,6 +38,7 @@
 ## 📋 Project Structure
 
 ### Root Documentation (Keep Clean)
+
 ```
 README.md                 ← Main project readme
 ROADMAP.md               ← High-level roadmap
@@ -40,6 +47,7 @@ CONTRIBUTING.md          ← Contribution guidelines
 ```
 
 ### /docs/ (Organized Structure)
+
 ```
 docs/
 ├── ARCHITECTURE.md              ← System design
@@ -57,6 +65,7 @@ docs/
 ```
 
 ### /packages/
+
 ```
 packages/
 ├── leo-client/                 ← Main IDE package
@@ -66,6 +75,7 @@ packages/
 ```
 
 ### /apps/
+
 ```
 apps/
 └── web/                        ← Next.js web app
@@ -80,32 +90,35 @@ apps/
 
 ### Architecture & Design
 
-| Document | Purpose | Audience |
-|----------|---------|----------|
-| [ARCHITECTURE.md](docs/ARCHITECTURE.md) | System design (649 lines) | Developers, Architects |
-| [ADR-001](docs/ADR-001-HYBRID_MULTI_MODE_AGENT_IDE.md) | Architecture decision | Technical leads |
-| [QUICK_START.md](docs/QUICK_START.md) | Development setup | Developers |
-| [DOCKER_SETUP.md](docs/DOCKER_SETUP.md) | Docker configuration | DevOps, Developers |
+| Document                                               | Purpose                   | Audience               |
+| ------------------------------------------------------ | ------------------------- | ---------------------- |
+| [ARCHITECTURE.md](docs/ARCHITECTURE.md)                | System design (649 lines) | Developers, Architects |
+| [ADR-001](docs/ADR-001-HYBRID_MULTI_MODE_AGENT_IDE.md) | Architecture decision     | Technical leads        |
+| [QUICK_START.md](docs/QUICK_START.md)                  | Development setup         | Developers             |
+| [DOCKER_SETUP.md](docs/DOCKER_SETUP.md)                | Docker configuration      | DevOps, Developers     |
 
 ### Spike #5 Investigation
-| Document | Purpose | Audience |
-|----------|---------|----------|
-| [spike-5/README.md](docs/spike-5/README.md) | Investigation summary | Everyone |
+
+| Document                                                | Purpose                   | Audience            |
+| ------------------------------------------------------- | ------------------------- | ------------------- |
+| [spike-5/README.md](docs/spike-5/README.md)             | Investigation summary     | Everyone            |
 | [spike-5/TEST_RESULTS.md](docs/spike-5/TEST_RESULTS.md) | Test metrics (14/14 PASS) | Technical reviewers |
-| [spike-5/DECISION.md](docs/spike-5/DECISION.md) | GO/NO-GO decision | Stakeholders |
-| [spike-5/FINDINGS.md](docs/spike-5/FINDINGS.md) | Detailed findings | Technical team |
+| [spike-5/DECISION.md](docs/spike-5/DECISION.md)         | GO/NO-GO decision         | Stakeholders        |
+| [spike-5/FINDINGS.md](docs/spike-5/FINDINGS.md)         | Detailed findings         | Technical team      |
 
 ### Project Planning
-| Document | Purpose | Audience |
-|----------|---------|----------|
+
+| Document                 | Purpose            | Audience |
+| ------------------------ | ------------------ | -------- |
 | [ROADMAP.md](ROADMAP.md) | High-level roadmap | Everyone |
-| [README.md](README.md) | Project overview | Everyone |
+| [README.md](README.md)   | Project overview   | Everyone |
 
 ---
 
 ## 🎯 Current Status
 
 ### Completed ✅
+
 - ✅ Phase 1: Investigation & Architecture
 - ✅ Spike #5: Prototype & Validation
 - ✅ 15 GitHub issues created (#5-19)
@@ -114,10 +127,12 @@ apps/
 - ✅ GO decision approved
 
 ### In Progress 🔄
+
 - 🔄 Documentation consolidation (TODAY)
 - 🔄 Stakeholder review
 
 ### Ready for Phase 2 🟢
+
 - 🟢 Development team assignment
 - 🟢 Budget authorization
 - 🟢 Project board setup
@@ -128,32 +143,34 @@ apps/
 ## 🔗 Quick Links
 
 ### Spike #5 Results
+
 - 📊 **Test Results:** [14/14 PASS](docs/spike-5/TEST_RESULTS.md)
 - ✅ **Decision:** [GO Approved](docs/spike-5/DECISION.md)
 - 🔍 **Findings:** [Complete Analysis](docs/spike-5/FINDINGS.md)
 - 📋 **Summary:** [Executive Summary](docs/spike-5/README.md)
 
 ### GitHub Issues
+
 - 🎯 **Spike #5:** [Issue #5](https://github.com/leonpagotto/lionpack-studio/issues/5)
 - 📋 **Stories:** [Issues #8-19](https://github.com/leonpagotto/lionpack-studio/issues?q=is%3Aopen+label%3AStory)
-| **docs/FIRST_TASK_ORCHESTRATOR_ANALYZE.md** | First implementation task | 20 min | Ready to code |
+  | **docs/FIRST_TASK_ORCHESTRATOR_ANALYZE.md** | First implementation task | 20 min | Ready to code |
 
 ### 📚 Reference & Setup
 
-| Document | Purpose | When |
-|----------|---------|------|
-| **.env.example** | All 27 environment variables | Configure environment |
-| **package.json** | Workspace + dependency config | Dependency management |
-| **README.md** | Project overview | Overview |
-| **CONTRIBUTING.md** | Contribution guidelines | Before contributing |
-| **scripts/init-phase1.sh** | Automated setup | First time setup |
+| Document                   | Purpose                       | When                  |
+| -------------------------- | ----------------------------- | --------------------- |
+| **.env.example**           | All 27 environment variables  | Configure environment |
+| **package.json**           | Workspace + dependency config | Dependency management |
+| **README.md**              | Project overview              | Overview              |
+| **CONTRIBUTING.md**        | Contribution guidelines       | Before contributing   |
+| **scripts/init-phase1.sh** | Automated setup               | First time setup      |
 
 ### ✅ Status & Summary
 
-| Document | Purpose | When |
-|----------|---------|------|
-| **SESSION_BOOTSTRAP_COMPLETE.md** | Complete bootstrap summary | Review what was built |
-| **PROJECT_INITIALIZATION_SUMMARY.md** | Initial setup snapshot | Reference from earlier |
+| Document                              | Purpose                    | When                   |
+| ------------------------------------- | -------------------------- | ---------------------- |
+| **SESSION_BOOTSTRAP_COMPLETE.md**     | Complete bootstrap summary | Review what was built  |
+| **PROJECT_INITIALIZATION_SUMMARY.md** | Initial setup snapshot     | Reference from earlier |
 
 ---
 
@@ -162,16 +179,19 @@ apps/
 ### Phase 1 (Now → November 7)
 
 **Read First:**
+
 1. PHASE_1_QUICK_START.md
 2. docs/PHASE_1_GUIDE.md
 3. docs/FIRST_TASK_ORCHESTRATOR_ANALYZE.md
 
 **Reference During:**
+
 - docs/ARCHITECTURE.md (API design)
 - docs/INTEGRATION.md (LEO Kit integration)
 - docs/QUICK_START.md (Dev environment)
 
 **Success Criteria:**
+
 - Working REST API
 - Database schema
 - GitHub integration
@@ -180,10 +200,12 @@ apps/
 ### Phase 2 (November 8-21)
 
 **Read First:**
+
 - docs/ARCHITECTURE.md (UI components)
 - docs/QUICK_START.md (Frontend setup)
 
 **Focus:**
+
 - Next.js frontend
 - Embedded OpenCode editor
 - Connected to Phase 1 API
@@ -191,9 +213,11 @@ apps/
 ### Phase 3 (November 22-December 12)
 
 **Read First:**
+
 - docs/INTEGRATION.md (Morphy AI integration)
 
 **Focus:**
+
 - Real-time collaboration
 - Morphy AI chat sidebar
 - Yjs CRDT integration
@@ -201,6 +225,7 @@ apps/
 ### Phase 4 (December 13-26)
 
 **Focus:**
+
 - Performance optimization
 - Polish & refinement
 - User testing
@@ -208,6 +233,7 @@ apps/
 ### Phase 5 (December 27-January 2)
 
 **Focus:**
+
 - Beta launch
 - Marketing materials
 - Release management
@@ -254,22 +280,26 @@ apps/
 ### By Category
 
 **Documentation** (7 files)
+
 - Framework, Architecture, Integration, Roadmap
 - Quick Start guides, Phase 1 spec
 - Bootstrap summary
 - Total: 3,700+ lines
 
 **TypeScript Code** (6 files)
+
 - Orchestrator, WorkflowManager, SpecGenerator
 - GitHubClient, Types
 - Tests (stubs ready)
 - Total: 850+ lines
 
 **Configuration** (6 files)
+
 - package.json, tsconfig.json, .env.example
 - .gitignore, README.md, CONTRIBUTING.md
 
 **Automation** (1 file)
+
 - init-phase1.sh (250+ lines)
 
 ---
@@ -277,16 +307,19 @@ apps/
 ## 🚀 Next Steps
 
 1. **Read PHASE_1_QUICK_START.md** (5 min)
+
    ```bash
    cat PHASE_1_QUICK_START.md
    ```
 
 2. **Run the setup script** (5 min)
+
    ```bash
    bash scripts/init-phase1.sh
    ```
 
 3. **Read implementation guide** (20 min)
+
    ```bash
    cat docs/FIRST_TASK_ORCHESTRATOR_ANALYZE.md
    ```
@@ -328,18 +361,21 @@ cat INDEX.md
 ## 🎓 Learning Order (Recommended)
 
 ### Day 1: Understanding
+
 1. Read PHASE_1_QUICK_START.md (5 min)
 2. Read docs/FRAMEWORK.md (20 min)
 3. Read docs/ARCHITECTURE.md (20 min)
 4. Run setup script (5 min)
 
 ### Day 2: Planning
+
 1. Read docs/PHASE_1_GUIDE.md (30 min)
 2. Read docs/FIRST_TASK_ORCHESTRATOR_ANALYZE.md (20 min)
 3. Review TypeScript stubs in packages/leo-client
 4. Plan implementation (1 hour)
 
 ### Day 3+: Building
+
 1. Implement Orchestrator.analyzeRequest() (4-6 hours)
 2. Write tests (2-3 hours)
 3. Code review
