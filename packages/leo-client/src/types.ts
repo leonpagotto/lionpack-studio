@@ -49,12 +49,12 @@ export interface Project {
 export interface Workflow {
   id: string
   project_id: string
-  github_issue_id: number
+  github_issue_id?: number | null
   title: string
   description: string
   status: 'todo' | 'in-progress' | 'in-review' | 'done' | 'blocked'
-  assigned_to?: string
-  assigned_role?: PackMember['role']
+  assigned_to?: string | null
+  assigned_role?: PackMember['role'] | null
   created_at: Date
   updated_at: Date
 }

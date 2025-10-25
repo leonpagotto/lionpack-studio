@@ -20,12 +20,14 @@
     "setup": "node scripts/setup.js"
   },
   "devDependencies": {
+    "@types/jest": "^30.0.0",
     "@types/node": "^24.9.1",
     "@types/react": "^19.2.2",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "eslint": "^8.0.0",
     "prettier": "^3.0.0",
+    "ts-jest": "^29.4.5",
     "turbo": "^1.10.0",
     "typescript": "^5.9.3"
   },
