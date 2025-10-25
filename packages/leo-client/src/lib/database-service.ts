@@ -1,7 +1,7 @@
 /**
  * Database Service Layer
  * Provides typed database operations with error handling and validation
- * 
+ *
  * This service layer handles all database operations and provides
  * a clean interface for API routes and business logic.
  */

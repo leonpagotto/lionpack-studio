@@ -1,7 +1,7 @@
 /**
  * Auto-generated Supabase Database Schema Types
  * Generated from PostgreSQL schema in packages/database/migrations/001_initial_schema.sql
- * 
+ *
  * This file should be kept in sync with the database schema.
  * To regenerate: supabase gen types typescript --schema public
  */

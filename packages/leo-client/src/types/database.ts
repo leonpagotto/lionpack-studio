@@ -1,7 +1,7 @@
 /**
  * Database Types and Interfaces
  * Auto-generated from PostgreSQL schema
- * 
+ *
  * These types reflect the structure defined in:
  * packages/database/migrations/001_initial_schema.sql
  */
@@ -322,7 +322,7 @@ export function hasRole(
   requiredRole: UserRole | UserRole[]
 ): boolean {
   const required = Array.isArray(requiredRole) ? requiredRole : [requiredRole];
-  
+
   // Define role hierarchy
   const roleHierarchy: Record<UserRole, number> = {
     [UserRole.Admin]: 5,
