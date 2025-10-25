@@ -6,7 +6,7 @@
 
 /**
  * Analyzes code to estimate test coverage.
- * 
+ *
  * @param code - The source code.
  * @param tests - The test code.
  * @returns The estimated coverage percentage.
@@ -18,7 +18,7 @@ export function estimateTestCoverage(code: string, tests: string): number {
   const arrowFunctionRegex = /(?:export\s+)?const\s+(\w+)\s*=\s*(?:async\s*)?\([^)]*\)\s*=>/g;
 
   const sourceItems = new Set<string>();
-  
+
   let match;
   while ((match = functionRegex.exec(code)) !== null) {
     sourceItems.add(match[1]);
