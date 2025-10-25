@@ -1,0 +1,30 @@
+{
+  "ai-assistants": {
+    "enabled": [
+      "copilot"
+    ],
+    "primary": "copilot",
+    "sync-on-update": true
+  },
+  "agents": {
+    "orchestrator": {
+      "enabled": true
+    },
+    "frontend": {
+      "enabled": true
+    },
+    "backend": {
+      "enabled": true
+    },
+    "devops": {
+      "enabled": true
+    },
+    "testing": {
+      "enabled": true
+    },
+    "documentation": {
+      "enabled": true
+    }
+  },
+  "project-type": "Next.js"
+}
