@@ -6,6 +6,10 @@
 export * from './supabase-client';
 export * from './database-service';
 export * from './github-oauth';
+export { SpecGenerator } from '../spec-generator';
+export { WorkflowManager } from '../workflow-manager';
+export { Orchestrator } from '../orchestrator';
+export { GitHubClient } from '../github-client';
 
 export default {
   supabase: require('./supabase-client').default,
