@@ -1,9 +1,9 @@
 # LionPack Studio – Phase 1 API Contract
 
-> **Status:** Draft  
-> **Priority:** P0 – Foundation  
-> **Created:** 2025-10-25  
-> **Author:** Leo / LionPack Team  
+> **Status:** Draft
+> **Priority:** P0 – Foundation
+> **Created:** 2025-10-25
+> **Author:** Leo / LionPack Team
 > **Related:** PHASE_1_ARCHITECTURE.md
 
 ---
@@ -23,6 +23,7 @@ Authorization: Bearer <JWT_TOKEN>
 ```
 
 JWT claims structure:
+
 ```json
 {
   "sub": "user-uuid",
@@ -43,6 +44,7 @@ JWT claims structure:
 System health check (no auth required)
 
 **Response (200 OK):**
+
 ```json
 {
   "status": "healthy",
@@ -60,6 +62,7 @@ System health check (no auth required)
 Current user and system info
 
 **Response (200 OK):**
+
 ```json
 {
   "user": {
@@ -82,9 +85,11 @@ Current user and system info
 Initiate GitHub OAuth flow
 
 **Query Parameters:**
+
 - `redirect_uri` (optional): Where to redirect after auth
 
 **Response (302 Found):**
+
 ```
 Location: https://github.com/login/oauth/authorize?client_id=xxx&redirect_uri=xxx&scope=repo,read:org
 ```
@@ -94,6 +99,7 @@ Location: https://github.com/login/oauth/authorize?client_id=xxx&redirect_uri=xx
 GitHub OAuth callback handler
 
 **Request:**
+
 ```
 POST /auth/callback
 Content-Type: application/json
@@ -105,6 +111,7 @@ Content-Type: application/json
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "success": true,
@@ -119,6 +126,7 @@ Content-Type: application/json
 ```
 
 **Response (401 Unauthorized):**
+
 ```json
 {
   "error": "invalid_code",
@@ -131,6 +139,7 @@ Content-Type: application/json
 Logout current user
 
 **Response (200 OK):**
+
 ```json
 {
   "success": true,
@@ -147,13 +156,16 @@ Logout current user
 Get file or directory contents
 
 **Path Parameters:**
+
 - `projectId` (string): Project identifier
 - `path` (string): File or directory path
 
 **Query Parameters:**
+
 - `format` (string, optional): `raw`, `json`, default `json`
 
 **Response (200 OK - File):**
+
 ```json
 {
   "type": "file",
@@ -169,6 +181,7 @@ Get file or directory contents
 ```
 
 **Response (200 OK - Directory):**
+
 ```json
 {
   "type": "directory",
@@ -196,6 +209,7 @@ Get file or directory contents
 ```
 
 **Response (404 Not Found):**
+
 ```json
 {
   "error": "not_found",
@@ -208,6 +222,7 @@ Get file or directory contents
 Write file (create or update)
 
 **Request:**
+
 ```json
 {
   "content": "export default function App() { ... }",
@@ -218,6 +233,7 @@ Write file (create or update)
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "success": true,
@@ -237,6 +253,7 @@ Write file (create or update)
 ```
 
 **Response (400 Bad Request):**
+
 ```json
 {
   "error": "invalid_content",
@@ -249,6 +266,7 @@ Write file (create or update)
 Delete a file
 
 **Request:**
+
 ```json
 {
   "message": "chore: remove old file",
@@ -257,6 +275,7 @@ Delete a file
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "success": true,
@@ -275,6 +294,7 @@ Delete a file
 Create directory
 
 **Request:**
+
 ```json
 {
   "path": "src/components/ui"
@@ -282,6 +302,7 @@ Create directory
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "success": true,
@@ -295,6 +316,7 @@ Create directory
 Clone or sync project from GitHub
 
 **Request:**
+
 ```json
 {
   "repo": "leonpagotto/lionpack-studio",
@@ -304,6 +326,7 @@ Clone or sync project from GitHub
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "success": true,
@@ -324,6 +347,7 @@ Clone or sync project from GitHub
 WebSocket endpoint for terminal session
 
 **Connection:**
+
 ```
 WebSocket: ws://localhost:3001/api/terminal/proj-abc123
 Authorization: Bearer <JWT>
@@ -389,10 +413,12 @@ Authorization: Bearer <JWT>
 Get terminal command history (REST fallback)
 
 **Query Parameters:**
+
 - `limit` (number, default 50): Max commands to return
 - `offset` (number, default 0): Pagination offset
 
 **Response (200 OK):**
+
 ```json
 {
   "commands": [
@@ -418,10 +444,12 @@ Get terminal command history (REST fallback)
 List user's projects
 
 **Query Parameters:**
+
 - `filter` (string, optional): `local`, `github`, `all` (default)
 - `limit` (number, default 20)
 
 **Response (200 OK):**
+
 ```json
 {
   "projects": [
@@ -446,6 +474,7 @@ List user's projects
 Get project details
 
 **Response (200 OK):**
+
 ```json
 {
   "id": "proj-abc123",
@@ -470,6 +499,7 @@ Get project details
 Create new project
 
 **Request:**
+
 ```json
 {
   "name": "my-new-project",
@@ -481,6 +511,7 @@ Create new project
 ```
 
 **Response (201 Created):**
+
 ```json
 {
   "id": "proj-xyz789",
@@ -500,6 +531,7 @@ Create new project
 LEO Kit service health
 
 **Response (200 OK):**
+
 ```json
 {
   "status": "healthy",
@@ -514,6 +546,7 @@ LEO Kit service health
 List GitHub issues (proxied from LEO)
 
 **Query Parameters:**
+
 - `repo` (string, required): `owner/repo`
 - `status` (string, optional): `open`, `closed`, `all`
 - `labels` (string, optional): comma-separated labels
@@ -521,6 +554,7 @@ List GitHub issues (proxied from LEO)
 - `limit` (number, default 20)
 
 **Response (200 OK):**
+
 ```json
 {
   "issues": [
@@ -546,6 +580,7 @@ List GitHub issues (proxied from LEO)
 Create new spec file (via LEO)
 
 **Request:**
+
 ```json
 {
   "title": "Add Dark Mode Support",
@@ -556,6 +591,7 @@ Create new spec file (via LEO)
 ```
 
 **Response (201 Created):**
+
 ```json
 {
   "id": "spec-123",
@@ -586,15 +622,15 @@ All endpoints follow this error format:
 
 ### Common Error Codes
 
-| Code | HTTP | Description |
-|------|------|-------------|
-| `unauthorized` | 401 | Missing or invalid JWT |
-| `forbidden` | 403 | User lacks permission |
-| `not_found` | 404 | Resource not found |
-| `invalid_request` | 400 | Bad request parameters |
-| `conflict` | 409 | Resource conflict (e.g., file exists) |
-| `timeout` | 408 | Request timeout |
-| `service_unavailable` | 503 | Backend service down |
+| Code                  | HTTP | Description                           |
+| --------------------- | ---- | ------------------------------------- |
+| `unauthorized`        | 401  | Missing or invalid JWT                |
+| `forbidden`           | 403  | User lacks permission                 |
+| `not_found`           | 404  | Resource not found                    |
+| `invalid_request`     | 400  | Bad request parameters                |
+| `conflict`            | 409  | Resource conflict (e.g., file exists) |
+| `timeout`             | 408  | Request timeout                       |
+| `service_unavailable` | 503  | Backend service down                  |
 
 ---
 
@@ -609,11 +645,13 @@ X-RateLimit-Reset: 1698322200
 ```
 
 **Limits:**
+
 - Authenticated users: 100 requests/minute
 - Public endpoints: 10 requests/minute
 - Terminal commands: 10 commands/minute per project
 
 **Response (429 Too Many Requests):**
+
 ```json
 {
   "error": "rate_limited",
@@ -629,11 +667,13 @@ X-RateLimit-Reset: 1698322200
 List endpoints support pagination:
 
 **Query Parameters:**
+
 - `page` (number, default 1)
 - `limit` (number, default 20, max 100)
 - `sort` (string, optional): `created_at`, `-created_at` (descending)
 
 **Response Header:**
+
 ```
 X-Total-Count: 42
 X-Page: 1
@@ -646,12 +686,13 @@ X-Total-Pages: 3
 ## 📝 Versioning
 
 API version is tracked in:
+
 - Response header: `X-API-Version: 1.0.0`
 - Base URL: `/api/v1/*` (future-proofing)
 
 ---
 
-**Document Version:** 1.0  
-**Last Updated:** 2025-10-25  
-**OpenAPI Version:** 3.0.0  
+**Document Version:** 1.0
+**Last Updated:** 2025-10-25
+**OpenAPI Version:** 3.0.0
 **Contact:** leo@example.com

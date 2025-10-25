@@ -1,9 +1,9 @@
 # LionPack Studio – Phase 1 Architecture & Setup
 
-> **Status:** Draft  
-> **Priority:** P0 – Foundation  
-> **Created:** 2025-10-25  
-> **Author:** Leo / LionPack Team  
+> **Status:** Draft
+> **Priority:** P0 – Foundation
+> **Created:** 2025-10-25
+> **Author:** Leo / LionPack Team
 > **Related:** LIONPACK_STRATEGIC_OVERVIEW.md
 
 ---
@@ -13,6 +13,7 @@
 Phase 1 focuses on **foundational infrastructure**: getting OpenCode + LEO Kit integrated, authentication working, and basic web IDE functional. No real-time collab yet; this is about plumbing and proof-of-concept.
 
 **Goal:** By end of Phase 1, developers can:
+
 1. Log in via GitHub OAuth
 2. Open a project (from local or GitHub)
 3. Edit files in Monaco editor
@@ -144,6 +145,7 @@ All subsequent requests include JWT in Authorization header
 ### Implementation Details
 
 **Supabase Setup:**
+
 1. Create Supabase project
 2. Enable GitHub OAuth provider
 3. Configure redirect URLs:
@@ -152,6 +154,7 @@ All subsequent requests include JWT in Authorization header
    - Production: `https://lionpack.studio/auth/callback`
 
 **Permissions Needed (GitHub Scope):**
+
 ```
 repo              # Full repo access (read/write)
 read:org          # Organization membership
@@ -160,6 +163,7 @@ workflow          # Actions/CI/CD (for future deploy commands)
 ```
 
 **Session Storage:**
+
 - **Frontend:** HttpOnly cookie (JWT) + secure session in Supabase Auth
 - **Backend:** Validate JWT on each request
 
@@ -170,15 +174,18 @@ workflow          # Actions/CI/CD (for future deploy commands)
 ### API Endpoints (Phase 1)
 
 #### `GET /api/files/:projectId/*path`
+
 Retrieve file or directory contents
 
 **Request:**
+
 ```
 GET /api/files/proj-abc123/src/index.tsx
 Authorization: Bearer <JWT>
 ```
 
 **Response (File):**
+
 ```json
 {
   "type": "file",
@@ -192,6 +199,7 @@ Authorization: Bearer <JWT>
 ```
 
 **Response (Directory):**
+
 ```json
 {
   "type": "directory",
@@ -204,9 +212,11 @@ Authorization: Bearer <JWT>
 ```
 
 #### `POST /api/files/:projectId/*path`
+
 Write file content (create or update)
 
 **Request:**
+
 ```json
 {
   "content": "export default ...",
@@ -215,6 +225,7 @@ Write file content (create or update)
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -224,12 +235,15 @@ Write file content (create or update)
 ```
 
 #### `DELETE /api/files/:projectId/*path`
+
 Delete a file
 
 #### `POST /api/files/:projectId/sync`
+
 Clone or sync project from GitHub
 
 **Request:**
+
 ```json
 {
   "repo": "leonpagotto/lionpack-studio",
@@ -248,11 +262,13 @@ Terminal will use WebSocket for real-time streaming of stdout/stderr.
 #### `WS /api/terminal/:projectId`
 
 **Connection:**
+
 ```
 Authorization: Bearer <JWT>
 ```
 
 **Message Format (Client → Server - Execute Command):**
+
 ```json
 {
   "type": "execute",
@@ -262,6 +278,7 @@ Authorization: Bearer <JWT>
 ```
 
 **Message Format (Server → Client - Output):**
+
 ```json
 {
   "type": "stdout",
@@ -293,6 +310,7 @@ Authorization: Bearer <JWT>
 LEO Kit runs as a separate service with its own API exposed.
 
 **Architecture:**
+
 ```
 LionPack Frontend
     ↓
@@ -308,9 +326,11 @@ GitHub API / Supabase / File System
 These endpoints relay requests to LEO Kit backend:
 
 #### `GET /api/leo/health`
+
 Check LEO Kit service status
 
 **Response:**
+
 ```json
 {
   "status": "healthy",
@@ -320,9 +340,11 @@ Check LEO Kit service status
 ```
 
 #### `POST /api/leo/spec/create`
+
 Create new spec file (via LEO)
 
 **Request:**
+
 ```json
 {
   "title": "Add Dark Mode Support",
@@ -332,6 +354,7 @@ Create new spec file (via LEO)
 ```
 
 **Response:**
+
 ```json
 {
   "specId": "spec-123",
@@ -341,6 +364,7 @@ Create new spec file (via LEO)
 ```
 
 #### `GET /api/leo/issues`
+
 List GitHub issues (synced via LEO)
 
 ---
@@ -399,7 +423,7 @@ GITHUB_ORG=leonpagotto
 ### docker-compose.yml (Phase 1)
 
 ```yaml
-version: '3.8'
+version: "3.8"
 
 services:
   # Frontend
@@ -471,13 +495,13 @@ services:
 
 ## 📈 Performance Targets (Phase 1)
 
-| Metric | Target |
-|--------|--------|
-| Page load time | < 3s |
-| Editor responsiveness | < 100ms keystroke → display |
-| File open time | < 500ms |
-| Terminal command latency | < 200ms |
-| File save time | < 1s (including Git commit) |
+| Metric                   | Target                      |
+| ------------------------ | --------------------------- |
+| Page load time           | < 3s                        |
+| Editor responsiveness    | < 100ms keystroke → display |
+| File open time           | < 500ms                     |
+| Terminal command latency | < 200ms                     |
+| File save time           | < 1s (including Git commit) |
 
 ---
 
@@ -551,6 +575,6 @@ Once this spec is approved, we'll create GitHub issues for:
 
 ---
 
-**Document Version:** 1.0  
-**Last Updated:** 2025-10-25  
+**Document Version:** 1.0
+**Last Updated:** 2025-10-25
 **Next Step:** Spec review + approval, then begin Phase 1 development

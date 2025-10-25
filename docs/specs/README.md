@@ -1,6 +1,6 @@
 # LionPack Studio – Documentation Index
 
-> **Status:** Phase 1 Spec Complete  
+> **Status:** Phase 1 Spec Complete
 > **Last Updated:** 2025-10-25
 
 ---
@@ -101,12 +101,12 @@ Each spec follows LEO Kit format:
 
 ## ✅ Approval Status
 
-| Document | Status | Approved By | Date |
-|----------|--------|------------|------|
-| LIONPACK_STRATEGIC_OVERVIEW.md | Draft | — | — |
-| PHASE_1_ARCHITECTURE.md | Draft | — | — |
-| PHASE_1_API_CONTRACT.md | Draft | — | — |
-| PHASE_1_ROADMAP.md | Draft | — | — |
+| Document                       | Status | Approved By | Date |
+| ------------------------------ | ------ | ----------- | ---- |
+| LIONPACK_STRATEGIC_OVERVIEW.md | Draft  | —           | —    |
+| PHASE_1_ARCHITECTURE.md        | Draft  | —           | —    |
+| PHASE_1_API_CONTRACT.md        | Draft  | —           | —    |
+| PHASE_1_ROADMAP.md             | Draft  | —           | —    |
 
 👉 **Next Step:** Schedule review meeting with full team
 
@@ -128,6 +128,6 @@ Each spec follows LEO Kit format:
 
 ---
 
-**Version:** 1.0  
-**Maintained By:** Leo / LionPack Team  
+**Version:** 1.0
+**Maintained By:** Leo / LionPack Team
 **Last Updated:** 2025-10-25

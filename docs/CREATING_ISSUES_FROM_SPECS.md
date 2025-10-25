@@ -1,6 +1,6 @@
 # LionPack Studio – Breaking Specs into GitHub Issues
 
-> **Guide:** How to create actionable GitHub issues from approved specs  
+> **Guide:** How to create actionable GitHub issues from approved specs
 > **Follow-up Step:** After spec review & team approval
 
 ---
@@ -10,7 +10,7 @@
 1. **Write Spec** ✅ (Done – see `docs/specs/`)
 2. **Get Approval** ⏳ (Next – team review)
 3. **Create Issues** ← You are here
-4. **Assign & Estimate** 
+4. **Assign & Estimate**
 5. **Develop & Track**
 6. **Close Issues on PR**
 
@@ -19,6 +19,7 @@
 ## 📋 Issue Creation Template
 
 Each issue should:
+
 - Reference the spec it comes from
 - Be small enough to complete in 1–2 days
 - Include acceptance criteria from spec
@@ -394,6 +395,7 @@ Implement WebSocket endpoint WS /api/terminal/:projectId for real-time terminal 
 ### After Issues are Created:
 
 1. **Add to Project Board**
+
    ```bash
    gh issue edit <issue-number> --add-project "LionPack MVP"
    ```
@@ -407,16 +409,19 @@ Implement WebSocket endpoint WS /api/terminal/:projectId for real-time terminal 
    - Label: `estimate-1d`, `estimate-2d`, etc.
 
 4. **Assign Team Members**
+
    ```bash
    gh issue edit <issue-number> --assignee "developer-username"
    ```
 
 5. **Create Branch**
+
    ```bash
    git checkout -b feat/issue-42-auth-callback
    ```
 
 6. **Reference in Commits**
+
    ```bash
    git commit -m "feat(auth): implement OAuth callback (#42)"
    ```
@@ -468,5 +473,5 @@ echo "All Phase 1 issues created!"
 
 ---
 
-**Last Updated:** 2025-10-25  
+**Last Updated:** 2025-10-25
 **Ready to:** Start Phase 1 development!
