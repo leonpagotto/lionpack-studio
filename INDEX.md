@@ -1,54 +1,141 @@
-# 📚 LionPack Studio Documentation Index
+# Lionpack Studio - Project Navigation Index
 
-**Quick Navigation for Phase 1 Development**
-
----
-
-## 🚀 START HERE (Pick Your Path)
-
-### 🏃 "I have 5 minutes"
-→ Read: **PHASE_1_QUICK_START.md**
-- Quick setup instructions
-- API endpoint examples
-- Troubleshooting tips
-
-### 🚶 "I have 30 minutes"
-→ Read in order:
-1. **PHASE_1_QUICK_START.md** (5 min)
-2. **docs/ARCHITECTURE.md** (15 min) — System design
-3. **docs/INTEGRATION.md** (10 min) — LEO Kit integration
-
-### 🏗️ "I'm ready to implement"
-→ Read:
-1. **PHASE_1_QUICK_START.md** (5 min) — Setup
-2. **docs/PHASE_1_GUIDE.md** (20 min) — Complete spec
-3. **docs/FIRST_TASK_ORCHESTRATOR_ANALYZE.md** (20 min) — First task
-4. **docs/ARCHITECTURE.md** (reference) — When needed
+**Project:** Multi-Mode AI Agent IDE (KiloCode-Competitive)  
+**Status:** Phase 2 Ready (Nov 1, 2025 - Jan 30, 2026)  
+**Last Updated:** October 25, 2025
 
 ---
 
-## 📋 Complete Documentation Map
+## 🚀 Quick Start
 
-### 🎯 Strategy & Vision
+### For Stakeholders
+👉 **Read This First:**
+1. [ROADMAP.md](ROADMAP.md) - High-level project overview
+2. [docs/spike-5/README.md](docs/spike-5/README.md) - Spike #5 summary
+3. [docs/spike-5/DECISION.md](docs/spike-5/DECISION.md) - GO/NO-GO decision
 
-| Document | Purpose | Read Time | When |
-|----------|---------|-----------|------|
-| **docs/FRAMEWORK.md** | Vision, mission, 7 values, ethos | 20 min | Understanding project deeply |
-| **docs/ROADMAP.md** | 5-phase development plan | 15 min | Understanding timeline |
+### For Developers
+👉 **Start Here:**
+1. [README.md](README.md) - Project setup & architecture
+2. [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) - System design (649 lines)
+3. [docs/QUICK_START.md](docs/QUICK_START.md) - Development setup
+4. [CONTRIBUTING.md](CONTRIBUTING.md) - Contribution guidelines
 
-### 🏗️ Architecture & Design
+### For Phase 2 Team
+👉 **Before Starting:**
+1. [docs/spike-5/DECISION.md](docs/spike-5/DECISION.md) - Decision & timeline
+2. Phase 2 planning documents (TBD)
+3. Sprint templates (TBD)
 
-| Document | Purpose | Read Time | When |
-|----------|---------|-----------|------|
-| **docs/ARCHITECTURE.md** | System design, components, database | 20 min | Before implementation |
-| **docs/INTEGRATION.md** | LEO Kit + OpenCode + Morphy specs | 15 min | Understanding integration points |
+---
 
-### 🚀 Development & Phase 1
+## 📋 Project Structure
 
-| Document | Purpose | Read Time | When |
-|----------|---------|-----------|------|
-| **PHASE_1_QUICK_START.md** | 5-minute setup + API examples | 5 min | Getting started TODAY |
-| **docs/PHASE_1_GUIDE.md** | Complete Phase 1 specification | 30 min | Before coding |
+### Root Documentation (Keep Clean)
+```
+README.md                 ← Main project readme
+ROADMAP.md               ← High-level roadmap
+INDEX.md                 ← This file
+CONTRIBUTING.md          ← Contribution guidelines
+```
+
+### /docs/ (Organized Structure)
+```
+docs/
+├── ARCHITECTURE.md              ← System design
+├── QUICK_START.md              ← Development setup
+├── DOCKER_SETUP.md             ← Docker configuration
+├── ADR-001-*.md                ← Architecture decisions
+├── spike-5/                    ← Spike investigation
+│   ├── README.md              ← Summary
+│   ├── TEST_RESULTS.md        ← Test metrics
+│   ├── DECISION.md            ← GO/NO-GO
+│   └── FINDINGS.md            ← Detailed findings
+└── phases/                     ← Phase planning (TBD)
+    ├── phase-2-plan.md        ← Phase 2 planning
+    └── ...
+```
+
+### /packages/
+```
+packages/
+├── leo-client/                 ← Main IDE package
+│   └── src/
+│       └── spike-5-prototype/  ← Spike prototype (6 components)
+└── database/                   ← Database package
+```
+
+### /apps/
+```
+apps/
+└── web/                        ← Next.js web app
+    ├── pages/
+    ├── components/
+    └── lib/
+```
+
+---
+
+## � Documentation Map
+
+### Architecture & Design
+
+| Document | Purpose | Audience |
+|----------|---------|----------|
+| [ARCHITECTURE.md](docs/ARCHITECTURE.md) | System design (649 lines) | Developers, Architects |
+| [ADR-001](docs/ADR-001-HYBRID_MULTI_MODE_AGENT_IDE.md) | Architecture decision | Technical leads |
+| [QUICK_START.md](docs/QUICK_START.md) | Development setup | Developers |
+| [DOCKER_SETUP.md](docs/DOCKER_SETUP.md) | Docker configuration | DevOps, Developers |
+
+### Spike #5 Investigation
+| Document | Purpose | Audience |
+|----------|---------|----------|
+| [spike-5/README.md](docs/spike-5/README.md) | Investigation summary | Everyone |
+| [spike-5/TEST_RESULTS.md](docs/spike-5/TEST_RESULTS.md) | Test metrics (14/14 PASS) | Technical reviewers |
+| [spike-5/DECISION.md](docs/spike-5/DECISION.md) | GO/NO-GO decision | Stakeholders |
+| [spike-5/FINDINGS.md](docs/spike-5/FINDINGS.md) | Detailed findings | Technical team |
+
+### Project Planning
+| Document | Purpose | Audience |
+|----------|---------|----------|
+| [ROADMAP.md](ROADMAP.md) | High-level roadmap | Everyone |
+| [README.md](README.md) | Project overview | Everyone |
+
+---
+
+## 🎯 Current Status
+
+### Completed ✅
+- ✅ Phase 1: Investigation & Architecture
+- ✅ Spike #5: Prototype & Validation
+- ✅ 15 GitHub issues created (#5-19)
+- ✅ Architecture documentation (649 lines)
+- ✅ 100% test pass rate (14/14)
+- ✅ GO decision approved
+
+### In Progress 🔄
+- 🔄 Documentation consolidation (TODAY)
+- 🔄 Stakeholder review
+
+### Ready for Phase 2 🟢
+- 🟢 Development team assignment
+- 🟢 Budget authorization
+- 🟢 Project board setup
+- 🟢 Sprint planning
+
+---
+
+## 🔗 Quick Links
+
+### Spike #5 Results
+- 📊 **Test Results:** [14/14 PASS](docs/spike-5/TEST_RESULTS.md)
+- ✅ **Decision:** [GO Approved](docs/spike-5/DECISION.md)
+- 🔍 **Findings:** [Complete Analysis](docs/spike-5/FINDINGS.md)
+- 📋 **Summary:** [Executive Summary](docs/spike-5/README.md)
+
+### GitHub Issues
+- 🎯 **Spike #5:** [Issue #5](https://github.com/leonpagotto/lionpack-studio/issues/5)
+- 📋 **Stories:** [Issues #8-19](https://github.com/leonpagotto/lionpack-studio/issues?q=is%3Aopen+label%3AStory)
 | **docs/FIRST_TASK_ORCHESTRATOR_ANALYZE.md** | First implementation task | 20 min | Ready to code |
 
 ### 📚 Reference & Setup
