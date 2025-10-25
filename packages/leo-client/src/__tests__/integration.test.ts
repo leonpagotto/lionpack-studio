@@ -1,7 +1,7 @@
 /**
  * Integration Tests for LionPack Studio Phase 1
  * Comprehensive end-to-end testing of database, API routes, and OAuth flow
- * 
+ *
  * Test Coverage:
  * - Database operations (CRUD)
  * - API routes (endpoints)

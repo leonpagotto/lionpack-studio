@@ -67,6 +67,7 @@ open http://localhost:3000
   - Database: `lionpack_dev`
 
 **Connection String**:
+
 ```
 postgresql://postgres:postgres@localhost:5432/lionpack_dev
 ```
@@ -81,6 +82,7 @@ postgresql://postgres:postgres@localhost:5432/lionpack_dev
 - **Authentication**: `redis_dev_password`
 
 **Connection String**:
+
 ```
 redis://:redis_dev_password@localhost:6379
 ```
@@ -248,6 +250,7 @@ docker container prune
 - **Password**: admin
 
 **Setup in PgAdmin**:
+
 1. Open http://localhost:5050
 2. Login with credentials above
 3. Click "Add New Server"
@@ -398,7 +401,7 @@ docker network create lionpack-prod
 # Add to docker-compose.yml services
 resources:
   limits:
-    cpus: '2'
+    cpus: "2"
     memory: 1G
 ```
 
