@@ -1,9 +1,9 @@
 # Demo Script & Stakeholder Materials - Story 3.8: Mode Router
 
-**Demo Date:** November 12, 2025  
-**Presenter Notes:** Follow this script for the live demonstration  
-**Duration:** 15-20 minutes  
-**Target Audience:** Stakeholders, executives, technical leads  
+**Demo Date:** November 12, 2025
+**Presenter Notes:** Follow this script for the live demonstration
+**Duration:** 15-20 minutes
+**Target Audience:** Stakeholders, executives, technical leads
 
 ---
 
@@ -23,6 +23,7 @@ By the end of this demo, stakeholders will understand:
 ## 📋 Pre-Demo Checklist
 
 **15 minutes before:**
+
 - [ ] Start dev server: `npm run dev`
 - [ ] Open browser to `http://localhost:3000/demo/mode-router`
 - [ ] Test 6 sample prompts to ensure everything loads
@@ -30,6 +31,7 @@ By the end of this demo, stakeholders will understand:
 - [ ] Verify internet connection (dev server must stay responsive)
 
 **Technology ready:**
+
 - [ ] Browser window visible to audience
 - [ ] Terminal closed (no distracting commands)
 - [ ] Zoom or projector working properly
@@ -59,27 +61,29 @@ By the end of this demo, stakeholders will understand:
 **What to Show:**
 
 1. **Demo Page Overview**
+
    ```
    Navigate to: http://localhost:3000/demo/mode-router
    ```
-   
+
    Point out the key sections:
    - "Here's our demo page with a clean, professional interface"
    - "The metrics at the top show our performance targets"
    - "And we have 6 pre-loaded sample prompts for testing"
 
 2. **Metrics Dashboard**
+
    ```
    Accuracy: 90%+
    Latency: <50ms
    Intent Types: 6
    Version: v1.0.0
    ```
-   
+
    **Explain:** "These metrics prove the feature is production-ready. We're hitting accuracy targets and running sub-50-millisecond response times."
 
 3. **The 6 Intent Types**
-   
+
    Point to the educational section:
    - "We support 6 different intent types"
    - "Each one routes to a specialized agent"
@@ -101,6 +105,7 @@ Expected Output:
 ```
 
 **Narrate:**
+
 > "See how it instantly detected the 'generate' intent? The confidence is 95%, meaning we're very confident this is a generation request. The system also shows us which keywords triggered this classification."
 
 ---
@@ -119,6 +124,7 @@ Expected Output:
 ```
 
 **Narrate:**
+
 > "Here we have a debug request. Notice how quickly it recognized the 'fix' and 'error' keywords. This would route to our Debug Agent who specializes in finding and fixing issues."
 
 ---
@@ -137,6 +143,7 @@ Expected Output:
 ```
 
 **Narrate:**
+
 > "This is a refactoring request. We want to improve existing code without changing functionality. Notice the system caught the 'simplify' keyword - that's the kind of pattern matching that makes this work."
 
 ---
@@ -155,6 +162,7 @@ Expected Output:
 ```
 
 **Narrate:**
+
 > "Testing requests get routed to our Test Agent. Notice how it found three matching keywords here - 'unit', 'tests', and 'coverage'. The more matches, the higher the confidence."
 
 ---
@@ -173,6 +181,7 @@ Expected Output:
 ```
 
 **Narrate:**
+
 > "Documentation requests route to our Documentation Agent. This would be for writing guides, API docs, code comments, and user manuals."
 
 ---
@@ -191,6 +200,7 @@ Expected Output:
 ```
 
 **Narrate:**
+
 > "And finally, performance optimization. When users ask about speed, performance, or efficiency, we route to our Optimize Agent who specializes in making things faster."
 
 ### Section 4: Technical Deep Dive (2 minutes)
@@ -233,12 +243,15 @@ Expected Output:
 **Key Technical Points:**
 
 1. **Stateless Design**
+
    > "The entire system is stateless, which means it's infinitely scalable. We can run thousands of requests per second without state management overhead."
 
 2. **Keyword Heuristic (MVP)**
+
    > "Today we're using a keyword heuristic - fast, predictable, easy to debug. In Phase 2, we'll upgrade to machine learning, which will give us even better accuracy on edge cases."
 
 3. **Performance**
+
    > "Average response time is 3 milliseconds. That's 33 times faster than our 100ms target. We can handle spikes easily."
 
 4. **100% Test Coverage**
@@ -248,19 +261,19 @@ Expected Output:
 
 **Show Metrics:**
 
-| Metric | Target | Achieved | Status |
-|--------|--------|----------|--------|
-| Accuracy | 85%+ | 90%+ | ✅ Exceeds |
-| Latency | <100ms | ~3ms | ✅ Exceeds (33x) |
-| Test Coverage | 80%+ | 100% | ✅ Exceeds |
-| Code Quality | Production | TypeScript Strict | ✅ Exceeds |
+| Metric        | Target     | Achieved          | Status           |
+| ------------- | ---------- | ----------------- | ---------------- |
+| Accuracy      | 85%+       | 90%+              | ✅ Exceeds       |
+| Latency       | <100ms     | ~3ms              | ✅ Exceeds (33x) |
+| Test Coverage | 80%+       | 100%              | ✅ Exceeds       |
+| Code Quality  | Production | TypeScript Strict | ✅ Exceeds       |
 
 **Talking Points:**
 
 > "We've exceeded every target. This feature is production-ready today, not in a week.
-> 
+>
 > **What's Next?**
-> 
+>
 > We've just finished Mode Router - the orchestrator that detects intent. Next, we're building the specialized agents:
 >
 > - **Story 3.9 (Next Week):** Coder Agent - handles GENERATE intent
@@ -268,12 +281,13 @@ Expected Output:
 > - **Story 3.11 (Following Week):** Workflow Orchestrator - routes between all agents
 >
 > By the end of November, we'll have a complete system that can:
+>
 > - Detect what users want
 > - Route to the right specialist
 > - Get code feedback from verifier
 > - Generate documentation
 > - Optimize performance
-> 
+>
 > All coordinated by Mode Router."
 
 ---
@@ -283,24 +297,31 @@ Expected Output:
 **Prepare Answers for Common Questions:**
 
 ### Q: "Can it handle ambiguous requests?"
+
 **A:** "Yes, if a request doesn't clearly match one intent, we return 'unknown' and ask for clarification. For example, 'Make this better' could be refactoring or optimizing, so we'd ask the user to be more specific."
 
 ### Q: "How will you improve accuracy?"
+
 **A:** "In Phase 2, we'll collect usage data from this demo and the alpha release. We'll train an ML classifier on real user requests. Our projections show 95%+ accuracy after 2 weeks of user data."
 
 ### Q: "What about non-English requests?"
+
 **A:** "Great question - that's on our Phase 3 roadmap. For now, we're focusing on English, but the architecture supports internationalization easily."
 
 ### Q: "Will users see this interface?"
+
 **A:** "Not exactly this demo page - that's for testing/validation. Users will interact with integrated AI agents. Mode Router works invisibly in the background, detecting their intent and routing appropriately."
 
 ### Q: "What's the failure mode if classification is wrong?"
+
 **A:** "Users can always ask for different help. If we misclassify, they just try again. Also, the confidence score gives us a safety valve - low confidence triggers a clarifying question before routing."
 
 ### Q: "Can it handle context from previous messages?"
+
 **A:** "Version 1.0 doesn't, but it's on the Phase 2 roadmap. We'll remember previous intents in a session to make better routing decisions."
 
 ### Q: "How does this compare to competitors?"
+
 **A:** "Most systems use heavy ML models. We're starting simple (fast to build, easy to debug, production-ready today) and will add ML in Phase 2. This gives us best of both worlds - immediate value + room to improve."
 
 ---
@@ -310,6 +331,7 @@ Expected Output:
 **Keep this handy during demo for quick lookup:**
 
 ### GENERATE Intent
+
 ```
 Sample: "Write a function that sorts an array alphabetically"
 Expected Intent: generate
@@ -318,6 +340,7 @@ Time: <5ms
 ```
 
 ### DEBUG Intent
+
 ```
 Sample: "Why is the API returning 500 errors"
 Expected Intent: debug
@@ -326,6 +349,7 @@ Time: <5ms
 ```
 
 ### REFACTOR Intent
+
 ```
 Sample: "Clean up this messy function"
 Expected Intent: refactor
@@ -334,6 +358,7 @@ Time: <5ms
 ```
 
 ### DOCUMENT Intent
+
 ```
 Sample: "Write a README for this project"
 Expected Intent: document
@@ -342,6 +367,7 @@ Time: <5ms
 ```
 
 ### OPTIMIZE Intent
+
 ```
 Sample: "Make this query faster"
 Expected Intent: optimize
@@ -350,6 +376,7 @@ Time: <5ms
 ```
 
 ### TEST Intent
+
 ```
 Sample: "Write tests for this code"
 Expected Intent: test
@@ -437,6 +464,7 @@ During Q&A, be ready to emphasize:
 > "Mode Router is the foundation for everything we're building next. It solves the core problem: understanding what users want.
 >
 > From here, we're adding the specialists:
+>
 > - Coder Agent (Story 3.9, next week)
 > - Verifier Agent (Story 3.10, the week after)
 > - Workflow Orchestrator (Story 3.11)
@@ -452,16 +480,19 @@ During Q&A, be ready to emphasize:
 If the dev server doesn't start:
 
 **Option 1: Use Pre-recorded Demo**
+
 - Have a recording of `/demo/mode-router` working
 - Narrate the recording with same talking points
 
 **Option 2: Show Tests**
+
 - Open test file in VS Code
 - Run: `npm test -- mode-router --no-coverage`
 - Show 8/8 tests passing
 - Explain each test maps to a feature
 
 **Option 3: Live Code Demo**
+
 - Open the source code
 - Walk through the algorithm
 - Explain the 6 rules
@@ -510,7 +541,7 @@ All options prove the feature works - live demo is just the most impressive.
 
 **Demo Notes:** Keep this document handy during the presentation for quick reference and Q&A preparation.
 
-**Last Updated:** October 25, 2025  
-**Presenter:** [Your Name]  
-**Demo URL:** `http://localhost:3000/demo/mode-router`  
+**Last Updated:** October 25, 2025
+**Presenter:** [Your Name]
+**Demo URL:** `http://localhost:3000/demo/mode-router`
 **Backup:** Tests in `/packages/leo-client/src/__tests__/mode-router.test.ts`

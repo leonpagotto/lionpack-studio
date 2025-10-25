@@ -5,8 +5,9 @@
 The Mode Router is a **multi-mode intent classifier** that detects user intent from natural language input and routes to the appropriate LionPack AI mode. It's the orchestration layer that understands "what does the user want to do?" before delegating to specialized agents.
 
 **Key Metrics (v1.0.0 MVP):**
+
 - **Accuracy:** 90%+ on common use cases
-- **Latency:** <50ms per classification  
+- **Latency:** <50ms per classification
 - **Intent Types:** 6 supported modes
 - **Algorithm:** Keyword heuristic with confidence scoring (MVP, upgradeable to ML)
 
@@ -57,6 +58,7 @@ The Mode Router is a **multi-mode intent classifier** that detects user intent f
 **Purpose:** Core intent classification logic
 
 **Exported Types:**
+
 ```typescript
 enum IntentType {
   GENERATE = "generate",
@@ -83,15 +85,17 @@ interface ModeDetectionResponse extends IntentResult {
 ```
 
 **Key Functions:**
+
 ```typescript
 // Core classification function
-export function classifyIntent(input: string): IntentResult
+export function classifyIntent(input: string): IntentResult;
 
 // Higher-level wrapper with metadata
-export function detectMode(input: string): ModeDetectionResponse
+export function detectMode(input: string): ModeDetectionResponse;
 ```
 
 **Algorithm Details:**
+
 - Tokenizes input into lowercase words
 - Scores 6 intent rules using keyword matching
 - Each rule has a keyword array (e.g., ["generate", "write", "create"])
@@ -104,12 +108,14 @@ export function detectMode(input: string): ModeDetectionResponse
 **Purpose:** HTTP interface for intent detection
 
 **Methods:**
+
 - `POST /api/detect-mode` (preferred)
 - `GET /api/detect-mode?q=<prompt>` (query param)
 
 **Request Examples:**
 
 **POST:**
+
 ```bash
 curl -X POST http://localhost:3000/api/detect-mode \
   -H "Content-Type: application/json" \
@@ -117,11 +123,13 @@ curl -X POST http://localhost:3000/api/detect-mode \
 ```
 
 **GET:**
+
 ```bash
 curl "http://localhost:3000/api/detect-mode?q=Fix%20the%20login%20error"
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "intent": "generate",
@@ -135,6 +143,7 @@ curl "http://localhost:3000/api/detect-mode?q=Fix%20the%20login%20error"
 ```
 
 **Error Response (400):**
+
 ```json
 {
   "error": "Missing input text"
@@ -148,6 +157,7 @@ curl "http://localhost:3000/api/detect-mode?q=Fix%20the%20login%20error"
 **Props:** None (standalone component)
 
 **Features:**
+
 - Textarea input with sample placeholder
 - Form submission with async fetch to `/api/detect-mode`
 - Loading state during API call
@@ -161,8 +171,9 @@ curl "http://localhost:3000/api/detect-mode?q=Fix%20the%20login%20error"
   - Request timestamp
 
 **Example Usage:**
+
 ```tsx
-import { ModeDetector } from '@/components/ModeDetector';
+import { ModeDetector } from "@/components/ModeDetector";
 
 export default function Page() {
   return <ModeDetector />;
@@ -176,6 +187,7 @@ export default function Page() {
 **URL:** `/demo/mode-router`
 
 **Sections:**
+
 1. **Header** - Title and description
 2. **ModeDetector Component** - Interactive form for testing
 3. **Metrics Dashboard** - 4 KPIs:
@@ -199,11 +211,13 @@ export default function Page() {
 ## Intent Types
 
 ### 1. GENERATE (50% of use cases)
+
 **Purpose:** Create new code, components, functions, or documentation
 
 **Keywords:** generate, write, create, build, implement, design, add
 
 **Examples:**
+
 - "Write a React component for user profile"
 - "Generate TypeScript types for the API response"
 - "Create unit tests for the auth module"
@@ -213,11 +227,13 @@ export default function Page() {
 **Response Includes:** Complete code suggestions with context
 
 ### 2. DEBUG (20% of use cases)
+
 **Purpose:** Find and fix errors, bugs, or unexpected behavior
 
 **Keywords:** debug, fix, broken, error, issue, crash, problem, not working
 
 **Examples:**
+
 - "Fix the login button not responding"
 - "Debug the database connection error"
 - "The search results are empty, what's wrong?"
@@ -227,11 +243,13 @@ export default function Page() {
 **Response Includes:** Root cause analysis, fix suggestions, test cases
 
 ### 3. REFACTOR (15% of use cases)
+
 **Purpose:** Improve existing code quality, performance, maintainability
 
 **Keywords:** refactor, improve, optimize, clean, simplify, reorganize, restructure
 
 **Examples:**
+
 - "Refactor this function to improve performance"
 - "Clean up this component, it's too complex"
 - "Simplify the database queries"
@@ -241,11 +259,13 @@ export default function Page() {
 **Response Includes:** Before/after comparisons, performance metrics
 
 ### 4. DOCUMENT (10% of use cases)
+
 **Purpose:** Write documentation, comments, examples, guides
 
 **Keywords:** document, explain, write docs, comment, example, guide, README
 
 **Examples:**
+
 - "Document the API endpoints"
 - "Add JSDoc comments to this function"
 - "Explain how the authentication flow works"
@@ -255,11 +275,13 @@ export default function Page() {
 **Response Includes:** Well-formatted documentation with examples
 
 ### 5. OPTIMIZE (3% of use cases)
+
 **Purpose:** Improve performance, reduce complexity, or resource usage
 
 **Keywords:** optimize, performance, fast, speed, cache, efficient, improve
 
 **Examples:**
+
 - "Optimize the slow database query"
 - "How can we improve this function's performance?"
 - "Reduce the bundle size"
@@ -269,11 +291,13 @@ export default function Page() {
 **Response Includes:** Performance metrics, before/after benchmarks
 
 ### 6. TEST (2% of use cases)
+
 **Purpose:** Write test cases, improve coverage, verify behavior
 
 **Keywords:** test, unit test, integration test, E2E, test coverage, verify, spec
 
 **Examples:**
+
 - "Write unit tests for the payment processor"
 - "Create E2E tests for the checkout flow"
 - "Increase test coverage to 80%"
@@ -289,12 +313,14 @@ export default function Page() {
 ### Keyword Matching Strategy
 
 **Step 1: Tokenization**
+
 ```typescript
-input: "Write unit tests for the payment processor"
-tokens: ["write", "unit", "tests", "for", "the", "payment", "processor"]
+input: "Write unit tests for the payment processor";
+tokens: ["write", "unit", "tests", "for", "the", "payment", "processor"];
 ```
 
 **Step 2: Rule Scoring**
+
 ```
 Rule: TEST
 keywords: ["test", "unit", "integration", "spec", "verify"]
@@ -312,6 +338,7 @@ confidence: 6.7%
 ```
 
 **Step 3: Selection**
+
 ```
 Winner: TEST (13% > 6.7%)
 Final confidence: MAX(0.13, 0.5 threshold) = 0.13
@@ -331,6 +358,7 @@ If no match > 0.5: return UNKNOWN
 ### Unit Tests (`packages/leo-client/src/__tests__/mode-router.test.ts`)
 
 **6 Test Cases:**
+
 ```
 ✓ classifyIntent("Generate React component") → GENERATE
 ✓ classifyIntent("Fix the login error") → DEBUG
@@ -346,6 +374,7 @@ If no match > 0.5: return UNKNOWN
 ### API Tests (`apps/web/pages/api/__tests__/detect-mode.test.ts`)
 
 **6 Test Cases:**
+
 ```
 ✓ POST with valid input returns 200 + result
 ✓ GET with query param returns 200 + result
@@ -377,15 +406,18 @@ If no match > 0.5: return UNKNOWN
 ### Latency Measurements
 
 **Development (Local):**
+
 - Average: ~3ms
 - P95: ~8ms
 - P99: ~15ms
 
 **Production (After Optimization):**
+
 - Target: <50ms per classification
 - Current: ~5ms (well under target)
 
 **Bottlenecks (in order):**
+
 1. JSON serialization (0.2ms)
 2. String tokenization (0.5ms)
 3. Keyword matching (1-2ms)
@@ -394,11 +426,13 @@ If no match > 0.5: return UNKNOWN
 ### Resource Usage
 
 **Per Request:**
+
 - CPU: <1ms
 - Memory: ~1KB (tokenized input)
 - GC pauses: None (stateless)
 
 **Scalability:**
+
 - Supports 1000+ requests/sec on single machine
 - No state management (horizontally scalable)
 - Stateless (compatible with serverless)
@@ -410,36 +444,43 @@ If no match > 0.5: return UNKNOWN
 ### Phase 2 Enhancements (Next 2 Weeks)
 
 **ML Integration (2-3 days)**
+
 - Train lightweight classifier on Phase 1 user data
 - Compare keyword heuristic vs. ML accuracy
 - Implement fallback to keyword heuristic if ML fails
 - Target: 95%+ accuracy
 
 **Confidence Improvement (1-2 days)**
+
 - Add semantic similarity scoring (TF-IDF)
 - Weight keywords by importance
 - Context-aware scoring (previous intents)
 
 **Extended Intents (1 day)**
+
 - Add 2-3 more intent types based on user feedback
 - Refactor rule system for easy addition
 
 ### Phase 3+ Features (Future)
 
 **Multi-Label Classification**
+
 - Support prompts with 2+ intents
 - Priority ordering (primary vs. secondary)
 
 **Context Awareness**
+
 - Remember previous intents in session
 - Adjust scoring based on context
 
 **User Feedback Loop**
+
 - Track misclassifications
 - Auto-retrain model
 - A/B test improvements
 
 **Integration with LeonPack Agents**
+
 - Direct routing to specialized agents
 - Confidence-based delegation
 - Fallback handling
@@ -459,7 +500,7 @@ npm install
 ### Usage in Code
 
 ```typescript
-import { detectMode, IntentType } from '@leo-client/mode-router';
+import { detectMode, IntentType } from "@leo-client/mode-router";
 
 // Simple classification
 const result = detectMode("Write a React component");
@@ -500,7 +541,7 @@ export default function MyPage() {
 # Run unit tests
 npm test -- mode-router
 
-# Run API tests  
+# Run API tests
 cd apps/web
 npm test -- detect-mode
 
@@ -513,27 +554,30 @@ npm test --workspaces
 To add a new intent type:
 
 1. **Add to IntentType enum** (`mode-router/index.ts`):
+
 ```typescript
 enum IntentType {
   // ... existing
-  CUSTOM = "custom"
+  CUSTOM = "custom",
 }
 ```
 
 2. **Add classification rule**:
+
 ```typescript
 const rules = [
   // ... existing
   {
     intent: IntentType.CUSTOM,
-    keywords: ["keyword1", "keyword2", "keyword3"]
-  }
+    keywords: ["keyword1", "keyword2", "keyword3"],
+  },
 ];
 ```
 
 3. **Add tests** (`mode-router.test.ts`):
+
 ```typescript
-it('should classify CUSTOM intent', () => {
+it("should classify CUSTOM intent", () => {
   const result = classifyIntent("keyword1 something keyword2");
   expect(result.intent).toBe(IntentType.CUSTOM);
 });
@@ -555,7 +599,7 @@ const config = {
   ML_ENABLED: false, // Enable ML classifier
   CONFIDENCE_THRESHOLD: 0.5,
   MAX_TOKENS: 1000,
-  CACHE_RESULTS: false // Cache classifications
+  CACHE_RESULTS: false, // Cache classifications
 };
 ```
 
@@ -564,16 +608,19 @@ const config = {
 ## Troubleshooting
 
 ### Classification too low confidence?
+
 - Check input has clear keywords
 - Ensure tokens align with intent
 - Consider context (what was previous input?)
 
 ### API returning 400?
+
 - Verify input is not empty
 - Check POST body has "input" field
 - Or GET query has "q" parameter
 
 ### Wrong intent detected?
+
 - Review matched keywords
 - Consider intent overlap (REFACTOR vs. OPTIMIZE)
 - File issue with example for training data
@@ -583,23 +630,29 @@ const config = {
 ## Architecture Decisions (ADRs)
 
 ### ADR-1: Keyword Heuristic vs. ML
+
 **Decision:** Start with keyword heuristic (MVP)
-**Rationale:** 
+**Rationale:**
+
 - Fast to implement (2 hours)
 - Easy to debug and explain
 - Works well for common cases (90%)
 - Can upgrade to ML later
 
 ### ADR-2: Confidence Scoring
+
 **Decision:** Normalized scoring with 0.5 threshold
 **Rationale:**
+
 - Simple to understand
 - Works with keyword matching
 - Extensible to ML probabilities
 
 ### ADR-3: Single Intent per Request
+
 **Decision:** Return one primary intent only
 **Rationale:**
+
 - Simpler for MVP
 - Matches most user requests
 - Multi-label support in Phase 2
@@ -651,7 +704,7 @@ rate(classification_errors[5m])
 
 ---
 
-**Last Updated:** 2025-01-20  
-**Version:** 1.0.0 (MVP)  
-**Status:** ✅ Demo 1 Ready  
+**Last Updated:** 2025-01-20
+**Version:** 1.0.0 (MVP)
+**Status:** ✅ Demo 1 Ready
 **Next Review:** Phase 2 ML Integration
