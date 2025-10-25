@@ -337,7 +337,7 @@ Response:
 
 ---
 
-**Status**: 🚀 **Phase 1 Bootstrap Complete**  
+**Status**: 🚀 **Phase 1 Bootstrap Complete**
 **Next**: Run `bash scripts/init-phase1.sh` and start development!
 
 ---
