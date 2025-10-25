@@ -115,14 +115,14 @@ Root files:
 
 ## 🎯 Key Numbers
 
-| Metric | Value |
-| ------ | ----- |
-| Total Documentation | ~20,000 words |
-| API Endpoints Specified | 50+ |
-| Epics in Phase 1 | 8 |
-| Expected Phase 1 Duration | 3 weeks |
-| Team Size (Recommended) | 3–5 people |
-| GitHub Issues (Phase 1) | ~40–50 |
+| Metric                    | Value         |
+| ------------------------- | ------------- |
+| Total Documentation       | ~20,000 words |
+| API Endpoints Specified   | 50+           |
+| Epics in Phase 1          | 8             |
+| Expected Phase 1 Duration | 3 weeks       |
+| Team Size (Recommended)   | 3–5 people    |
+| GitHub Issues (Phase 1)   | ~40–50        |
 
 ---
 
@@ -233,13 +233,13 @@ Root files:
 
 ### I Have Questions About...
 
-| Topic | Resource | Contact |
-| ----- | --------- | -------- |
-| **Project Vision** | LIONPACK_STRATEGIC_OVERVIEW.md | @leonpagotto |
-| **Tech Architecture** | PHASE_1_ARCHITECTURE.md | @leonpagotto |
-| **API Endpoints** | PHASE_1_API_CONTRACT.md | Backend Lead |
-| **Timeline/Planning** | PHASE_1_ROADMAP.md | @leonpagotto |
-| **Workflow Process** | SPEC_APPROVAL_WORKFLOW.md | @leonpagotto |
+| Topic                 | Resource                       | Contact      |
+| --------------------- | ------------------------------ | ------------ |
+| **Project Vision**    | LIONPACK_STRATEGIC_OVERVIEW.md | @leonpagotto |
+| **Tech Architecture** | PHASE_1_ARCHITECTURE.md        | @leonpagotto |
+| **API Endpoints**     | PHASE_1_API_CONTRACT.md        | Backend Lead |
+| **Timeline/Planning** | PHASE_1_ROADMAP.md             | @leonpagotto |
+| **Workflow Process**  | SPEC_APPROVAL_WORKFLOW.md      | @leonpagotto |
 
 ### How to Get Help
 

@@ -12,6 +12,7 @@
 A **complete, production-ready specification package** for building LionPack Studio—an AI-powered collaborative development environment that merges LEO Kit workflow automation with OpenCode's real-time IDE capabilities.
 
 **Total Deliverables:**
+
 - ✅ **2,150+ lines** of core specifications
 - ✅ **6 core spec documents** in `docs/specs/`
 - ✅ **4 workflow & guide documents** in root directory
@@ -28,6 +29,7 @@ A **complete, production-ready specification package** for building LionPack Stu
 ### Quick Links by Role
 
 **I'm a Manager / Stakeholder:**
+
 ```
 → Read: LIONPACK_SPEC_SUMMARY.md (1 page)
 Time: 3 minutes
@@ -35,6 +37,7 @@ Why: Understand what we're building and why
 ```
 
 **I'm a Tech Lead / Architect:**
+
 ```
 → Read: PHASE_1_ARCHITECTURE.md
 → Review: PHASE_1_API_CONTRACT.md (skim)
@@ -44,6 +47,7 @@ Why: Make architecture decisions and validate approach
 ```
 
 **I'm a Developer (Frontend/Backend):**
+
 ```
 → Read: PHASE_1_ARCHITECTURE.md (relevant section)
 → Bookmark: PHASE_1_API_CONTRACT.md
@@ -53,6 +57,7 @@ Why: Understand tech stack and your tasks
 ```
 
 **I'm Managing This Project:**
+
 ```
 → Read: SPEC_APPROVAL_WORKFLOW.md
 → Review: PHASE_1_ROADMAP.md
@@ -67,23 +72,23 @@ Why: Know how to approve specs and create issues
 
 ### Core Specifications (In `docs/specs/`)
 
-| Document | Lines | Purpose | Status |
-|----------|-------|---------|--------|
-| **README.md** | 175 | Index & quick navigation | ✅ Complete |
-| **LIONPACK_STRATEGIC_OVERVIEW.md** | 427 | Vision, problems, architecture, features | ✅ Complete |
-| **PHASE_1_ARCHITECTURE.md** | 384 | Technical design, tech stack, setup | ✅ Complete |
-| **PHASE_1_API_CONTRACT.md** | 541 | OpenAPI 3.0, 50+ endpoints, schemas | ✅ Complete |
-| **PHASE_1_ROADMAP.md** | 398 | 8 epics, timeline, milestones, metrics | ✅ Complete |
-| **EXAMPLE_SPEC.md** | 147 | Template for future specs | ✅ Complete |
+| Document                           | Lines | Purpose                                  | Status      |
+| ---------------------------------- | ----- | ---------------------------------------- | ----------- |
+| **README.md**                      | 175   | Index & quick navigation                 | ✅ Complete |
+| **LIONPACK_STRATEGIC_OVERVIEW.md** | 427   | Vision, problems, architecture, features | ✅ Complete |
+| **PHASE_1_ARCHITECTURE.md**        | 384   | Technical design, tech stack, setup      | ✅ Complete |
+| **PHASE_1_API_CONTRACT.md**        | 541   | OpenAPI 3.0, 50+ endpoints, schemas      | ✅ Complete |
+| **PHASE_1_ROADMAP.md**             | 398   | 8 epics, timeline, milestones, metrics   | ✅ Complete |
+| **EXAMPLE_SPEC.md**                | 147   | Template for future specs                | ✅ Complete |
 
 ### Supporting Documentation (Root Directory)
 
-| Document | Lines | Purpose | Status |
-|----------|-------|---------|--------|
-| **SPEC_APPROVAL_WORKFLOW.md** | 365 | How to review specs & create issues | ✅ Complete |
-| **COMPLETE_SPEC_PACKAGE.md** | 350 | Overview, learning paths, next steps | ✅ Complete |
-| **SPEC_PHASE_COMPLETION_REPORT.md** | 505 | Completion status & success criteria | ✅ Complete |
-| **LIONPACK_SPEC_SUMMARY.md** | 250+ | One-page executive summary | ✅ Complete |
+| Document                            | Lines | Purpose                              | Status      |
+| ----------------------------------- | ----- | ------------------------------------ | ----------- |
+| **SPEC_APPROVAL_WORKFLOW.md**       | 365   | How to review specs & create issues  | ✅ Complete |
+| **COMPLETE_SPEC_PACKAGE.md**        | 350   | Overview, learning paths, next steps | ✅ Complete |
+| **SPEC_PHASE_COMPLETION_REPORT.md** | 505   | Completion status & success criteria | ✅ Complete |
+| **LIONPACK_SPEC_SUMMARY.md**        | 250+  | One-page executive summary           | ✅ Complete |
 
 ---
 
@@ -205,18 +210,18 @@ Week 3:
 
 ## ✅ QUALITY METRICS
 
-| Metric | Value | Status |
-|--------|-------|--------|
-| Total Documentation | 2,150+ lines | ✅ Complete |
-| Core Specifications | 6 documents | ✅ Complete |
-| Supporting Guides | 4 documents | ✅ Complete |
-| API Endpoints | 50+ | ✅ Specified |
-| Implementation Epics | 8 epics | ✅ Defined |
-| Estimated Issues | 40–50 | ✅ Estimated |
-| Phase 1 Duration | 3 weeks | ✅ Planned |
-| Team Size | 3–5 people | ✅ Recommended |
-| Risk Mitigation | 7 strategies | ✅ Documented |
-| Success Metrics | 8 KPIs | ✅ Defined |
+| Metric               | Value        | Status         |
+| -------------------- | ------------ | -------------- |
+| Total Documentation  | 2,150+ lines | ✅ Complete    |
+| Core Specifications  | 6 documents  | ✅ Complete    |
+| Supporting Guides    | 4 documents  | ✅ Complete    |
+| API Endpoints        | 50+          | ✅ Specified   |
+| Implementation Epics | 8 epics      | ✅ Defined     |
+| Estimated Issues     | 40–50        | ✅ Estimated   |
+| Phase 1 Duration     | 3 weeks      | ✅ Planned     |
+| Team Size            | 3–5 people   | ✅ Recommended |
+| Risk Mitigation      | 7 strategies | ✅ Documented  |
+| Success Metrics      | 8 KPIs       | ✅ Defined     |
 
 ---
 
@@ -286,13 +291,13 @@ Weekly: Progress review against roadmap
 
 ### By Role
 
-| Role | Documents | Time |
-|------|-----------|------|
-| **Project Manager** | Summary, Strategic Overview, Roadmap | 20 min |
-| **Tech Lead** | Architecture, API Contract, Roadmap | 60 min |
-| **Frontend Dev** | Architecture (FE section), API Contract | 45 min |
-| **Backend Dev** | Architecture, API Contract (complete) | 45 min |
-| **DevOps** | Architecture (Docker/Deploy), Roadmap | 30 min |
+| Role                | Documents                               | Time   |
+| ------------------- | --------------------------------------- | ------ |
+| **Project Manager** | Summary, Strategic Overview, Roadmap    | 20 min |
+| **Tech Lead**       | Architecture, API Contract, Roadmap     | 60 min |
+| **Frontend Dev**    | Architecture (FE section), API Contract | 45 min |
+| **Backend Dev**     | Architecture, API Contract (complete)   | 45 min |
+| **DevOps**          | Architecture (Docker/Deploy), Roadmap   | 30 min |
 
 ---
 
