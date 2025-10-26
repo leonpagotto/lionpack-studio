@@ -11,15 +11,20 @@
  * - Bottom Panel: Terminal, test results, problems
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Head from 'next/head';
 import { SplitPane, FileTree, CodeEditor, Terminal } from '../components/KiloEditor';
 import { ChatContainer, type GeneratedCode } from '../components/MorphicChat';
 import { EditorProvider } from '../context/EditorContext';
+import { CopilotStatus } from '../components/Copilot/CopilotStatus';
+import { useFileSystem } from '../hooks/useFileSystem';
 import type { CodeFile } from '../components/KiloEditor/CodeEditor';
 import type { FileNode } from '../components/KiloEditor/FileTree';
 
 export default function Home() {
+  // File System Hook
+  const fileSystem = useFileSystem();
+
   // UI State
   const [showAIChat, setShowAIChat] = useState(true);
   const [showSidebar, setShowSidebar] = useState(true);
@@ -30,71 +35,106 @@ export default function Home() {
   const [selectedFile, setSelectedFile] = useState<CodeFile | null>(null);
   const [isLoadingFile, setIsLoadingFile] = useState(false);
   const [terminalOutput, setTerminalOutput] = useState<string[]>([]);
+  const [files, setFiles] = useState<FileNode[]>([]);
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
-  // Sample file tree
-  const [files] = useState<FileNode[]>([
-    {
-      path: 'src',
-      content: '',
-      language: 'folder',
-      isDirectory: true,
-      children: [
-        {
-          path: 'src/components',
-          content: '',
-          language: 'folder',
-          isDirectory: true,
-          children: [
-            { path: 'src/components/Button.tsx', content: '', language: 'typescript' },
-            { path: 'src/components/Card.tsx', content: '', language: 'typescript' },
-            { path: 'src/components/Modal.tsx', content: '', language: 'typescript' },
-          ],
-        },
-        {
-          path: 'src/utils',
-          content: '',
-          language: 'folder',
-          isDirectory: true,
-          children: [
-            { path: 'src/utils/helpers.ts', content: '', language: 'typescript' },
-            { path: 'src/utils/api.ts', content: '', language: 'typescript' },
-          ],
-        },
-        { path: 'src/App.tsx', content: '', language: 'typescript' },
-        { path: 'src/index.tsx', content: '', language: 'typescript' },
-      ],
-    },
-    {
-      path: 'tests',
-      content: '',
-      language: 'folder',
-      isDirectory: true,
-      children: [
-        { path: 'tests/Button.test.tsx', content: '', language: 'typescript' },
-        { path: 'tests/integration.test.tsx', content: '', language: 'typescript' },
-      ],
-    },
-    { path: 'package.json', content: '', language: 'json' },
-    { path: 'README.md', content: '', language: 'markdown' },
-    { path: 'tsconfig.json', content: '', language: 'json' },
-  ]);
+  // Load root directory on mount
+  useEffect(() => {
+    loadDirectory('.');
+  }, []);
 
-  const handleFileSelect = (file: FileNode) => {
-    if (file.isDirectory) return;
+  const loadDirectory = async (path: string) => {
+    try {
+      const fileList = await fileSystem.listDirectory(path);
+
+      // Convert to FileNode structure
+      const fileNodes: FileNode[] = fileList.map(file => ({
+        path: file.path,
+        content: '',
+        language: file.type === 'directory' ? 'folder' : getLanguageFromPath(file.path),
+        isDirectory: file.type === 'directory',
+        children: file.type === 'directory' ? [] : undefined,
+      }));
+
+      setFiles(fileNodes);
+
+      setTerminalOutput(prev => [
+        ...prev,
+        `✓ Loaded ${fileNodes.length} items from ${path}`,
+      ]);
+    } catch (error) {
+      setTerminalOutput(prev => [
+        ...prev,
+        `✗ Failed to load directory: ${error instanceof Error ? error.message : 'Unknown error'}`,
+      ]);
+    }
+  };
+
+  const handleFileSelect = async (file: FileNode) => {
+    if (file.isDirectory) {
+      // Load directory contents
+      await loadDirectory(file.path);
+      return;
+    }
 
     setIsLoadingFile(true);
 
-    // Simulate file loading
-    setTimeout(() => {
-      const mockContent = getSampleFileContent(file.path);
+    try {
+      const fileContent = await fileSystem.readFile(file.path);
+
       setSelectedFile({
         path: file.path,
-        content: mockContent,
-        language: file.language,
+        content: fileContent.content,
+        language: getLanguageFromPath(file.path),
       });
+
+      setHasUnsavedChanges(false);
+
+      setTerminalOutput(prev => [
+        ...prev,
+        `✓ Opened ${file.path}`,
+      ]);
+    } catch (error) {
+      setTerminalOutput(prev => [
+        ...prev,
+        `✗ Failed to open file: ${error instanceof Error ? error.message : 'Unknown error'}`,
+      ]);
+    } finally {
       setIsLoadingFile(false);
-    }, 300);
+    }
   };
+
+  const handleFileSave = useCallback(async () => {
+    if (!selectedFile) return;
+
+    try {
+      await fileSystem.writeFile(selectedFile.path, selectedFile.content);
+      setHasUnsavedChanges(false);
+
+      setTerminalOutput(prev => [
+        ...prev,
+        `✓ Saved ${selectedFile.path}`,
+      ]);
+    } catch (error) {
+      setTerminalOutput(prev => [
+        ...prev,
+        `✗ Failed to save file: ${error instanceof Error ? error.message : 'Unknown error'}`,
+      ]);
+    }
+  }, [selectedFile, fileSystem]);
+
+  // Handle Cmd/Ctrl+S to save
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 's') {
+        e.preventDefault();
+        handleFileSave();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [handleFileSave]);
 
   const handleAIGenerate = (generatedCode: GeneratedCode) => {
     // When AI generates code, update the editor with the first file
@@ -188,11 +228,18 @@ export default function Home() {
 
               {/* Sidebar Footer - Quick Actions */}
               <div className="flex-shrink-0 border-t border-slate-800 p-2 space-y-1">
-                <button className="w-full px-3 py-2 text-left text-sm bg-slate-800 hover:bg-slate-700 rounded flex items-center gap-2">
-                  <span>📁</span> Open Folder
+                <button
+                  onClick={() => loadDirectory('.')}
+                  className="w-full px-3 py-2 text-left text-sm bg-slate-800 hover:bg-slate-700 rounded flex items-center gap-2"
+                >
+                  <span>�</span> Refresh
                 </button>
-                <button className="w-full px-3 py-2 text-left text-sm bg-slate-800 hover:bg-slate-700 rounded flex items-center gap-2">
-                  <span>➕</span> New File
+                <button
+                  onClick={handleFileSave}
+                  disabled={!selectedFile || !hasUnsavedChanges}
+                  className="w-full px-3 py-2 text-left text-sm bg-slate-800 hover:bg-slate-700 rounded flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <span>💾</span> Save {hasUnsavedChanges && '(Cmd/Ctrl+S)'}
                 </button>
               </div>
             </aside>
@@ -228,6 +275,12 @@ export default function Home() {
                 file={selectedFile}
                 isLoading={isLoadingFile}
                 enableIntelligence={true}
+                onChange={(newContent) => {
+                  if (selectedFile && newContent !== selectedFile.content) {
+                    setSelectedFile({ ...selectedFile, content: newContent });
+                    setHasUnsavedChanges(true);
+                  }
+                }}
               />
             </div>
 
@@ -345,11 +398,22 @@ export default function Home() {
                 <span className="text-slate-200">|</span>
                 <span>{selectedFile.language}</span>
                 <span>{selectedFile.content.split('\n').length} lines</span>
+                {hasUnsavedChanges && (
+                  <>
+                    <span className="text-slate-200">|</span>
+                    <span className="text-yellow-300">● Unsaved</span>
+                  </>
+                )}
               </>
             )}
           </div>
-          <div className="flex items-center gap-4">
-            <span>🤖 Gemini Flash</span>
+          <div className="flex items-center gap-4 group relative">
+            <CopilotStatus
+              onAuthRequired={() => {
+                window.location.href = '/api/auth/github/login';
+              }}
+            />
+            <span className="text-slate-200">|</span>
             <span>⚡ Code Intelligence: ON</span>
           </div>
         </footer>

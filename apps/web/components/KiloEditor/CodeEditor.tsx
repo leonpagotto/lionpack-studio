@@ -182,13 +182,22 @@ interface CodeEditorProps {
   file: CodeFile | null;
   isLoading?: boolean;
   enableIntelligence?: boolean;
+  onChange?: (content: string) => void;
 }
 
-const CodeEditor: React.FC<CodeEditorProps> = ({ file, isLoading, enableIntelligence = true }) => {
+const CodeEditor: React.FC<CodeEditorProps> = ({ file, isLoading, enableIntelligence = true, onChange }) => {
   const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [showDocGenerator, setShowDocGenerator] = useState(false);
+  const [localContent, setLocalContent] = useState(file?.content || '');
   const analysisEngine = useMemo(() => new AnalysisEngine(), []);
+
+  // Update local content when file changes
+  useEffect(() => {
+    if (file) {
+      setLocalContent(file.content);
+    }
+  }, [file]);
 
   // Run analysis when file changes
   useEffect(() => {
@@ -200,7 +209,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ file, isLoading, enableIntellig
     const runAnalysis = async () => {
       setIsAnalyzing(true);
       try {
-        const result = await analysisEngine.analyzeCode(file.content, {
+        const result = await analysisEngine.analyzeCode(localContent, {
           language: file.language,
           includeSecurity: true,
           includePerformance: true,
@@ -219,12 +228,12 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ file, isLoading, enableIntellig
     // Debounce analysis
     const timeoutId = setTimeout(runAnalysis, 500);
     return () => clearTimeout(timeoutId);
-  }, [file, enableIntelligence, analysisEngine]);
+  }, [file, localContent, enableIntelligence, analysisEngine]);
 
   const highlightedLines = useMemo(() => {
     if (!file) return [];
-    return highlightCode(file.content, file.language, analysis?.issues || []);
-  }, [file, analysis]);
+    return highlightCode(localContent, file.language, analysis?.issues || []);
+  }, [file, localContent, analysis]);
 
   return (
     <div className="flex flex-col h-full bg-white dark:bg-slate-950 rounded-lg border border-slate-200 dark:border-slate-800">
@@ -257,7 +266,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ file, isLoading, enableIntellig
       </div>
 
       {/* Code Content */}
-      <div className="flex-1 overflow-auto bg-slate-50 dark:bg-slate-900">
+      <div className="flex-1 overflow-auto bg-slate-50 dark:bg-slate-900 relative">
         {isLoading ? (
           <div className="flex items-center justify-center h-full">
             <div className="flex flex-col items-center gap-2">
@@ -268,8 +277,26 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ file, isLoading, enableIntellig
             </div>
           </div>
         ) : file ? (
-          <div className="font-mono text-sm text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-900">
-            {highlightedLines}
+          <div className="relative h-full">
+            {/* Editable textarea */}
+            <textarea
+              value={localContent}
+              onChange={(e) => {
+                setLocalContent(e.target.value);
+                onChange?.(e.target.value);
+              }}
+              className="absolute inset-0 w-full h-full font-mono text-sm text-slate-900 dark:text-white bg-transparent resize-none focus:outline-none p-4 leading-6"
+              spellCheck={false}
+              style={{
+                tabSize: 2,
+                fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+              }}
+            />
+            
+            {/* Syntax highlighted overlay (read-only, for display) */}
+            <div className="pointer-events-none absolute inset-0 font-mono text-sm text-transparent bg-transparent p-4 leading-6 overflow-hidden">
+              {highlightedLines}
+            </div>
           </div>
         ) : (
           <div className="flex items-center justify-center h-full">
@@ -283,7 +310,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ file, isLoading, enableIntellig
       {/* Footer with metrics */}
       {file && (
         <div className="flex-shrink-0 px-4 py-2 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400 flex items-center gap-4">
-          <span>{file.content.split('\n').length} lines</span>
+          <span>{localContent.split('\n').length} lines</span>
 
           {enableIntelligence && analysis && (
             <>
@@ -347,7 +374,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ file, isLoading, enableIntellig
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={() => setShowDocGenerator(false)}>
           <div className="w-full max-w-4xl h-[80vh] m-4" onClick={(e) => e.stopPropagation()}>
             <DocumentationGenerator
-              code={file.content}
+              code={localContent}
               language={file.language}
               onApply={(docs) => {
                 navigator.clipboard.writeText(docs);
