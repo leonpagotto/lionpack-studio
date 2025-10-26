@@ -1,6 +1,6 @@
 /**
  * Tests for DocumentationGenerator component
- * 
+ *
  * @jest-environment jsdom
  */
 
@@ -62,10 +62,10 @@ function add(a, b) {
   describe('Rendering', () => {
     it('should render with default JSDoc type selected', () => {
       render(<DocumentationGenerator code={mockCode} />);
-      
+
       expect(screen.getByText('📝 Documentation Generator')).toBeInTheDocument();
       expect(screen.getByText('AI-Powered')).toBeInTheDocument();
-      
+
       // Check doc type buttons
       expect(screen.getByText('JSDOC')).toBeInTheDocument();
       expect(screen.getByText('TSDOC')).toBeInTheDocument();
@@ -74,14 +74,14 @@ function add(a, b) {
 
     it('should display code preview', () => {
       render(<DocumentationGenerator code={mockCode} />);
-      
+
       expect(screen.getByText(/Code to document:/)).toBeInTheDocument();
       expect(screen.getByText(/function add/)).toBeInTheDocument();
     });
 
     it('should show empty state when no messages', () => {
       render(<DocumentationGenerator code={mockCode} />);
-      
+
       expect(screen.getByText('Generate Documentation')).toBeInTheDocument();
       expect(screen.getByText(/AI will analyze your code/)).toBeInTheDocument();
     });
@@ -89,10 +89,10 @@ function add(a, b) {
     it('should render close button when onClose provided', () => {
       const onClose = jest.fn();
       render(<DocumentationGenerator code={mockCode} onClose={onClose} />);
-      
+
       const closeButton = screen.getByText('✕');
       expect(closeButton).toBeInTheDocument();
-      
+
       fireEvent.click(closeButton);
       expect(onClose).toHaveBeenCalledTimes(1);
     });
@@ -101,23 +101,23 @@ function add(a, b) {
   describe('Doc Type Selection', () => {
     it('should allow switching doc types', () => {
       render(<DocumentationGenerator code={mockCode} />);
-      
+
       const tsdocButton = screen.getByText('TSDOC');
       fireEvent.click(tsdocButton);
-      
+
       expect(screen.getByText(/Generate TSDoc comments/)).toBeInTheDocument();
     });
 
     it('should show correct description for each doc type', () => {
       render(<DocumentationGenerator code={mockCode} />);
-      
+
       // JSDoc (default)
       expect(screen.getByText(/Generate JSDoc comments/)).toBeInTheDocument();
-      
+
       // Switch to TSDoc
       fireEvent.click(screen.getByText('TSDOC'));
       expect(screen.getByText(/Generate TSDoc comments/)).toBeInTheDocument();
-      
+
       // Switch to README
       fireEvent.click(screen.getByText('README'));
       expect(screen.getByText(/Generate README documentation/)).toBeInTheDocument();
@@ -130,7 +130,7 @@ function add(a, b) {
       (aiSuggestionProvider.generateDocumentation as jest.Mock).mockResolvedValue(mockDocs);
 
       render(<DocumentationGenerator code={mockCode} />);
-      
+
       const generateButton = screen.getByText(/Generate JSDOC/);
       fireEvent.click(generateButton);
 
@@ -155,7 +155,7 @@ function add(a, b) {
       );
 
       render(<DocumentationGenerator code={mockCode} />);
-      
+
       const generateButton = screen.getByText(/Generate JSDOC/);
       fireEvent.click(generateButton);
 
@@ -176,7 +176,7 @@ function add(a, b) {
       );
 
       render(<DocumentationGenerator code={mockCode} />);
-      
+
       fireEvent.click(screen.getByText(/Generate JSDOC/));
 
       await waitFor(() => {
@@ -190,7 +190,7 @@ function add(a, b) {
       (aiSuggestionProvider.generateDocumentation as jest.Mock).mockResolvedValue(mockDocs);
 
       render(<DocumentationGenerator code={mockCode} />);
-      
+
       fireEvent.click(screen.getByText(/Include Examples/));
 
       await waitFor(() => {
@@ -203,7 +203,7 @@ function add(a, b) {
       (aiSuggestionProvider.generateDocumentation as jest.Mock).mockResolvedValue(mockDocs);
 
       render(<DocumentationGenerator code={mockCode} />);
-      
+
       fireEvent.click(screen.getByText(/Comprehensive/));
 
       await waitFor(() => {
@@ -216,7 +216,7 @@ function add(a, b) {
       (aiSuggestionProvider.generateDocumentation as jest.Mock).mockResolvedValue(mockDocs);
 
       render(<DocumentationGenerator code={mockCode} />);
-      
+
       fireEvent.click(screen.getByTestId('send-button'));
 
       await waitFor(() => {
@@ -238,7 +238,7 @@ function add(a, b) {
       });
 
       render(<DocumentationGenerator code={mockCode} />);
-      
+
       fireEvent.click(screen.getByText(/Generate JSDOC/));
 
       await waitFor(() => {
@@ -253,7 +253,7 @@ function add(a, b) {
       const mockDocs = '/** Applied docs */';
       const onApply = jest.fn();
       const onClose = jest.fn();
-      
+
       (aiSuggestionProvider.generateDocumentation as jest.Mock).mockResolvedValue(mockDocs);
 
       render(
@@ -263,7 +263,7 @@ function add(a, b) {
           onClose={onClose}
         />
       );
-      
+
       fireEvent.click(screen.getByText(/Generate JSDOC/));
 
       await waitFor(() => {
@@ -271,7 +271,7 @@ function add(a, b) {
       });
 
       fireEvent.click(screen.getByText('✓ Apply Documentation'));
-      
+
       expect(onApply).toHaveBeenCalledWith(mockDocs);
       expect(onClose).toHaveBeenCalled();
     });
@@ -281,7 +281,7 @@ function add(a, b) {
       (aiSuggestionProvider.generateDocumentation as jest.Mock).mockResolvedValue(mockDocs);
 
       render(<DocumentationGenerator code={mockCode} />);
-      
+
       fireEvent.click(screen.getByText(/Generate JSDOC/));
 
       await waitFor(() => {
@@ -297,7 +297,7 @@ function add(a, b) {
       (aiSuggestionProvider.generateDocumentation as jest.Mock).mockResolvedValue('/** docs */');
 
       render(<DocumentationGenerator code={mockCode} language="javascript" />);
-      
+
       fireEvent.click(screen.getByText(/Generate JSDOC/));
 
       await waitFor(() => {
@@ -315,7 +315,7 @@ function add(a, b) {
       (aiSuggestionProvider.generateDocumentation as jest.Mock).mockResolvedValue('/** docs */');
 
       render(<DocumentationGenerator code={mockCode} />);
-      
+
       fireEvent.click(screen.getByText(/Generate JSDOC/));
 
       await waitFor(() => {
@@ -333,18 +333,18 @@ function add(a, b) {
   describe('Code Truncation', () => {
     it('should truncate long code in preview', () => {
       const longCode = Array(20).fill('const x = 1;').join('\n');
-      
+
       render(<DocumentationGenerator code={longCode} />);
-      
+
       // Should show first 10 lines + ellipsis
       expect(screen.getByText(/\.\.\./)).toBeInTheDocument();
     });
 
     it('should not truncate short code', () => {
       const shortCode = 'const x = 1;\nconst y = 2;';
-      
+
       render(<DocumentationGenerator code={shortCode} />);
-      
+
       expect(screen.queryByText(/\.\.\./)).not.toBeInTheDocument();
     });
   });

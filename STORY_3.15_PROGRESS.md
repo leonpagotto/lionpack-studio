@@ -1,6 +1,6 @@
 # Story 3.15: Code Intelligence & Inline Suggestions - Progress Update
 
-**Status:** 🟢 In Progress (3/5 phases complete)
+**Status:** 🟢 In Progress (4/5 phases complete)
 **Branch:** `feature/story-3.15-code-intelligence`
 **Issue:** #30
 
@@ -82,9 +82,54 @@
 - Supports Gemini and Claude
 - Returns structured QuickFix objects
 
+### Phase 4: Documentation Generator UI ✅
+
+**Commit:** baae26b
+**Status:** 19/19 tests passing (100%)
+
+**Delivered:**
+
+- `DocumentationGenerator` component
+- **Leveraged Morphic Components:**
+  - ChatInput for prompt input (auto-grow textarea)
+  - MessageDisplay for doc preview (message bubbles)
+- **Leveraged Kilo Components:**
+  - Terminal patterns (auto-scroll, empty state)
+- Modal integration in CodeEditor
+
+**Features:**
+
+1. **Doc Type Selection** - JSDoc, TSDoc, README
+2. **Quick Actions:**
+   - ✨ Generate (default)
+   - 📖 Include Examples
+   - 🔍 Comprehensive
+3. **Custom Prompts** - Chat-style input for specific needs
+4. **Preview Area** - Show generated docs before applying
+5. **Actions:**
+   - 📋 Copy to clipboard
+   - ✓ Apply Documentation
+   - ✕ Close/Cancel
+
+**UI/UX:**
+
+- Dark mode support
+- Responsive design
+- Loading states with 3-dot animation (from Morphic)
+- Empty state messaging
+- Code preview (truncated for long files)
+- Consistent Tailwind styling
+
+**Integration:**
+
+- "Generate Docs" button in CodeEditor header
+- Full-screen modal overlay
+- Context-aware (uses current file code and language)
+- Integrates with AISuggestionProvider.generateDocumentation()
+
 ## 🔄 Remaining Phases
 
-### Phase 4: Documentation Generator UI (Planned)
+### Phase 5: Testing & Documentation (In Progress)
 
 **Estimated:** 2 hours
 
@@ -100,10 +145,11 @@
 
 **Scope:**
 
-- Integration tests
-- E2E tests with Playwright
-- Complete documentation
-- Merge to main
+- ✅ Unit tests for DocumentationGenerator (19 tests passing)
+- ⏳ Integration tests with real AI provider
+- ⏳ E2E tests with Playwright
+- ⏳ Complete documentation
+- ⏳ Merge to main
 
 ## 📊 Overall Progress
 
@@ -111,29 +157,34 @@
 Phase 1: Analysis Engine          ████████████████████ 100%
 Phase 2: Enhanced CodeEditor       ████████████████████ 100%
 Phase 3: AI Suggestions            ████████████████████ 100%
-Phase 4: Documentation UI          ░░░░░░░░░░░░░░░░░░░░   0%
-Phase 5: Testing & Docs            ░░░░░░░░░░░░░░░░░░░░   0%
+Phase 4: Documentation UI          ████████████████████ 100%
+Phase 5: Testing & Docs            ████████░░░░░░░░░░░░  40%
 
-Total:                             ████████████░░░░░░░░  60%
+Total:                             ████████████████░░░░  80%
 ```
 
 ## 🎯 Key Achievements
 
 **Leveraged Existing Components:**
 ✅ Extended Kilo CodeEditor (not replaced)
+✅ **Reused Morphic ChatInput** - Auto-grow textarea pattern
+✅ **Reused Morphic MessageDisplay** - Chat bubble UI
+✅ **Reused Kilo Terminal patterns** - Auto-scroll, empty state
 ✅ Integrated with multi-provider AI system
-✅ Followed Morphic chat pattern (extend, don't rebuild)
+✅ Followed "extend, don't replace" philosophy
 
 **Code Quality:**
-✅ 22 unit tests for Analysis Engine
+✅ 41 unit tests passing (22 Analysis Engine + 19 Documentation Generator)
 ✅ TypeScript strict mode
 ✅ No compilation errors
 ✅ Clean separation of concerns
+✅ Full test coverage for Phase 4
 
 **Architecture:**
 ✅ Analysis Engine (packages/leo-client) - Core logic
 ✅ CodeEditor (apps/web) - UI integration
 ✅ AI Suggestions (packages/leo-client) - AI integration
+✅ Documentation Generator (apps/web) - Composable UI
 
 ## 📈 Impact
 
@@ -152,15 +203,16 @@ Total:                             ████████████░░░
 
 ## 🚀 Next Steps
 
-1. **Create Documentation Generator UI** (Phase 4)
-2. **Write comprehensive tests** (Phase 5)
-3. **Complete E2E testing**
-4. **Merge to main**
-5. **Close Issue #30**
+1. ✅ **Create Documentation Generator UI** (Phase 4) - COMPLETE
+2. **Write integration tests** (Phase 5 - in progress)
+3. **Complete E2E testing with Playwright**
+4. **Final documentation updates**
+5. **Merge to main**
+6. **Close Issue #30**
 
-**Estimated Completion:** Within 4-6 hours
+**Estimated Completion:** Within 1-2 hours
 
 ---
 
-_Last Updated: 2025-10-26_
+_Last Updated: 2025-01-26_
 _Contributors: AI Assistant (GitHub Copilot)_

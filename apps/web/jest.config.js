@@ -11,6 +11,7 @@ const customJestConfig = {
   testEnvironment: 'jest-environment-jsdom',
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1',
+    '^@lionpack/leo-client/(.*)$': '<rootDir>/../../packages/leo-client/$1',
   },
   testMatch: [
     '**/__tests__/**/*.[jt]s?(x)',
