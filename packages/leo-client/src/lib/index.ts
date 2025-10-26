@@ -6,6 +6,8 @@
 export * from './supabase-client';
 export * from './database-service';
 export * from './github-oauth';
+export * from './ai-provider';
+export * from './gemini-provider';
 export { SpecGenerator } from '../spec-generator';
 export { WorkflowManager } from '../workflow-manager';
 export { Orchestrator } from '../orchestrator';

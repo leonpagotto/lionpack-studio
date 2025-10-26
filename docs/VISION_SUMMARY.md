@@ -5,6 +5,7 @@
 ### 1. **docs/VISION.md** (Complete North Star Document)
 
 **Sections:**
+
 - 🧭 Vision Statement — "Speed meets structure"
 - 🎯 Mission — Accelerate development with standards
 - 💎 Core Values (7 principles)
@@ -28,6 +29,7 @@
 ### 2. **docs/CONSTITUTION_TEMPLATE.md** (Standards System Template)
 
 **Complete YAML template with:**
+
 - Project Metadata
 - Technical Stack (languages, frameworks)
 - Code Standards (formatting, linting, naming)
@@ -42,6 +44,7 @@
 - Custom Rules (project-specific)
 
 **Usage Examples:**
+
 - Minimal Startup MVP
 - Enterprise SaaS
 - Open Source Library
@@ -53,6 +56,7 @@
 ### 3. **docs/WIKI_SETUP.md** (GitHub Wiki Structure)
 
 **Wiki pages planned:**
+
 - Home (landing page)
 - Vision and Mission
 - Constitution System (deep dive)
@@ -64,6 +68,7 @@
 - API Reference
 
 **Plus:**
+
 - Sidebar navigation structure
 - Footer template
 - Manual and automated setup instructions
@@ -75,6 +80,7 @@
 ### 4. **README.md** (Updated with Refined Vision)
 
 **Changes:**
+
 - Replaced old Vision/Mission with new refined version
 - Updated Core Values table with all 7 principles
 - Added "Our Promise" section
@@ -88,6 +94,7 @@
 ### 5. **.github/copilot-instructions.md** (AI Agent Alignment)
 
 **New Section Added:**
+
 - 🧭 LionPack Studio Vision Alignment
 - Vision Check Questions (5 questions)
 - Core Principles (what we are / what we're not)
@@ -104,18 +111,21 @@
 
 **What it is:**
 A `.lionpack/constitution.yml` file that defines your project's DNA:
+
 - Code standards (TypeScript, formatting, linting)
 - UX principles (accessibility, design system, dark mode)
 - Performance budgets (Core Web Vitals, bundle size)
 - AI alignment (tone, preferences, learning rules)
 
 **Why it matters:**
+
 - AI agents read and enforce standards automatically
 - Solo developers get senior-level consistency
 - Teams onboard new members instantly
 - Code reviews focus on logic, not style
 
 **Example:**
+
 ```yaml
 project:
   name: "My SaaS"
@@ -138,10 +148,12 @@ ai_alignment:
 
 **The Core Promise:**
 You don't have to choose between:
+
 - ❌ Moving fast (but sacrificing quality)
 - ❌ Maintaining excellence (but moving slow)
 
 **With LionPack Studio:**
+
 - ✅ Move fast AND maintain excellence
 - ✅ AI enforces standards without manual oversight
 - ✅ Quality is automatic, not aspirational
@@ -151,6 +163,7 @@ You don't have to choose between:
 ### 3. Development Culture in a Box
 
 **What it means:**
+
 - Not just an IDE (tools)
 - Not just AI (automation)
 - But a complete **development culture** that includes:
@@ -161,6 +174,7 @@ You don't have to choose between:
   - Best practices (built-in)
 
 **For whom:**
+
 - Solo founders building MVPs
 - Small startup teams (2-4 developers)
 - Open-source maintainers
@@ -170,15 +184,15 @@ You don't have to choose between:
 
 ### 4. Seven Core Values
 
-| Value | In Action |
-|-------|-----------|
-| **Speed with Purpose** | Zero unnecessary clicks, instant feedback loops |
-| **Facilitation over Complexity** | Intelligent defaults, progressive disclosure |
-| **Quality through Standards** | Constitution-driven code generation |
-| **Creativity + Structure** | AI handles boilerplate, you handle logic |
-| **Collaboration** | Small packs (1-4) working in sync |
-| **Empowerment** | Solo developers ship production-quality apps |
-| **Openness** | MIT license, community-driven roadmap |
+| Value                            | In Action                                       |
+| -------------------------------- | ----------------------------------------------- |
+| **Speed with Purpose**           | Zero unnecessary clicks, instant feedback loops |
+| **Facilitation over Complexity** | Intelligent defaults, progressive disclosure    |
+| **Quality through Standards**    | Constitution-driven code generation             |
+| **Creativity + Structure**       | AI handles boilerplate, you handle logic        |
+| **Collaboration**                | Small packs (1-4) working in sync               |
+| **Empowerment**                  | Solo developers ship production-quality apps    |
+| **Openness**                     | MIT license, community-driven roadmap           |
 
 ---
 
@@ -258,6 +272,7 @@ You don't have to choose between:
 ### Social Media Posts
 
 **Twitter/X:**
+
 ```
 Introducing LionPack Studio 🦁
 
@@ -275,6 +290,7 @@ https://github.com/leonpagotto/lionpack-studio
 ```
 
 **LinkedIn:**
+
 ```
 Excited to share LionPack Studio — a new approach to AI-powered development.
 
@@ -295,6 +311,7 @@ Try it: github.com/leonpagotto/lionpack-studio
 ```
 
 **Dev.to Blog Post:**
+
 ```
 Title: "Development Culture in a Box: How Constitution Files Make AI Actually Useful"
 

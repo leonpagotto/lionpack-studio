@@ -30,16 +30,16 @@ project:
   description: "A brief description of what this project does"
   version: "0.1.0"
   repository: "https://github.com/username/my-awesome-saas"
-  
+
   # Team information
   team:
     size: 2
     roles:
-      - alpha         # Project lead
-      - developer     # Code implementation
-  
+      - alpha # Project lead
+      - developer # Code implementation
+
   # Development stage
-  stage: "mvp"  # Options: prototype, mvp, beta, production
+  stage: "mvp" # Options: prototype, mvp, beta, production
 
 # -----------------------------------------------------------------------------
 # TECHNICAL STACK
@@ -49,7 +49,7 @@ languages:
   versions:
     typescript: "5.0+"
     node: "18+"
-  
+
   # Frameworks and libraries
   frameworks:
     - name: "Next.js"
@@ -58,10 +58,10 @@ languages:
         - "App Router"
         - "Server Components"
         - "Server Actions"
-    
+
     - name: "React"
       version: "18+"
-    
+
     - name: "Tailwind CSS"
       version: "3+"
 
@@ -78,7 +78,7 @@ code_standards:
       tabWidth: 2
       trailingComma: "es5"
       printWidth: 100
-  
+
   linting:
     tool: "eslint"
     extends:
@@ -86,10 +86,10 @@ code_standards:
       - "plugin:@typescript-eslint/recommended"
       - "plugin:react/recommended"
       - "plugin:react-hooks/recommended"
-  
+
   # Code organization
   architecture:
-    pattern: "feature-based"  # Options: feature-based, layered, modular
+    pattern: "feature-based" # Options: feature-based, layered, modular
     folder_structure: |
       src/
       ├── app/              # Next.js App Router pages
@@ -100,20 +100,20 @@ code_standards:
       ├── hooks/           # Custom React hooks
       ├── types/           # TypeScript type definitions
       └── styles/          # Global styles
-  
+
   # Naming conventions
   naming:
-    components: "PascalCase"         # UserProfile.tsx
-    files: "kebab-case"              # user-profile.tsx
-    functions: "camelCase"           # getUserById()
+    components: "PascalCase" # UserProfile.tsx
+    files: "kebab-case" # user-profile.tsx
+    functions: "camelCase" # getUserById()
     constants: "SCREAMING_SNAKE_CASE" # MAX_RETRY_COUNT
-    types: "PascalCase"              # UserProfile
-    css_classes: "kebab-case"        # user-profile-card
-  
+    types: "PascalCase" # UserProfile
+    css_classes: "kebab-case" # user-profile-card
+
   # Component patterns
-  component_style: "functional"  # Options: functional, class, mixed
+  component_style: "functional" # Options: functional, class, mixed
   state_management: "React Context + hooks"
-  
+
   # Preferred patterns
   prefer:
     - "Functional components over class components"
@@ -122,7 +122,7 @@ code_standards:
     - "Named exports over default exports"
     - "Composition over inheritance"
     - "Pure functions where possible"
-  
+
   # Anti-patterns to avoid
   avoid:
     - "Any type (use unknown or proper types)"
@@ -136,17 +136,17 @@ code_standards:
 # -----------------------------------------------------------------------------
 testing:
   framework: "Jest + React Testing Library"
-  
+
   coverage:
     minimum: 80
     target: 90
-    critical_paths: 100  # Auth, payments, etc.
-  
+    critical_paths: 100 # Auth, payments, etc.
+
   test_types:
     - unit: "Test individual functions and components"
     - integration: "Test feature workflows"
     - e2e: "Test user journeys (Playwright)"
-  
+
   conventions:
     - "Test files: *.test.ts or *.test.tsx"
     - "Location: __tests__ folder or co-located with source"
@@ -158,8 +158,8 @@ testing:
 # -----------------------------------------------------------------------------
 ux_principles:
   # Design system
-  design_system: "Material Design 3"  # Or: custom, shadcn/ui, etc.
-  
+  design_system: "Material Design 3" # Or: custom, shadcn/ui, etc.
+
   # Core principles
   principles:
     - "Mobile-first responsive design"
@@ -168,7 +168,7 @@ ux_principles:
     - "Clear visual hierarchy"
     - "Consistent spacing and typography"
     - "Meaningful animations (< 300ms)"
-  
+
   # Component architecture
   component_architecture: "Atomic Design"
   levels:
@@ -177,7 +177,7 @@ ux_principles:
     - organisms: "Header, Footer, DataTable"
     - templates: "PageLayout, DashboardLayout"
     - pages: "HomePage, DashboardPage"
-  
+
   # Design tokens
   tokens:
     colors:
@@ -187,40 +187,40 @@ ux_principles:
       error: "#EF4444"
       warning: "#F59E0B"
       info: "#3B82F6"
-    
+
     spacing:
       unit: "4px"
       scale: [0, 4, 8, 12, 16, 24, 32, 48, 64, 96, 128]
-    
+
     typography:
       font_family: "Inter, system-ui, sans-serif"
       font_sizes: [12, 14, 16, 18, 20, 24, 30, 36, 48, 60]
       line_heights: [1.2, 1.5, 1.75, 2]
-    
+
     breakpoints:
       mobile: "320px"
       tablet: "768px"
       laptop: "1024px"
       desktop: "1440px"
-  
+
   # Interaction guidelines
   interactions:
     max_click_depth: 3
-    button_min_size: "44x44px"  # Touch-friendly
+    button_min_size: "44x44px" # Touch-friendly
     animation_duration: "200ms - 300ms"
     feedback_delay: "< 100ms"
-  
+
   # Dark mode
   dark_mode:
     enabled: true
-    default: "system"  # Options: light, dark, system
+    default: "system" # Options: light, dark, system
 
 # -----------------------------------------------------------------------------
 # ACCESSIBILITY STANDARDS
 # -----------------------------------------------------------------------------
 accessibility:
   compliance: "WCAG 2.1 AA"
-  
+
   requirements:
     - "All interactive elements keyboard accessible"
     - "Minimum color contrast ratio: 4.5:1 (text), 3:1 (UI)"
@@ -230,7 +230,7 @@ accessibility:
     - "Focus visible on all interactive elements"
     - "No auto-playing media"
     - "Responsive text (no fixed px for body text)"
-  
+
   testing:
     tools:
       - "axe DevTools"
@@ -244,23 +244,23 @@ accessibility:
 performance:
   # Core Web Vitals targets
   web_vitals:
-    lcp: "< 2.5s"   # Largest Contentful Paint
-    fid: "< 100ms"  # First Input Delay
-    cls: "< 0.1"    # Cumulative Layout Shift
-  
+    lcp: "< 2.5s" # Largest Contentful Paint
+    fid: "< 100ms" # First Input Delay
+    cls: "< 0.1" # Cumulative Layout Shift
+
   # Lighthouse scores (minimum)
   lighthouse:
     performance: 90
     accessibility: 95
     best_practices: 90
     seo: 90
-  
+
   # Bundle size
   bundle:
     max_js: "500KB"
     max_css: "100KB"
     max_initial_load: "1MB"
-  
+
   # Optimization strategies
   optimizations:
     - "Code splitting by route"
@@ -276,29 +276,29 @@ performance:
 ai_alignment:
   # Communication style
   tone: "professional, friendly, concise"
-  verbosity: "balanced"  # Options: minimal, balanced, detailed
-  
+  verbosity: "balanced" # Options: minimal, balanced, detailed
+
   # Code generation preferences
   code_generation:
-    comment_density: "moderate"  # Options: minimal, moderate, extensive
+    comment_density: "moderate" # Options: minimal, moderate, extensive
     explain_complex: true
     include_tests: true
     include_types: true
     defensive_programming: true
-  
+
   # Decision-making
   when_uncertain:
     - "Ask for clarification"
     - "Provide 2-3 options with tradeoffs"
     - "Default to simpler solution"
     - "Cite this constitution for reasoning"
-  
+
   # Learning and adaptation
   learning:
     track_preferences: true
     suggest_improvements: true
     learn_from_feedback: true
-  
+
   # Safety and security
   security:
     - "Never expose secrets or API keys"
@@ -314,20 +314,20 @@ ai_alignment:
 workflow:
   # Git workflow
   git:
-    branch_strategy: "GitHub Flow"  # Options: GitHub Flow, Git Flow, Trunk
+    branch_strategy: "GitHub Flow" # Options: GitHub Flow, Git Flow, Trunk
     branch_naming: "feature/story-number-short-description"
-    commit_format: "conventional"  # feat, fix, docs, style, refactor, test, chore
+    commit_format: "conventional" # feat, fix, docs, style, refactor, test, chore
     commit_max_length: 72
     require_pr_review: true
     squash_merge: true
-  
+
   # Issue tracking
   issues:
     auto_create: true
     link_to_work: true
     status_updates: true
     close_on_merge: true
-  
+
   # Code review
   code_review:
     required_approvals: 1
@@ -348,26 +348,26 @@ workflow:
 # -----------------------------------------------------------------------------
 deployment:
   platform: "Vercel"
-  
+
   environments:
     - name: "development"
       url: "http://localhost:3000"
       auto_deploy: false
-    
+
     - name: "staging"
       url: "https://staging.myapp.com"
       auto_deploy: true
       branch: "develop"
-    
+
     - name: "production"
       url: "https://myapp.com"
       auto_deploy: true
       branch: "main"
       require_approval: true
-  
+
   # Environment variables
   env_management: ".env.local (local), Vercel (staging/prod)"
-  
+
   # Monitoring
   monitoring:
     errors: "Sentry"
@@ -383,13 +383,13 @@ documentation:
     jsdoc: true
     inline_comments: "For complex logic only"
     readme_per_feature: false
-  
+
   # API documentation
   api:
     format: "OpenAPI 3.0"
     auto_generate: true
     include_examples: true
-  
+
   # User documentation
   user_docs:
     format: "Markdown"
@@ -405,21 +405,21 @@ documentation:
 # -----------------------------------------------------------------------------
 dependencies:
   # Dependency management
-  policy: "conservative"  # Options: aggressive, conservative, locked
-  
+  policy: "conservative" # Options: aggressive, conservative, locked
+
   # Update strategy
   updates:
     frequency: "monthly"
     automated: false
     security_patches: "immediate"
-  
+
   # Approved libraries
   approved:
     - "@tanstack/react-query"
     - "zod"
     - "clsx"
     - "date-fns"
-  
+
   # Restricted libraries
   restricted:
     - name: "moment"
@@ -436,7 +436,6 @@ custom_rules:
   - "All API responses must include error codes"
   - "All forms must have loading states"
   - "All mutations must optimistic updates"
-
 # =============================================================================
 # END OF CONSTITUTION
 # =============================================================================
@@ -462,6 +461,7 @@ code .lionpack/constitution.yml
 ### 2. Start Simple, Grow Over Time
 
 **Minimum viable constitution (5 minutes):**
+
 ```yaml
 project:
   name: "My Project"
@@ -481,6 +481,7 @@ ux_principles:
 ```
 
 **Add sections as you go:**
+
 - Week 1: Project + Languages + Code Standards
 - Week 2: UX Principles + Design Tokens
 - Week 3: Testing + Performance
@@ -499,6 +500,7 @@ git commit -m "docs: add project constitution"
 ### 4. Let AI Read It
 
 LionPack Studio AI agents will automatically read your constitution and:
+
 - ✅ Generate code that follows your standards
 - ✅ Suggest improvements aligned with your principles
 - ✅ Enforce accessibility and performance requirements
@@ -593,7 +595,7 @@ rules:
       - "Test coverage >= 90%"
       - "Performance budget enforced"
       - "Security audit passing"
-  
+
   - condition: "stage === 'prototype'"
     relax:
       - "Test coverage >= 60%"
@@ -608,7 +610,7 @@ teams:
     code_standards:
       testing:
         coverage: 95
-  
+
   - name: "Frontend Team"
     code_standards:
       testing:

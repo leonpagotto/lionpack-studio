@@ -8,13 +8,14 @@
 
 > **To empower small teams and individual creators to build high-quality software at the speed of thought — combining human creativity, AI collaboration, and shared design standards.**
 
-LionPack Studio is where *speed meets structure*.
+LionPack Studio is where _speed meets structure_.
 
 We envision a world where developers don't have to choose between moving fast and maintaining excellence — where AI helps teams stay consistent, creative, and confident in every line of code and every interface decision.
 
 ### What This Means in Practice
 
 **Before LionPack Studio:**
+
 - Developers sacrifice quality for speed (or speed for quality)
 - Design inconsistencies creep in across features
 - AI tools generate code without understanding team standards
@@ -22,6 +23,7 @@ We envision a world where developers don't have to choose between moving fast an
 - Context switching between tools breaks creative flow
 
 **With LionPack Studio:**
+
 - ✅ Move fast AND maintain excellence
 - ✅ AI understands and enforces your team's standards automatically
 - ✅ Design consistency is built-in, not bolted-on
@@ -36,9 +38,9 @@ We envision a world where developers don't have to choose between moving fast an
 
 We're building an open, lovable, and AI-native development environment that unifies:
 
-* **LEO Kit automation** for instant workflow orchestration
-* **OpenCode** as a collaborative IDE foundation
-* **GitHub** as the trusted source of truth for code and tasks
+- **LEO Kit automation** for instant workflow orchestration
+- **OpenCode** as a collaborative IDE foundation
+- **GitHub** as the trusted source of truth for code and tasks
 
 ### What We Help Creators Do
 
@@ -64,6 +66,7 @@ LionPack Studio helps creators:
 Every **pack** — whether a solo developer or a team of four — can move from concept to deployment with flow, focus, and full creative control.
 
 **Our ideal user:**
+
 - Solo founders building MVPs
 - Small startup teams (2-4 developers)
 - Open-source maintainers
@@ -81,6 +84,7 @@ These values guide every decision we make — from feature prioritization to UI 
 > Every tool and feature must help creators move from idea to impact — without friction or delay.
 
 **What this means:**
+
 - Zero unnecessary clicks or context switches
 - AI generates working code on first try (with standards)
 - Instant feedback loops (no waiting for CI/CD)
@@ -88,6 +92,7 @@ These values guide every decision we make — from feature prioritization to UI 
 - Fast by default, optimized always
 
 **We measure success by:**
+
 - Time from idea to working prototype
 - Number of context switches per task
 - Developer flow state duration
@@ -97,6 +102,7 @@ These values guide every decision we make — from feature prioritization to UI 
 > The platform should feel like guidance, not governance. We simplify the process so creators can focus on what matters.
 
 **What this means:**
+
 - Intelligent defaults that work out of the box
 - Progressive disclosure (simple first, power later)
 - Clear mental models (no hidden magic)
@@ -104,6 +110,7 @@ These values guide every decision we make — from feature prioritization to UI 
 - Documentation that teaches, not just documents
 
 **We avoid:**
+
 - Configuration hell
 - Opinionated frameworks that limit freedom
 - Overcomplicated abstractions
@@ -114,6 +121,7 @@ These values guide every decision we make — from feature prioritization to UI 
 > Built-in code and UX "constitutions" define best practices per language or framework, ensuring excellence and consistency.
 
 **What this means:**
+
 - Constitution files (`.lionpack/constitution.yml`) define your standards
 - AI agents read and enforce these standards automatically
 - Code, UX, accessibility, and performance rules in one place
@@ -121,6 +129,7 @@ These values guide every decision we make — from feature prioritization to UI 
 - Community-shared constitutions for popular frameworks
 
 **Example Constitution:**
+
 ```yaml
 # .lionpack/constitution.yml
 project:
@@ -155,6 +164,7 @@ ai_alignment:
 > We balance AI-powered automation with the freedom to explore — order without rigidity.
 
 **What this means:**
+
 - AI handles the boilerplate, you handle the creative logic
 - Standards guide but don't constrain innovation
 - Experimentation encouraged (with easy rollback)
@@ -162,6 +172,7 @@ ai_alignment:
 - Freedom to break rules when needed (with intention)
 
 **The balance:**
+
 - 80% of code follows standards automatically
 - 20% is creative problem-solving and innovation
 - AI understands when to apply standards vs. when to ask
@@ -171,6 +182,7 @@ ai_alignment:
 > Small, tight-knit packs (1–4 creators) working in perfect sync — each playing a role in the flow.
 
 **What this means:**
+
 - Real-time collaborative editing (no merge conflicts)
 - Role-based workflows (designer, developer, QA)
 - Awareness of what teammates are working on
@@ -178,6 +190,7 @@ ai_alignment:
 - Pack = project team with shared context
 
 **Pack roles:**
+
 - **Alpha** — Project lead, final decision maker
 - **Developer** — Code implementation
 - **Designer** — UX/UI design
@@ -188,6 +201,7 @@ ai_alignment:
 > We believe everyone should be able to bring ideas to life — fast, independently, and beautifully.
 
 **What this means:**
+
 - Solo developers have AI pair programmers
 - Non-technical founders can prototype ideas
 - Junior developers get senior-level guidance
@@ -195,6 +209,7 @@ ai_alignment:
 - No gatekeeping or artificial limitations
 
 **We enable:**
+
 - Going from idea to deployed app in hours (not weeks)
 - Building production-quality software solo
 - Learning best practices through AI guidance
@@ -205,6 +220,7 @@ ai_alignment:
 > Built on open-source technologies, guided by transparency and shared progress.
 
 **What this means:**
+
 - Source code available on GitHub
 - Community-driven roadmap
 - Open constitution templates
@@ -212,6 +228,7 @@ ai_alignment:
 - Contributor-friendly development
 
 **Open source foundations:**
+
 - Next.js, React, TypeScript
 - OpenCode editor
 - LEO Kit workflow automation
@@ -283,18 +300,21 @@ A **Constitution File** is a declarative configuration that defines:
 ### Benefits
 
 **For Solo Developers:**
+
 - Define your personal coding standards once
 - AI becomes your senior developer pair programmer
 - Consistency across all your projects
 - Less decision fatigue
 
 **For Teams:**
+
 - Onboard new developers instantly (AI teaches your standards)
 - No more style guide debates
 - Automated code review for standards compliance
 - Focus reviews on logic and architecture
 
 **For AI Agents:**
+
 - Clear instructions on what "good" means
 - Context-aware suggestions
 - Aligned with project goals
@@ -310,6 +330,7 @@ A **Constitution File** is a declarative configuration that defines:
 ### What You Can Expect
 
 **We promise:**
+
 - ✅ Your tools will never slow you down
 - ✅ AI will understand and respect your standards
 - ✅ Quality will be automatic, not aspirational
@@ -317,6 +338,7 @@ A **Constitution File** is a declarative configuration that defines:
 - ✅ Creativity will be amplified, not constrained
 
 **We won't:**
+
 - ❌ Lock you into our ecosystem
 - ❌ Hide complexity behind magic (we explain)
 - ❌ Sacrifice quality for speed (or vice versa)
@@ -358,24 +380,28 @@ A **Constitution File** is a declarative configuration that defines:
 ## 🚀 The Future We're Building
 
 ### Phase 1 (Now): Foundation
+
 - LEO Kit workflow automation
 - Basic AI code generation
 - GitHub integration
 - Constitution system (beta)
 
 ### Phase 2 (Next 6 months): Polish
+
 - Multi-AI provider support (Gemini, GPT-4)
 - Real-time collaboration (Yjs)
 - File system integration
 - Constitution marketplace
 
 ### Phase 3 (12-18 months): Scale
+
 - Plugin ecosystem
 - Self-hosted options
 - Enterprise features
 - Advanced AI training on constitutions
 
 ### Long-term Vision (2-3 years)
+
 - **Universal development platform** for all languages/frameworks
 - **AI that learns** your unique style and preferences
 - **Zero-config deployments** to any cloud provider
