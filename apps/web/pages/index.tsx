@@ -17,6 +17,7 @@ import { SplitPane, FileTree, CodeEditor, Terminal } from '../components/KiloEdi
 import { ChatContainer, type GeneratedCode } from '../components/MorphicChat';
 import { EditorProvider } from '../context/EditorContext';
 import { CopilotStatus } from '../components/Copilot/CopilotStatus';
+import { MenuBar } from '../components/MenuBar/MenuBar';
 import { useFileSystem } from '../hooks/useFileSystem';
 import type { CodeFile } from '../components/KiloEditor/CodeEditor';
 import type { FileNode } from '../components/KiloEditor/FileTree';
@@ -173,15 +174,16 @@ export default function Home() {
               <span className="font-bold text-lg">LionPack Studio</span>
             </div>
 
-            <nav className="flex items-center gap-1 text-sm">
-              <button className="px-3 py-1 hover:bg-slate-800 rounded">File</button>
-              <button className="px-3 py-1 hover:bg-slate-800 rounded">Edit</button>
-              <button className="px-3 py-1 hover:bg-slate-800 rounded">View</button>
-              <button className="px-3 py-1 hover:bg-slate-800 rounded">Go</button>
-              <button className="px-3 py-1 hover:bg-slate-800 rounded">Run</button>
-              <button className="px-3 py-1 hover:bg-slate-800 rounded">Terminal</button>
-              <button className="px-3 py-1 hover:bg-slate-800 rounded">Help</button>
-            </nav>
+            <MenuBar
+              onNewFile={() => setTerminalOutput(prev => [...prev, '⚠ New File not yet implemented'])}
+              onSaveFile={handleFileSave}
+              onOpenFolder={() => loadDirectory('.')}
+              onToggleSidebar={() => setShowSidebar(!showSidebar)}
+              onToggleTerminal={() => setShowBottomPanel(!showBottomPanel)}
+              onToggleAIChat={() => setShowAIChat(!showAIChat)}
+              onRunFile={() => setTerminalOutput(prev => [...prev, '⚠ Run File not yet implemented'])}
+              onFindInFiles={() => setTerminalOutput(prev => [...prev, '⚠ Find in Files not yet implemented'])}
+            />
           </div>
 
           {/* Right: Project name and actions */}
@@ -333,7 +335,12 @@ export default function Home() {
                 {/* Bottom Panel Content */}
                 <div className="flex-1 overflow-auto">
                   {activeBottomTab === 'terminal' && (
-                    <Terminal output={terminalOutput} />
+                    <Terminal
+                      output={terminalOutput}
+                      onCommandExecute={(cmd) => {
+                        setTerminalOutput(prev => [...prev, `$ ${cmd}`]);
+                      }}
+                    />
                   )}
                   {activeBottomTab === 'problems' && (
                     <div className="p-4 text-sm text-slate-400">
