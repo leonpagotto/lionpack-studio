@@ -1,4 +1,4 @@
-# 🦁 LionPack Studio — Vision, Mission & Values
+# 🦁 LionPack Studio – Vision, Mission & Values
 
 > **The North Star for Development Culture in a Box**
 
@@ -6,11 +6,11 @@
 
 ## 🧭 Vision
 
-> **To empower small teams and individual creators to build high-quality software at the speed of thought — combining human creativity, AI collaboration, and shared design standards.**
+To empower small developer teams and solo creators to build, collaborate, and ship software with the speed and focus of a lion pack — united, agile, and AI-augmented.
 
-LionPack Studio is where _speed meets structure_.
+## 🎯 Mission
 
-We envision a world where developers don't have to choose between moving fast and maintaining excellence — where AI helps teams stay consistent, creative, and confident in every line of code and every interface decision.
+To create an AI-native development studio that unifies code, collaboration, and workflow into one seamless environment — turning GitHub into the living heartbeat of every project and reducing time from idea to product launch by 10×.
 
 ### What This Means in Practice
 
@@ -75,13 +75,29 @@ Every **pack** — whether a solo developer or a team of four — can move from 
 
 ---
 
+## � Investor Summary
+
+**LionPack Studio** is redefining how small software teams work. By merging **LEO Kit's AI workflow automation** with **OpenCode's web-based IDE**, and centering everything around **GitHub**, it creates a unified AI-powered environment where developers can chat, code, manage issues, and deploy — all from one place.
+
+We're targeting the fastest-growing segment in software creation: **solo founders, indie developers, and small AI-native startups**. These creators drive innovation but are underserved by bloated enterprise tools. LionPack makes their workflow **10× faster**, **AI-augmented**, and **deeply collaborative**.
+
+### Why Now
+
+- The AI-native developer experience is still fragmented.
+- GitHub remains the universal developer hub — but disconnected from daily creation tools.
+- Teams under 5 people are now the norm for early-stage products and open-source innovation.
+
+**LionPack Studio** bridges those gaps — becoming the natural home for small, AI-driven development teams.
+
+---
+
 ## 💎 Core Values
 
 These values guide every decision we make — from feature prioritization to UI design to AI agent behavior.
 
-### 1. Speed with Purpose
+### 1. **Speed through Focus**
 
-> Every tool and feature must help creators move from idea to impact — without friction or delay.
+Optimize for momentum; automate the repetitive, amplify the creative.
 
 **What this means:**
 
@@ -97,24 +113,177 @@ These values guide every decision we make — from feature prioritization to UI 
 - Number of context switches per task
 - Developer flow state duration
 
-### 2. Facilitation over Complexity
+### 2. **Transparency by Design**
 
-> The platform should feel like guidance, not governance. We simplify the process so creators can focus on what matters.
+Every task, change, and decision visible to the pack.
 
-**What this means:**
+**In Practice:**
 
-- Intelligent defaults that work out of the box
-- Progressive disclosure (simple first, power later)
-- Clear mental models (no hidden magic)
-- Helpful constraints that enable creativity
-- Documentation that teaches, not just documents
+- GitHub-centric workflow (issues, PRs, projects as single source of truth)
+- Real-time issue tracking and automatic updates
+- Conversation history preserved in issue comments
 
-**We avoid:**
+### 3. **Collaboration with Clarity**
 
-- Configuration hell
-- Opinionated frameworks that limit freedom
-- Overcomplicated abstractions
-- Tools that require extensive setup
+Clear roles, shared context, and real-time awareness.
+
+**In Practice:**
+
+- Multi-agent orchestration (Frontend, Backend, DevOps, Testing, Docs specialists)
+- Standardized commit messages and PR descriptions
+- Shared constitution defines team agreements
+
+### 4. **AI as a Teammate**
+
+The AI works alongside you — understanding, assisting, and accelerating.
+
+**In Practice:**
+
+- GitHub Copilot as orchestrator routing to specialized agents
+- AI enforces quality standards automatically (test coverage, accessibility, security)
+- Constitution-aware code generation (respects project-specific rules)
+
+### 5. **Open by Nature**
+
+Built on open tools, open standards, and open collaboration.
+
+**In Practice:**
+
+- GitHub at the core (not proprietary platform)
+- Standard web technologies (React, TypeScript, REST APIs)
+- Open-source friendly (MIT license, public repositories)
+
+### 6. **Lovable Tools**
+
+Delightful design, ambient experience, and joyful creation.
+
+**In Practice:**
+- Clean, intuitive UI (Next.js + Tailwind)
+- Ambient AI assistance (suggestions, not interruptions)
+- Joyful developer experience (fast feedback loops, clear errors)
+
+---
+
+## Target Audience
+
+### Primary: Solo Founders & Indie Developers
+- **Profile**: 1-2 person teams building SaaS, mobile apps, or open-source projects
+- **Pain Point**: Juggling 10+ tools (IDE, GitHub, Jira, Slack, Deploy, etc.)
+- **Solution**: Unified environment with AI handling workflow coordination
+
+### Secondary: Small AI-Native Startups
+- **Profile**: 3-5 person early-stage teams
+- **Pain Point**: Need enterprise-level quality without enterprise-level processes
+- **Solution**: Constitution enforces standards automatically, AI maintains consistency
+
+### Tertiary: Open Source Maintainers
+- **Profile**: Community-driven projects needing contributor coordination
+- **Pain Point**: Inconsistent contributions, lack of documentation, manual review overhead
+- **Solution**: AI agents enforce contribution guidelines, auto-generate docs, assist reviews
+
+---
+
+## Competitive Positioning
+
+| Feature | LionPack Studio | GitHub Codespaces | Replit | Cursor |
+|---------|----------------|-------------------|--------|---------|
+| **AI-Native Workflow** | ✅ Multi-agent orchestration | ❌ Generic Copilot | ⚠️ Single agent | ⚠️ Single agent |
+| **GitHub Integration** | ✅ First-class (issues, projects) | ✅ Native | ⚠️ Import only | ❌ Manual sync |
+| **Constitution System** | ✅ Project-specific AI rules | ❌ None | ❌ None | ❌ None |
+| **Browser-Based** | ✅ Full web IDE | ✅ VS Code in browser | ✅ Full IDE | ❌ Desktop only |
+| **Pricing** | 🎯 Indie-friendly | 💰 Enterprise focus | 💰 Per-seat pricing | 💰 Premium tier |
+| **Open Source** | ✅ MIT License | ❌ Proprietary | ❌ Proprietary | ❌ Proprietary |
+
+**Key Differentiator:** LionPack is the only platform that combines constitution-driven AI agents with GitHub-first workflow and indie-friendly pricing.
+
+---
+
+## Product Roadmap Alignment
+
+### Phase 1: Foundation (Current)
+- ✅ Multi-agent orchestration (Frontend, Backend, DevOps, Testing, Docs)
+- ✅ GitHub OAuth integration
+- ✅ Constitution-aware code generation
+- ✅ Automated issue tracking and status updates
+
+### Phase 2: IDE Integration (In Progress)
+- 🔄 Filesystem abstraction (local + GitHub)
+- ⏳ Web-based code editor (Monaco/CodeMirror)
+- ⏳ File tree and navigation
+- ⏳ Constitution editor UI
+
+### Phase 3: Collaboration Layer
+- ⏳ Real-time chat with AI (Morphic integration)
+- ⏳ AI agents can create/edit files via conversation
+- ⏳ Multi-user editing (Yjs/CRDT)
+- ⏳ Team member presence indicators
+
+### Phase 4: Deployment & Operations
+- ⏳ One-click deployment (Vercel, Railway, Fly.io)
+- ⏳ Environment management
+- ⏳ Monitoring and logs integration
+- ⏳ Production AI assistant (on-call support)
+
+### Phase 5: Enterprise Edition
+- ⏳ Multi-repo governance (inspired by IKEA case study)
+- ⏳ Organization-wide constitution packages
+- ⏳ Compliance dashboards and metrics
+- ⏳ Custom agent marketplace
+
+---
+
+## Success Metrics
+
+### Developer Experience
+- **Time to First Deploy**: < 5 minutes from signup
+- **Daily Active Usage**: 80%+ of users return daily
+- **NPS Score**: > 50 (target: "lovable tools")
+
+### Platform Performance
+- **AI Response Time**: < 2 seconds for agent routing
+- **Code Generation Quality**: 80%+ acceptance rate
+- **Test Coverage**: Automated enforcement of 80%+ for all generated code
+
+### Business Metrics
+- **User Growth**: 10× year-over-year
+- **Conversion Rate**: 25% free → paid
+- **Retention**: 90%+ monthly active retention
+
+### Quality Metrics
+- **Constitution Compliance**: 95%+ of commits follow standards
+- **Deployment Success Rate**: 99%+ of automated deployments succeed
+- **Bug Escape Rate**: < 1% of issues reach production
+
+---
+
+## Core Principles (Developer Manifesto)
+
+1. **Constitution Over Convention** – Explicit rules beat implicit assumptions
+2. **AI Enforces, Humans Create** – Automate governance, amplify creativity
+3. **GitHub is the Source of Truth** – Everything lives in or references GitHub
+4. **Small Teams, Big Impact** – 1-5 person teams can ship enterprise-quality software
+5. **Conversation-Driven Development** – Chat with AI, get working code
+6. **Standards Without Sacrifice** – High quality shouldn't slow you down
+7. **Open and Composable** – Use our stack or bring your own
+
+---
+
+## Brand Personality
+
+**The Lion Pack Metaphor:**
+- **United**: All tools and agents work together seamlessly
+- **Agile**: Fast iteration, quick pivots, responsive to change
+- **Focused**: Clear roles (scouts, hunters, guards) like specialized agents
+- **Powerful**: Small pack can take down large challenges
+- **Protective**: AI guards quality, security, and standards
+
+**Tone of Voice:**
+- **Confident, not arrogant**: "We make you 10× faster" (backed by features)
+- **Helpful, not patronizing**: AI assists, doesn't lecture
+- **Clear, not oversimplified**: Respect developer intelligence
+- **Energetic, not exhausting**: Fast, but not frenetic
+
+---
 
 ### 3. Quality through Standards
 
