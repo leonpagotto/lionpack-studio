@@ -6,7 +6,7 @@
  */
 
 import React, { useState } from 'react';
-import { aiSuggestionProvider } from '@lionpack/leo-client/src/lib/intelligence/ai-suggestions';
+import { aiSuggestionProvider } from '@lionpack/leo-client';
 import { ChatInput, MessageDisplay } from '../MorphicChat';
 
 export type DocType = 'jsdoc' | 'tsdoc' | 'readme';

@@ -8,10 +8,10 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { DocumentationGenerator } from '../DocumentationGenerator';
-import { aiSuggestionProvider } from '@lionpack/leo-client/src/lib/intelligence/ai-suggestions';
+import { aiSuggestionProvider } from '@lionpack/leo-client';
 
 // Mock the AI suggestion provider
-jest.mock('@lionpack/leo-client/src/lib/intelligence/ai-suggestions', () => ({
+jest.mock('@lionpack/leo-client', () => ({
   aiSuggestionProvider: {
     generateDocumentation: jest.fn(),
   },

@@ -1,6 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import { AnalysisEngine } from '@lionpack/leo-client/src/lib/intelligence/analysis-engine';
-import { CodeIssue, AnalysisResult } from '@lionpack/leo-client/src/lib/intelligence/types';
+import { AnalysisEngine, CodeIssue, AnalysisResult } from '@lionpack/leo-client';
 import { DocumentationGenerator } from '../CodeIntelligence';
 
 export interface CodeFile {

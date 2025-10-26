@@ -8,9 +8,10 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import CodeEditor from '../CodeEditor';
+import { AnalysisEngine } from '@lionpack/leo-client';
 
-// Mock the AnalysisEngine
-jest.mock('@lionpack/leo-client/src/lib/intelligence/analysis-engine', () => ({
+// Mock the Analysis Engine
+jest.mock('@lionpack/leo-client', () => ({
   AnalysisEngine: jest.fn().mockImplementation(() => ({
     analyzeCode: jest.fn().mockResolvedValue({
       issues: [
