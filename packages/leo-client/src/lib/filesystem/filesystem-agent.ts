@@ -179,12 +179,12 @@ export class FilesystemAgent {
     const normalizedPath = this.normalizePath(path);
     return this.config.allowedPaths.some((allowed) => {
       const normalizedAllowed = this.normalizePath(allowed);
-      
+
       // Special case: root path (/) allows everything
       if (normalizedAllowed === '') {
         return true;
       }
-      
+
       return (
         normalizedPath === normalizedAllowed ||
         normalizedPath.startsWith(normalizedAllowed + '/')

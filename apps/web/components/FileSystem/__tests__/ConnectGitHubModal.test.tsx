@@ -63,7 +63,7 @@ describe('ConnectGitHubModal', () => {
 
     it('should render all form fields', () => {
       render(<ConnectGitHubModal open={true} onClose={mockOnClose} />);
-      
+
       expect(screen.getByLabelText(/repository owner/i)).toBeInTheDocument();
       expect(screen.getByLabelText(/repository name/i)).toBeInTheDocument();
       expect(screen.getByLabelText(/branch/i)).toBeInTheDocument();
@@ -86,17 +86,17 @@ describe('ConnectGitHubModal', () => {
   describe('Form Interactions', () => {
     it('should update form fields on input', () => {
       render(<ConnectGitHubModal open={true} onClose={mockOnClose} />);
-      
+
       const ownerInput = screen.getByLabelText(/repository owner/i) as HTMLInputElement;
       const repoInput = screen.getByLabelText(/repository name/i) as HTMLInputElement;
       const branchInput = screen.getByLabelText(/branch/i) as HTMLInputElement;
       const tokenInput = screen.getByLabelText(/personal access token/i) as HTMLInputElement;
-      
+
       fireEvent.change(ownerInput, { target: { value: 'octocat' } });
       fireEvent.change(repoInput, { target: { value: 'Hello-World' } });
       fireEvent.change(branchInput, { target: { value: 'develop' } });
       fireEvent.change(tokenInput, { target: { value: 'ghp_test123' } });
-      
+
       expect(ownerInput.value).toBe('octocat');
       expect(repoInput.value).toBe('Hello-World');
       expect(branchInput.value).toBe('develop');
@@ -105,16 +105,16 @@ describe('ConnectGitHubModal', () => {
 
     it('should call onClose when close button clicked', () => {
       render(<ConnectGitHubModal open={true} onClose={mockOnClose} />);
-      
+
       const closeButton = screen.getByRole('button', { name: '' });
       fireEvent.click(closeButton);
-      
+
       expect(mockOnClose).toHaveBeenCalledTimes(1);
     });
 
     it('should call onClose when backdrop clicked', () => {
       render(<ConnectGitHubModal open={true} onClose={mockOnClose} />);
-      
+
       const backdrop = screen.getByText('Connect GitHub Repository').closest('div')?.parentElement;
       if (backdrop && backdrop.classList.contains('inset-0')) {
         fireEvent.click(backdrop);
@@ -127,20 +127,20 @@ describe('ConnectGitHubModal', () => {
     it('should call connectGitHub with form data on submit', async () => {
       mockConnectGitHub.mockResolvedValue(undefined);
       render(<ConnectGitHubModal open={true} onClose={mockOnClose} />);
-      
+
       const ownerInput = screen.getByLabelText(/repository owner/i);
       const repoInput = screen.getByLabelText(/repository name/i);
       const branchInput = screen.getByLabelText(/branch/i);
       const tokenInput = screen.getByLabelText(/personal access token/i);
-      
+
       fireEvent.change(ownerInput, { target: { value: 'octocat' } });
       fireEvent.change(repoInput, { target: { value: 'Hello-World' } });
       fireEvent.change(branchInput, { target: { value: 'main' } });
       fireEvent.change(tokenInput, { target: { value: 'ghp_test123' } });
-      
+
       const submitButton = screen.getByRole('button', { name: /connect/i });
       fireEvent.click(submitButton);
-      
+
       await waitFor(() => {
         expect(mockConnectGitHub).toHaveBeenCalledWith({
           owner: 'octocat',
@@ -157,24 +157,24 @@ describe('ConnectGitHubModal', () => {
         resolvePromise = resolve;
       });
       mockConnectGitHub.mockReturnValue(promise);
-      
+
       render(<ConnectGitHubModal open={true} onClose={mockOnClose} />);
-      
+
       const ownerInput = screen.getByLabelText(/repository owner/i);
       const repoInput = screen.getByLabelText(/repository name/i);
       const tokenInput = screen.getByLabelText(/personal access token/i);
-      
+
       fireEvent.change(ownerInput, { target: { value: 'octocat' } });
       fireEvent.change(repoInput, { target: { value: 'Hello-World' } });
       fireEvent.change(tokenInput, { target: { value: 'ghp_test123' } });
-      
+
       const submitButton = screen.getByRole('button', { name: /connect/i });
       fireEvent.click(submitButton);
-      
+
       await waitFor(() => {
         expect(screen.getByText(/connecting/i)).toBeInTheDocument();
       });
-      
+
       resolvePromise!();
     });
   });
@@ -194,7 +194,7 @@ describe('ConnectGitHubModal', () => {
           },
         })
       );
-      
+
       render(<ConnectGitHubModal open={true} onClose={mockOnClose} />);
       expect(screen.getByText(/invalid token/i)).toBeInTheDocument();
     });
@@ -204,7 +204,7 @@ describe('ConnectGitHubModal', () => {
     it('should redirect to OAuth login on OAuth button click', () => {
       // Store original location
       const originalLocation = window.location;
-      
+
       // Mock window.location.href setter
       delete (window as any).location;
       (window as any).location = { ...originalLocation, href: '' };
@@ -212,14 +212,14 @@ describe('ConnectGitHubModal', () => {
         writable: true,
         value: '',
       });
-      
+
       render(<ConnectGitHubModal open={true} onClose={mockOnClose} />);
-      
+
       const oauthButton = screen.getByRole('button', { name: /Sign in with GitHub/i });
       fireEvent.click(oauthButton);
-      
+
       expect(window.location.href).toBe('/api/auth/github/login');
-      
+
       // Restore original location
       (window as any).location = originalLocation;
     });
