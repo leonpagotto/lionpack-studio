@@ -1,0 +1,420 @@
+# LionPack Studio Constitution
+# Development Culture in a Box - Default Standards
+#
+# This file defines the DNA of LionPack Studio:
+# - Code standards (formatting, linting, architecture)
+# - UX principles (design system, accessibility)
+# - AI alignment (tone, preferences, learning)
+# - Workflow standards (git, issues, review)
+#
+# Users can customize this for their own projects.
+# Copy this template to start your own .lionpack/constitution.yml
+
+# =============================================================================
+# PROJECT METADATA
+# =============================================================================
+project:
+  name: "LionPack Studio"
+  type: "Next.js Web Application"
+  description: "AI-native collaborative IDE where speed meets structure"
+  repository: "https://github.com/leonpagotto/lionpack-studio"
+  team:
+    size: "1-4 developers"
+    roles:
+      - "Full-stack Developer"
+      - "UX/UI Designer"
+      - "AI Agent (Copilot/Gemini)"
+  stage: "MVP Development"
+  version: "0.1.0"
+
+# =============================================================================
+# TECHNICAL STACK
+# =============================================================================
+languages:
+  primary: "TypeScript"
+  secondary:
+    - "JavaScript"
+    - "CSS"
+    - "Markdown"
+  versions:
+    node: ">=18.0.0"
+    typescript: ">=5.0.0"
+  frameworks:
+    - "Next.js 14"
+    - "React 18"
+    - "Tailwind CSS 3"
+    - "Jest (testing)"
+  package_manager: "npm"
+
+# =============================================================================
+# CODE STANDARDS
+# =============================================================================
+code_standards:
+  formatting:
+    tool: "Prettier"
+    config:
+      semi: true
+      singleQuote: true
+      tabWidth: 2
+      trailingComma: "es5"
+      printWidth: 100
+  
+  linting:
+    tool: "ESLint"
+    extends:
+      - "eslint:recommended"
+      - "next/core-web-vitals"
+      - "plugin:@typescript-eslint/recommended"
+    rules:
+      no-unused-vars: "warn"
+      no-console: "warn"
+  
+  architecture:
+    pattern: "Layered Architecture"
+    folder_structure: |
+      components/       # UI components (Atomic Design)
+        atoms/          # Basic building blocks
+        molecules/      # Simple combinations
+        organisms/      # Complex combinations
+        templates/      # Page layouts
+      pages/            # Next.js pages
+      lib/              # Utility functions
+      services/         # API integrations
+      hooks/            # Custom React hooks
+      types/            # TypeScript types
+  
+  naming:
+    components: "PascalCase"
+    files: "kebab-case"
+    functions: "camelCase"
+    constants: "UPPER_SNAKE_CASE"
+    css_classes: "kebab-case"
+  
+  component_style: "functional" # Prefer functional components over class components
+  
+  prefer:
+    - "TypeScript over JavaScript"
+    - "Functional components over class components"
+    - "Named exports over default exports (except pages/)"
+    - "Async/await over .then() promises"
+    - "const over let (avoid var)"
+    - "Template literals over string concatenation"
+  
+  avoid:
+    - "any type (use unknown or specific types)"
+    - "Inline styles (use Tailwind classes)"
+    - "Large components (> 300 lines - split into smaller ones)"
+    - "Deeply nested ternaries (max 2 levels)"
+
+# =============================================================================
+# TESTING STANDARDS
+# =============================================================================
+testing:
+  framework: "Jest + React Testing Library"
+  coverage:
+    minimum: 80
+    target: 90
+    critical_paths: 100
+  test_types:
+    - "unit" # Test individual functions/components
+    - "integration" # Test component interactions
+    - "e2e" # Test user workflows (Playwright/Cypress)
+  conventions:
+    file_pattern: "*.test.ts or *.test.tsx"
+    describe: "Component/Function name"
+    it: "should [expected behavior]"
+  
+  requirements:
+    - "Every component should have tests"
+    - "Every API endpoint should have tests"
+    - "Every utility function should have tests"
+    - "Use test factories for mock data"
+    - "Follow AAA pattern (Arrange, Act, Assert)"
+
+# =============================================================================
+# UX/UI PRINCIPLES
+# =============================================================================
+ux_principles:
+  design_system: "Material Design 3 (inspired)"
+  principles:
+    - "Mobile-first responsive design"
+    - "Accessibility is mandatory (WCAG 2.1 AA)"
+    - "Consistency over customization"
+    - "Progressive disclosure (don't overwhelm)"
+  
+  component_architecture: "Atomic Design"
+  
+  tokens:
+    colors:
+      primary: "#2563eb" # Blue
+      secondary: "#64748b" # Slate
+      success: "#10b981" # Green
+      warning: "#f59e0b" # Amber
+      error: "#ef4444" # Red
+      background: "#ffffff" # White
+      background_dark: "#0f172a" # Dark slate
+    
+    spacing:
+      base: "4px"
+      scale: [0, 4, 8, 12, 16, 24, 32, 48, 64, 96, 128]
+    
+    typography:
+      font_family: "Inter, system-ui, sans-serif"
+      font_sizes:
+        xs: "12px"
+        sm: "14px"
+        base: "16px"
+        lg: "18px"
+        xl: "20px"
+        "2xl": "24px"
+        "3xl": "30px"
+        "4xl": "36px"
+    
+    breakpoints:
+      mobile: "320px"
+      tablet: "768px"
+      laptop: "1024px"
+      desktop: "1440px"
+      wide: "1920px"
+  
+  interactions:
+    max_click_depth: 3 # Max 3 clicks to reach any feature
+    button_min_size: "44x44px" # Minimum touch target
+    animation_duration: "200ms"
+    transition: "ease-in-out"
+  
+  dark_mode:
+    enabled: true
+    default: "system" # or "light" or "dark"
+    toggle_visible: true
+
+# =============================================================================
+# ACCESSIBILITY REQUIREMENTS
+# =============================================================================
+accessibility:
+  compliance: "WCAG 2.1 AA"
+  requirements:
+    - "Minimum color contrast ratio 4.5:1 (normal text)"
+    - "Minimum color contrast ratio 3:1 (large text, UI components)"
+    - "All interactive elements keyboard accessible"
+    - "Semantic HTML (header, nav, main, aside, footer)"
+    - "Alt text for all images"
+    - "ARIA labels for custom components"
+    - "Form labels properly associated"
+    - "Focus indicators visible"
+    - "Skip to main content link"
+    - "Responsive text (no fixed pixel sizes)"
+  
+  tools:
+    - "axe DevTools (Chrome extension)"
+    - "Lighthouse accessibility audit"
+    - "Screen reader testing (VoiceOver/NVDA)"
+
+# =============================================================================
+# PERFORMANCE STANDARDS
+# =============================================================================
+performance:
+  web_vitals:
+    lcp: "< 2.5s" # Largest Contentful Paint
+    fid: "< 100ms" # First Input Delay
+    cls: "< 0.1" # Cumulative Layout Shift
+  
+  lighthouse:
+    performance: 90
+    accessibility: 95
+    best_practices: 90
+    seo: 95
+  
+  bundle:
+    max_js: "500KB" # Maximum JavaScript bundle size
+    max_css: "100KB" # Maximum CSS bundle size
+    code_splitting: true
+    lazy_loading: true
+  
+  images:
+    format: "WebP with fallback"
+    lazy_loading: true
+    dimensions: "Always specify width and height"
+    responsive: "Use srcset for multiple sizes"
+  
+  caching:
+    static_assets: "1 year"
+    api_responses: "5 minutes (stale-while-revalidate)"
+
+# =============================================================================
+# AI ALIGNMENT (How AI agents should behave)
+# =============================================================================
+ai_alignment:
+  tone: "professional, friendly, concise"
+  code_generation:
+    comment_density: "moderate" # Add comments for complex logic
+    explain_complex: true # Explain non-obvious code
+    include_tests: true # Always generate tests
+    prefer_readability: true # Favor clarity over cleverness
+  
+  when_uncertain:
+    - "Ask clarifying questions"
+    - "Provide multiple options"
+    - "Default to simpler solution"
+    - "Reference constitution standards"
+  
+  learning:
+    track_preferences: true # Remember user coding style
+    suggest_improvements: true # Suggest better patterns
+    explain_reasoning: true # Explain why suggesting changes
+  
+  security:
+    - "Never include API keys or secrets in code"
+    - "Always validate user input"
+    - "Use parameterized queries (no SQL injection)"
+    - "Sanitize output (no XSS)"
+    - "Implement rate limiting for APIs"
+
+# =============================================================================
+# WORKFLOW STANDARDS
+# =============================================================================
+workflow:
+  git:
+    branch_strategy: "Feature Branch Workflow"
+    branch_naming: "feature/story-X.Y-description"
+    commit_format: "type(scope): message (#issue)"
+    commit_types:
+      - "feat" # New feature
+      - "fix" # Bug fix
+      - "docs" # Documentation
+      - "style" # Formatting (no code change)
+      - "refactor" # Code restructuring
+      - "test" # Add/update tests
+      - "chore" # Maintenance
+    commit_message_max_length: 72
+  
+  issues:
+    auto_create: true # LEO Kit auto-creates issues
+    status_updates: true # Comment on issues with progress
+    link_to_commits: true # Reference issue numbers in commits
+  
+  code_review:
+    required_approvals: 1
+    automated_checks:
+      - "Tests must pass"
+      - "Linting must pass"
+      - "Coverage >= 80%"
+      - "Build succeeds"
+    review_focus:
+      - "Code quality and readability"
+      - "Test coverage"
+      - "Security concerns"
+      - "Performance implications"
+      - "Accessibility compliance"
+
+# =============================================================================
+# DEPLOYMENT STANDARDS
+# =============================================================================
+deployment:
+  platform: "Vercel"
+  environments:
+    development:
+      url: "http://localhost:3000"
+      auto_deploy: false
+    staging:
+      url: "https://staging.lionpack.studio"
+      auto_deploy: true # Deploy on push to main
+      branch: "main"
+    production:
+      url: "https://lionpack.studio"
+      auto_deploy: false # Manual promotion from staging
+      branch: "production"
+  
+  ci_cd:
+    tool: "GitHub Actions"
+    on_pull_request:
+      - "Run tests"
+      - "Run linting"
+      - "Build preview"
+      - "Check coverage"
+    on_merge_to_main:
+      - "Deploy to staging"
+      - "Run E2E tests"
+      - "Notify team"
+  
+  monitoring:
+    uptime: "Uptime Robot"
+    errors: "Sentry"
+    analytics: "Vercel Analytics"
+
+# =============================================================================
+# DOCUMENTATION STANDARDS
+# =============================================================================
+documentation:
+  code:
+    - "JSDoc for all public functions"
+    - "TSDoc for TypeScript"
+    - "Inline comments for complex logic"
+    - "README in each package/"
+  
+  api:
+    - "OpenAPI/Swagger for REST APIs"
+    - "GraphQL schema documentation"
+    - "Example requests/responses"
+  
+  user:
+    - "Getting Started guide"
+    - "Feature tutorials"
+    - "Troubleshooting FAQ"
+    - "API reference"
+
+# =============================================================================
+# EXTERNAL DEPENDENCIES
+# =============================================================================
+dependencies:
+  policy: "Evaluate carefully, prefer well-maintained"
+  updates: "Review monthly, security patches immediately"
+  
+  approved:
+    - "next"
+    - "react"
+    - "tailwindcss"
+    - "@types/*"
+    - "jest"
+    - "typescript"
+  
+  restricted:
+    - "moment.js (use date-fns instead - smaller)"
+    - "lodash (use individual packages)"
+
+# =============================================================================
+# CUSTOM RULES (Project-Specific)
+# =============================================================================
+custom_rules:
+  constitution_system:
+    - "All AI agents MUST read this file before generating code"
+    - "Code generation must align with these standards"
+    - "Users can customize this file for their projects"
+    - "Community templates available in marketplace (planned)"
+  
+  speed_meets_structure:
+    - "Fast iteration does NOT mean low quality"
+    - "Standards enforcement is automatic, not manual"
+    - "Developer happiness is a success metric"
+
+# =============================================================================
+# VERSION HISTORY
+# =============================================================================
+version_history:
+  - version: "1.0.0"
+    date: "2025-10-26"
+    changes: "Initial constitution for LionPack Studio"
+    author: "Leo de Souza + GitHub Copilot"
+
+# =============================================================================
+# NOTES
+# =============================================================================
+# This constitution is:
+# - Living document (evolves with project)
+# - User-editable (customize for your needs)
+# - AI-readable (agents enforce standards automatically)
+# - Community-shareable (templates for different project types)
+#
+# Learn more: docs/CONSTITUTION_TEMPLATE.md
+# Vision: docs/VISION.md
+# =============================================================================
