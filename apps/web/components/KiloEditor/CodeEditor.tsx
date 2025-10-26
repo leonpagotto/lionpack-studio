@@ -292,7 +292,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ file, isLoading, enableIntellig
                 fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
               }}
             />
-            
+
             {/* Syntax highlighted overlay (read-only, for display) */}
             <div className="pointer-events-none absolute inset-0 font-mono text-sm text-transparent bg-transparent p-4 leading-6 overflow-hidden">
               {highlightedLines}

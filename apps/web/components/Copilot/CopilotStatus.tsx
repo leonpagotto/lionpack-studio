@@ -1,6 +1,6 @@
 /**
  * CopilotStatus Component
- * 
+ *
  * Shows Copilot authentication and activity status
  * Displays in status bar with indicator
  */

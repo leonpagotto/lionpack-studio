@@ -1,6 +1,6 @@
 /**
  * useCopilot Hook
- * 
+ *
  * React hook for getting AI-powered code completions
  */
 
@@ -79,7 +79,7 @@ export const useCopilot = (
       }
 
       const data = await response.json();
-      
+
       if (data.completions && data.completions.length > 0) {
         setCompletion(data.completions[0]);
       } else {
@@ -90,7 +90,7 @@ export const useCopilot = (
         // Request was aborted, ignore
         return;
       }
-      
+
       setError(err instanceof Error ? err.message : 'Failed to fetch completion');
       setCompletion(null);
     } finally {

@@ -1,6 +1,6 @@
 /**
  * InlineSuggestion Component
- * 
+ *
  * Displays Copilot-style inline code suggestions
  * Shows ghost text that can be accepted with Tab or rejected with Esc
  */
