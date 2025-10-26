@@ -29,16 +29,44 @@ export interface GeneratedCode {
 interface ChatContainerProps {
   onCodeGenerated?: (code: GeneratedCode) => void;
   apiEndpoint?: string;
+  provider?: 'gemini' | 'claude' | 'gpt';
 }
 
 const ChatContainer: React.FC<ChatContainerProps> = ({
   onCodeGenerated,
-  apiEndpoint = '/api/generate-code',
+  apiEndpoint = '/api/chat',
+  provider = 'gemini',
 }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesRef = useRef<Message[]>([]);
+
+  // Keep ref in sync with state
+  useEffect(() => {
+    messagesRef.current = messages;
+  }, [messages]);
+
+  // System message to guide AI for code generation
+  const systemMessage = {
+    role: 'system' as const,
+    content: `You are an expert software developer assistant in LionPack Studio. 
+Your role is to help users:
+1. Generate clean, well-structured code
+2. Provide code examples and explanations
+3. Suggest best practices and improvements
+4. Answer technical questions
+
+When generating code:
+- Use TypeScript by default
+- Follow modern best practices
+- Include helpful comments
+- Provide working, tested examples
+- Consider edge cases and error handling
+
+Be concise but thorough. Format code in markdown code blocks with language identifiers.`
+  };
 
   // Auto-scroll to bottom on new messages
   useEffect(() => {
@@ -62,20 +90,37 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
       setError(null);
 
       try {
-        // Call generate-code API with streaming
+        // Build conversation history using ref for current state
+        const conversationMessages = [
+          systemMessage,
+          ...messagesRef.current.map(msg => ({
+            role: msg.role,
+            content: msg.content
+          })),
+          {
+            role: 'user' as const,
+            content
+          }
+        ];
+
+        // Call chat API with streaming
         const response = await fetch(apiEndpoint, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            prompt: content,
-            model: 'claude-3-5-sonnet-20241022',
+            messages: conversationMessages,
+            provider,
+            stream: true,
+            temperature: 0.7,
+            maxTokens: 2048,
           }),
         });
 
         if (!response.ok) {
-          throw new Error(`API error: ${response.statusText}`);
+          const errorData = await response.json().catch(() => ({}));
+          throw new Error(errorData.error || `API error: ${response.statusText}`);
         }
 
         // Handle streaming response
@@ -93,21 +138,35 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
         };
 
         let isFirstChunk = true;
+        let buffer = '';
 
         while (true) {
           const { done, value } = await reader.read();
           if (done) break;
 
-          const chunk = decoder.decode(value);
-          const lines = chunk.split('\n');
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split('\n');
+
+          // Keep the last incomplete line in the buffer
+          buffer = lines.pop() || '';
 
           for (const line of lines) {
             if (line.startsWith('data: ')) {
-              try {
-                const data = JSON.parse(line.slice(6));
+              const data = line.slice(6);
 
-                if (data.type === 'text') {
-                  assistantMessage.content += data.content;
+              if (data === '[DONE]') {
+                continue;
+              }
+
+              try {
+                const parsed = JSON.parse(data);
+
+                if (parsed.error) {
+                  throw new Error(parsed.error);
+                }
+
+                if (parsed.content) {
+                  assistantMessage.content += parsed.content;
 
                   if (isFirstChunk) {
                     setMessages((prev) => [...prev, assistantMessage]);
@@ -124,19 +183,9 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
                       return newMessages;
                     });
                   }
-                } else if (data.type === 'code') {
-                  // Parse generated code
-                  try {
-                    const generatedCode = JSON.parse(data.content);
-                    if (onCodeGenerated) {
-                      onCodeGenerated(generatedCode);
-                    }
-                  } catch {
-                    // Code might not be valid JSON initially
-                  }
                 }
-              } catch {
-                // Skip invalid JSON lines
+              } catch (parseError) {
+                console.warn('Failed to parse SSE data:', data, parseError);
               }
             }
           }
@@ -159,7 +208,7 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
         setMessages((prev) => [...prev, errorMsg]);
       }
     },
-    [apiEndpoint, onCodeGenerated]
+    [apiEndpoint, provider, onCodeGenerated]
   );
 
   return (
