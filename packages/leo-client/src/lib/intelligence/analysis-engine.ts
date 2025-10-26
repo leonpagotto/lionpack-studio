@@ -452,24 +452,24 @@ export class AnalysisEngine {
    */
   private generateSuggestions(issues: CodeIssue[], metrics: CodeMetrics): string[] {
     const suggestions: string[] = [];
-    
+
     if (metrics.complexity > 5) {
       suggestions.push('Consider breaking down complex functions into smaller ones');
     }
-    
+
     if (metrics.securityScore < 80) {
       suggestions.push('Address security vulnerabilities to improve code safety');
     }
-    
+
     if (metrics.maintainabilityIndex < 60) {
       suggestions.push('Refactor code to improve maintainability');
     }
-    
+
     const errorCount = issues.filter(i => i.type === 'error').length;
     if (errorCount > 0) {
       suggestions.push(`Fix ${errorCount} critical error${errorCount > 1 ? 's' : ''} before proceeding`);
     }
-    
+
     return suggestions;
   }  /**
    * Helper: Wrap code in try-catch block

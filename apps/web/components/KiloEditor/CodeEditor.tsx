@@ -1,4 +1,6 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
+import { AnalysisEngine } from '@lionpack/leo-client/src/lib/intelligence/analysis-engine';
+import { CodeIssue, AnalysisResult } from '@lionpack/leo-client/src/lib/intelligence/types';
 
 export interface CodeFile {
   path: string;
@@ -12,11 +14,50 @@ interface CodeEditorProps {
 }
 
 // Simple syntax highlighting function for common languages
-const highlightCode = (code: string, language: string): React.ReactNode[] => {
+const highlightCode = (code: string, language: string, issues: CodeIssue[] = []): React.ReactNode[] => {
   const lines = code.split('\n');
   const highlighted: React.ReactNode[] = [];
 
+  const getIssuesForLine = (lineNum: number): CodeIssue[] => {
+    return issues.filter(issue => issue.line === lineNum);
+  };
+
+  const getIssueBadge = (type: CodeIssue['type']): string => {
+    switch (type) {
+      case 'error':
+        return '🔴';
+      case 'warning':
+        return '🟡';
+      case 'suggestion':
+        return '🔵';
+      case 'info':
+        return '⚪';
+      default:
+        return '⚪';
+    }
+  };
+
+  const getUnderlineClass = (type: CodeIssue['type']): string => {
+    switch (type) {
+      case 'error':
+        return 'border-b-2 border-red-500 border-dotted';
+      case 'warning':
+        return 'border-b-2 border-yellow-500 border-dotted';
+      case 'suggestion':
+        return 'border-b-2 border-blue-500 border-dotted';
+      case 'info':
+        return 'border-b-2 border-gray-500 border-dotted';
+      default:
+        return '';
+    }
+  };
+
   lines.forEach((line, idx) => {
+    const lineNum = idx + 1;
+    const lineIssues = getIssuesForLine(lineNum);
+    const hasIssues = lineIssues.length > 0;
+    const mostSevereIssue = lineIssues[0];
+
     const processed = line
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
@@ -26,15 +67,23 @@ const highlightCode = (code: string, language: string): React.ReactNode[] => {
     highlighted.push(
       <div
         key={idx}
-        className="flex"
+        className="flex group hover:bg-slate-100 dark:hover:bg-slate-800/50"
+        title={hasIssues ? lineIssues.map(i => i.message).join('\n') : undefined}
         style={{
           color: isCommentLine(processed) ? '#6B7280' : 'inherit',
         }}
       >
-        <span className="select-none w-12 text-right pr-4 text-slate-500 dark:text-slate-600 bg-slate-50 dark:bg-slate-900 text-xs">
+        <span className="select-none w-12 text-right pr-4 text-slate-500 dark:text-slate-600 bg-slate-50 dark:bg-slate-900 text-xs flex items-center justify-end gap-1">
+          {hasIssues && (
+            <span className="text-xs">{getIssueBadge(mostSevereIssue.type)}</span>
+          )}
           {idx + 1}
         </span>
-        <span className="flex-1 text-sm font-mono">
+        <span
+          className={`flex-1 text-sm font-mono ${
+            hasIssues ? getUnderlineClass(mostSevereIssue.type) : ''
+          }`}
+        >
           {processLine(processed, language)}
         </span>
       </div>
@@ -129,11 +178,52 @@ const processLine = (line: string, language: string): React.ReactNode => {
   return <span dangerouslySetInnerHTML={{ __html: result }} />;
 };
 
-const CodeEditor: React.FC<CodeEditorProps> = ({ file, isLoading }) => {
+interface CodeEditorProps {
+  file: CodeFile | null;
+  isLoading?: boolean;
+  enableIntelligence?: boolean;
+}
+
+const CodeEditor: React.FC<CodeEditorProps> = ({ file, isLoading, enableIntelligence = true }) => {
+  const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const analysisEngine = useMemo(() => new AnalysisEngine(), []);
+
+  // Run analysis when file changes
+  useEffect(() => {
+    if (!file || !enableIntelligence) {
+      setAnalysis(null);
+      return;
+    }
+
+    const runAnalysis = async () => {
+      setIsAnalyzing(true);
+      try {
+        const result = await analysisEngine.analyzeCode(file.content, {
+          language: file.language,
+          includeSecurity: true,
+          includePerformance: true,
+          includeStyle: true,
+          includeAccessibility: true,
+        });
+        setAnalysis(result);
+      } catch (error) {
+        console.error('Analysis error:', error);
+        setAnalysis(null);
+      } finally {
+        setIsAnalyzing(false);
+      }
+    };
+
+    // Debounce analysis
+    const timeoutId = setTimeout(runAnalysis, 500);
+    return () => clearTimeout(timeoutId);
+  }, [file, enableIntelligence, analysisEngine]);
+
   const highlightedLines = useMemo(() => {
     if (!file) return [];
-    return highlightCode(file.content, file.language);
-  }, [file]);
+    return highlightCode(file.content, file.language, analysis?.issues || []);
+  }, [file, analysis]);
 
   return (
     <div className="flex flex-col h-full bg-white dark:bg-slate-950 rounded-lg border border-slate-200 dark:border-slate-800">
@@ -176,10 +266,65 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ file, isLoading }) => {
         )}
       </div>
 
-      {/* Footer */}
+      {/* Footer with metrics */}
       {file && (
-        <div className="flex-shrink-0 px-4 py-2 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400">
-          {file.content.split('\n').length} lines
+        <div className="flex-shrink-0 px-4 py-2 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400 flex items-center gap-4">
+          <span>{file.content.split('\n').length} lines</span>
+
+          {enableIntelligence && analysis && (
+            <>
+              <span className="text-slate-300 dark:text-slate-700">|</span>
+              <span className={`flex items-center gap-1 ${analysis.metrics.complexity > 10 ? 'text-orange-600 dark:text-orange-400' : ''}`}>
+                Complexity: {analysis.metrics.complexity}
+              </span>
+              <span className="text-slate-300 dark:text-slate-700">|</span>
+              <span>
+                Maintainability: {analysis.metrics.maintainabilityIndex}/100
+              </span>
+              <span className="text-slate-300 dark:text-slate-700">|</span>
+              <span className={`${analysis.metrics.securityScore < 80 ? 'text-red-600 dark:text-red-400' : 'text-green-600 dark:text-green-400'}`}>
+                Security: {analysis.metrics.securityScore}/100
+              </span>
+
+              {analysis.issues.length > 0 && (
+                <>
+                  <span className="text-slate-300 dark:text-slate-700">|</span>
+                  <span className="flex items-center gap-2">
+                    {analysis.metrics.issues.critical > 0 && (
+                      <span className="text-red-600 dark:text-red-400">
+                        🔴 {analysis.metrics.issues.critical}
+                      </span>
+                    )}
+                    {analysis.metrics.issues.high > 0 && (
+                      <span className="text-orange-600 dark:text-orange-400">
+                        🟡 {analysis.metrics.issues.high}
+                      </span>
+                    )}
+                    {analysis.metrics.issues.medium > 0 && (
+                      <span className="text-yellow-600 dark:text-yellow-400">
+                        🟡 {analysis.metrics.issues.medium}
+                      </span>
+                    )}
+                    {analysis.metrics.issues.low > 0 && (
+                      <span className="text-blue-600 dark:text-blue-400">
+                        🔵 {analysis.metrics.issues.low}
+                      </span>
+                    )}
+                  </span>
+                </>
+              )}
+            </>
+          )}
+
+          {isAnalyzing && (
+            <>
+              <span className="text-slate-300 dark:text-slate-700">|</span>
+              <span className="flex items-center gap-1">
+                <div className="w-3 h-3 border-2 border-slate-300 dark:border-slate-700 border-t-blue-500 rounded-full animate-spin" />
+                Analyzing...
+              </span>
+            </>
+          )}
         </div>
       )}
     </div>
