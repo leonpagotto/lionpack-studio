@@ -43,6 +43,15 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesRef = useRef<Message[]>([]);
 
+  // Suggested prompts for new users
+  const suggestedPrompts = [
+    "Create a React button component with hover effects",
+    "Write a TypeScript function to validate email addresses",
+    "Generate a simple todo list component",
+    "Explain how async/await works in JavaScript",
+    "Create a REST API endpoint with error handling",
+  ];
+
   // Keep ref in sync with state
   useEffect(() => {
     messagesRef.current = messages;
@@ -51,7 +60,7 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
   // System message to guide AI for code generation
   const systemMessage = {
     role: 'system' as const,
-    content: `You are an expert software developer assistant in LionPack Studio. 
+    content: `You are an expert software developer assistant in LionPack Studio.
 Your role is to help users:
 1. Generate clean, well-structured code
 2. Provide code examples and explanations
@@ -212,28 +221,67 @@ Be concise but thorough. Format code in markdown code blocks with language ident
   );
 
   return (
-    <div className="flex flex-col h-full bg-white dark:bg-slate-950 rounded-lg border border-slate-200 dark:border-slate-800">
+    <div className="flex flex-col h-full bg-slate-950 rounded-lg border border-slate-800 shadow-2xl">
       {/* Header */}
-      <div className="flex-shrink-0 px-4 py-3 border-b border-slate-200 dark:border-slate-800">
-        <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
-          Code Generator
-        </h2>
-        <p className="text-sm text-slate-600 dark:text-slate-400">
-          Describe what you want to build
-        </p>
+      <div className="flex-shrink-0 px-6 py-4 border-b border-slate-800 bg-gradient-to-r from-slate-900 to-slate-800">
+        <div className="flex items-center justify-between">
+          <div>
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                <span className="text-lg">🤖</span>
+              </div>
+              <div>
+                <h2 className="text-lg font-bold text-white">
+                  AI Assistant
+                </h2>
+                <p className="text-xs text-slate-400">
+                  Powered by Google Gemini
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="px-3 py-1 bg-green-500/10 border border-green-500/20 rounded-full flex items-center gap-2">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+              <span className="text-xs text-green-400 font-medium">Online</span>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4">
+      <div className="flex-1 overflow-y-auto px-6 py-6">
         {messages.length === 0 ? (
-          <div className="flex items-center justify-center h-full text-center">
+          <div className="flex flex-col items-center justify-center h-full text-center space-y-6">
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg">
+              <span className="text-3xl">✨</span>
+            </div>
             <div>
-              <p className="text-slate-500 dark:text-slate-400 mb-2">
-                Start by describing your code requirements
+              <h3 className="text-xl font-bold text-white mb-2">
+                Let's build something amazing!
+              </h3>
+              <p className="text-slate-400 mb-4 max-w-md">
+                Describe what you want to create, and I'll help you generate clean, production-ready code.
               </p>
-              <p className="text-xs text-slate-400 dark:text-slate-500">
-                E.g., "Create a React button component with hover effects"
+            </div>
+
+            {/* Suggested Prompts */}
+            <div className="w-full max-w-2xl space-y-3">
+              <p className="text-xs text-slate-500 uppercase tracking-wide font-semibold">
+                Try these prompts
               </p>
+              <div className="grid gap-2">
+                {suggestedPrompts.slice(0, 3).map((prompt, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleSendMessage(prompt)}
+                    disabled={isLoading}
+                    className="px-4 py-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-blue-500/50 rounded-lg text-left text-sm text-slate-300 transition-all duration-200 hover:scale-[1.02]"
+                  >
+                    {prompt}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         ) : (
@@ -246,17 +294,30 @@ Be concise but thorough. Format code in markdown code blocks with language ident
 
       {/* Error Display */}
       {error && (
-        <div className="mx-4 mb-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-          <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+        <div className="mx-6 mb-4 p-4 bg-red-500/10 border border-red-500/20 rounded-lg backdrop-blur-sm">
+          <div className="flex items-start gap-3">
+            <span className="text-red-400 text-xl">⚠️</span>
+            <div className="flex-1">
+              <p className="text-sm font-medium text-red-400 mb-1">Something went wrong</p>
+              <p className="text-xs text-red-300/80">{error}</p>
+            </div>
+            <button
+              onClick={() => setError(null)}
+              className="text-red-400 hover:text-red-300 transition-colors"
+            >
+              ✕
+            </button>
+          </div>
         </div>
       )}
 
       {/* Input Area */}
-      <div className="flex-shrink-0 px-4 py-4 border-t border-slate-200 dark:border-slate-800">
+      <div className="flex-shrink-0 px-6 py-4 border-t border-slate-800 bg-slate-900/50 backdrop-blur-sm">
         <ChatInput
           onSendMessage={handleSendMessage}
           isLoading={isLoading}
           disabled={isLoading}
+          placeholder="Describe what you want to build... (Shift+Enter for new line)"
         />
       </div>
     </div>
