@@ -13,7 +13,8 @@
 > - ✅ **Story 3.9 Complete** — Morphic chat + Kilo Code editor UI with Tailwind CSS styling
 > - ✅ **Story 3.10 Complete** — Multi-AI Provider Support with Gemini integration
 > - ✅ **Story 3.12 Complete** — Context-Aware AI Chat with FilesystemAgent integration (21/21 tests passing)
-> - 🚀 **Next Up:** Story 3.13 (GitHub Integration Enhancement), PR/Issue management in chat
+> - ✅ **Story 3.13 Complete** — GitHub Integration with PR/Issue/Branch management (41/41 tests passing)
+> - 🚀 **Next Up:** Story 3.14 (Advanced Git Operations), Commit management and conflict resolution
 > - 🎨 **Demo:** http://localhost:3000/demo/ai-chat
 
 ## 🧭 Vision
@@ -160,7 +161,53 @@ open http://localhost:3000/demo/professional-workflow
 
 **Documentation:** [AI_PROVIDERS.md](docs/AI_PROVIDERS.md)
 
-### Story 3.12: Context-Aware AI Chat ✅ (NEW!)
+### Story 3.13: GitHub Integration Enhancement ✅ (NEW!)
+
+**AI-Powered GitHub Operations**
+
+Create and manage GitHub resources directly from AI chat with approval workflow.
+
+- ✅ **PR Management** — Create, list, merge, close pull requests
+  - Draft PR support with reviewers and assignees
+  - Conventional commit message generation
+  - Squash/merge/rebase strategies
+- ✅ **Issue Management** — Create, update, close issues with labels
+  - Auto-linking to PRs and milestones
+  - Comment threads
+- ✅ **Branch Operations** — Create, delete, compare branches
+  - Branch protection awareness
+  - Ahead/behind commit tracking
+- ✅ **Approval Workflow** — All operations require user approval
+  - Preview panel with operation details
+  - Approve/Reject buttons
+  - Success/error messaging in chat
+- ✅ **GitHub Actions** — View workflow runs and status
+
+**Example Usage:**
+
+```
+User: "Create a PR to merge feature/auth into main"
+AI: I'll create a pull request for you.
+
+<github_pr title="feat: Add OAuth2 authentication" base="main" head="feature/auth">
+Implements Google and GitHub OAuth providers...
+</github_pr>
+
+[Shows approval UI → User clicks Approve → PR created]
+✅ Created PR #42: feat: Add OAuth2 authentication
+```
+
+**Testing**
+
+- 41/41 unit tests passing (100%)
+- GitHubService fully tested (PR, Issue, Branch, Commit operations)
+- Error handling (auth failures, rate limits, network errors)
+
+**Tech Stack:** @octokit/rest, TypeScript, React approval UI
+
+**Documentation:** [STORY_3.13_COMPLETE.md](STORY_3.13_COMPLETE.md)
+
+### Story 3.12: Context-Aware AI Chat ✅
 
 **Chat Features**
 
@@ -182,14 +229,14 @@ open http://localhost:3000/demo/professional-workflow
 
 ### Coming Soon 🚀
 
-**Story 3.13: GitHub Integration Enhancement**
+**Story 3.14: Advanced Git Operations**
 
-- PR review directly in chat
-- Issue creation from chat conversations
-- Commit messages from chat
-- Branch management UI
-- GitHub Actions status in chat
-- Code review workflow integration
+- Multi-commit operations in chat
+- Conflict resolution assistance
+- Cherry-pick and rebase support
+- PR review comments and suggestions
+- Code diff visualization
+- Commit history navigation
 
 **Story 3.11: File System Integration** ([#23](https://github.com/leonpagotto/lionpack-studio/issues/23))
 
