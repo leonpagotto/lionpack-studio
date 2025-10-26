@@ -158,6 +158,7 @@ Built on open tools, open standards, and open collaboration.
 Delightful design, ambient experience, and joyful creation.
 
 **In Practice:**
+
 - Clean, intuitive UI (Next.js + Tailwind)
 - Ambient AI assistance (suggestions, not interruptions)
 - Joyful developer experience (fast feedback loops, clear errors)
@@ -167,16 +168,19 @@ Delightful design, ambient experience, and joyful creation.
 ## Target Audience
 
 ### Primary: Solo Founders & Indie Developers
+
 - **Profile**: 1-2 person teams building SaaS, mobile apps, or open-source projects
 - **Pain Point**: Juggling 10+ tools (IDE, GitHub, Jira, Slack, Deploy, etc.)
 - **Solution**: Unified environment with AI handling workflow coordination
 
 ### Secondary: Small AI-Native Startups
+
 - **Profile**: 3-5 person early-stage teams
 - **Pain Point**: Need enterprise-level quality without enterprise-level processes
 - **Solution**: Constitution enforces standards automatically, AI maintains consistency
 
 ### Tertiary: Open Source Maintainers
+
 - **Profile**: Community-driven projects needing contributor coordination
 - **Pain Point**: Inconsistent contributions, lack of documentation, manual review overhead
 - **Solution**: AI agents enforce contribution guidelines, auto-generate docs, assist reviews
@@ -185,14 +189,14 @@ Delightful design, ambient experience, and joyful creation.
 
 ## Competitive Positioning
 
-| Feature | LionPack Studio | GitHub Codespaces | Replit | Cursor |
-|---------|----------------|-------------------|--------|---------|
-| **AI-Native Workflow** | ✅ Multi-agent orchestration | ❌ Generic Copilot | ⚠️ Single agent | ⚠️ Single agent |
-| **GitHub Integration** | ✅ First-class (issues, projects) | ✅ Native | ⚠️ Import only | ❌ Manual sync |
-| **Constitution System** | ✅ Project-specific AI rules | ❌ None | ❌ None | ❌ None |
-| **Browser-Based** | ✅ Full web IDE | ✅ VS Code in browser | ✅ Full IDE | ❌ Desktop only |
-| **Pricing** | 🎯 Indie-friendly | 💰 Enterprise focus | 💰 Per-seat pricing | 💰 Premium tier |
-| **Open Source** | ✅ MIT License | ❌ Proprietary | ❌ Proprietary | ❌ Proprietary |
+| Feature                 | LionPack Studio                   | GitHub Codespaces     | Replit              | Cursor          |
+| ----------------------- | --------------------------------- | --------------------- | ------------------- | --------------- |
+| **AI-Native Workflow**  | ✅ Multi-agent orchestration      | ❌ Generic Copilot    | ⚠️ Single agent     | ⚠️ Single agent |
+| **GitHub Integration**  | ✅ First-class (issues, projects) | ✅ Native             | ⚠️ Import only      | ❌ Manual sync  |
+| **Constitution System** | ✅ Project-specific AI rules      | ❌ None               | ❌ None             | ❌ None         |
+| **Browser-Based**       | ✅ Full web IDE                   | ✅ VS Code in browser | ✅ Full IDE         | ❌ Desktop only |
+| **Pricing**             | 🎯 Indie-friendly                 | 💰 Enterprise focus   | 💰 Per-seat pricing | 💰 Premium tier |
+| **Open Source**         | ✅ MIT License                    | ❌ Proprietary        | ❌ Proprietary      | ❌ Proprietary  |
 
 **Key Differentiator:** LionPack is the only platform that combines constitution-driven AI agents with GitHub-first workflow and indie-friendly pricing.
 
@@ -201,30 +205,35 @@ Delightful design, ambient experience, and joyful creation.
 ## Product Roadmap Alignment
 
 ### Phase 1: Foundation (Current)
+
 - ✅ Multi-agent orchestration (Frontend, Backend, DevOps, Testing, Docs)
 - ✅ GitHub OAuth integration
 - ✅ Constitution-aware code generation
 - ✅ Automated issue tracking and status updates
 
 ### Phase 2: IDE Integration (In Progress)
+
 - 🔄 Filesystem abstraction (local + GitHub)
 - ⏳ Web-based code editor (Monaco/CodeMirror)
 - ⏳ File tree and navigation
 - ⏳ Constitution editor UI
 
 ### Phase 3: Collaboration Layer
+
 - ⏳ Real-time chat with AI (Morphic integration)
 - ⏳ AI agents can create/edit files via conversation
 - ⏳ Multi-user editing (Yjs/CRDT)
 - ⏳ Team member presence indicators
 
 ### Phase 4: Deployment & Operations
+
 - ⏳ One-click deployment (Vercel, Railway, Fly.io)
 - ⏳ Environment management
 - ⏳ Monitoring and logs integration
 - ⏳ Production AI assistant (on-call support)
 
 ### Phase 5: Enterprise Edition
+
 - ⏳ Multi-repo governance (inspired by IKEA case study)
 - ⏳ Organization-wide constitution packages
 - ⏳ Compliance dashboards and metrics
@@ -235,21 +244,25 @@ Delightful design, ambient experience, and joyful creation.
 ## Success Metrics
 
 ### Developer Experience
+
 - **Time to First Deploy**: < 5 minutes from signup
 - **Daily Active Usage**: 80%+ of users return daily
 - **NPS Score**: > 50 (target: "lovable tools")
 
 ### Platform Performance
+
 - **AI Response Time**: < 2 seconds for agent routing
 - **Code Generation Quality**: 80%+ acceptance rate
 - **Test Coverage**: Automated enforcement of 80%+ for all generated code
 
 ### Business Metrics
+
 - **User Growth**: 10× year-over-year
 - **Conversion Rate**: 25% free → paid
 - **Retention**: 90%+ monthly active retention
 
 ### Quality Metrics
+
 - **Constitution Compliance**: 95%+ of commits follow standards
 - **Deployment Success Rate**: 99%+ of automated deployments succeed
 - **Bug Escape Rate**: < 1% of issues reach production
@@ -271,6 +284,7 @@ Delightful design, ambient experience, and joyful creation.
 ## Brand Personality
 
 **The Lion Pack Metaphor:**
+
 - **United**: All tools and agents work together seamlessly
 - **Agile**: Fast iteration, quick pivots, responsive to change
 - **Focused**: Clear roles (scouts, hunters, guards) like specialized agents
@@ -278,6 +292,7 @@ Delightful design, ambient experience, and joyful creation.
 - **Protective**: AI guards quality, security, and standards
 
 **Tone of Voice:**
+
 - **Confident, not arrogant**: "We make you 10× faster" (backed by features)
 - **Helpful, not patronizing**: AI assists, doesn't lecture
 - **Clear, not oversimplified**: Respect developer intelligence

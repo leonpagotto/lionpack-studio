@@ -58,7 +58,7 @@ code_standards:
       tabWidth: 2
       trailingComma: "es5"
       printWidth: 100
-  
+
   linting:
     tool: "ESLint"
     extends:
@@ -68,7 +68,7 @@ code_standards:
     rules:
       no-unused-vars: "warn"
       no-console: "warn"
-  
+
   architecture:
     pattern: "Layered Architecture"
     folder_structure: |
@@ -82,16 +82,16 @@ code_standards:
       services/         # API integrations
       hooks/            # Custom React hooks
       types/            # TypeScript types
-  
+
   naming:
     components: "PascalCase"
     files: "kebab-case"
     functions: "camelCase"
     constants: "UPPER_SNAKE_CASE"
     css_classes: "kebab-case"
-  
+
   component_style: "functional" # Prefer functional components over class components
-  
+
   prefer:
     - "TypeScript over JavaScript"
     - "Functional components over class components"
@@ -99,7 +99,7 @@ code_standards:
     - "Async/await over .then() promises"
     - "const over let (avoid var)"
     - "Template literals over string concatenation"
-  
+
   avoid:
     - "any type (use unknown or specific types)"
     - "Inline styles (use Tailwind classes)"
@@ -123,7 +123,7 @@ testing:
     file_pattern: "*.test.ts or *.test.tsx"
     describe: "Component/Function name"
     it: "should [expected behavior]"
-  
+
   requirements:
     - "Every component should have tests"
     - "Every API endpoint should have tests"
@@ -141,9 +141,9 @@ ux_principles:
     - "Accessibility is mandatory (WCAG 2.1 AA)"
     - "Consistency over customization"
     - "Progressive disclosure (don't overwhelm)"
-  
+
   component_architecture: "Atomic Design"
-  
+
   tokens:
     colors:
       primary: "#2563eb" # Blue
@@ -153,11 +153,11 @@ ux_principles:
       error: "#ef4444" # Red
       background: "#ffffff" # White
       background_dark: "#0f172a" # Dark slate
-    
+
     spacing:
       base: "4px"
       scale: [0, 4, 8, 12, 16, 24, 32, 48, 64, 96, 128]
-    
+
     typography:
       font_family: "Inter, system-ui, sans-serif"
       font_sizes:
@@ -169,20 +169,20 @@ ux_principles:
         "2xl": "24px"
         "3xl": "30px"
         "4xl": "36px"
-    
+
     breakpoints:
       mobile: "320px"
       tablet: "768px"
       laptop: "1024px"
       desktop: "1440px"
       wide: "1920px"
-  
+
   interactions:
     max_click_depth: 3 # Max 3 clicks to reach any feature
     button_min_size: "44x44px" # Minimum touch target
     animation_duration: "200ms"
     transition: "ease-in-out"
-  
+
   dark_mode:
     enabled: true
     default: "system" # or "light" or "dark"
@@ -204,7 +204,7 @@ accessibility:
     - "Focus indicators visible"
     - "Skip to main content link"
     - "Responsive text (no fixed pixel sizes)"
-  
+
   tools:
     - "axe DevTools (Chrome extension)"
     - "Lighthouse accessibility audit"
@@ -218,25 +218,25 @@ performance:
     lcp: "< 2.5s" # Largest Contentful Paint
     fid: "< 100ms" # First Input Delay
     cls: "< 0.1" # Cumulative Layout Shift
-  
+
   lighthouse:
     performance: 90
     accessibility: 95
     best_practices: 90
     seo: 95
-  
+
   bundle:
     max_js: "500KB" # Maximum JavaScript bundle size
     max_css: "100KB" # Maximum CSS bundle size
     code_splitting: true
     lazy_loading: true
-  
+
   images:
     format: "WebP with fallback"
     lazy_loading: true
     dimensions: "Always specify width and height"
     responsive: "Use srcset for multiple sizes"
-  
+
   caching:
     static_assets: "1 year"
     api_responses: "5 minutes (stale-while-revalidate)"
@@ -251,18 +251,18 @@ ai_alignment:
     explain_complex: true # Explain non-obvious code
     include_tests: true # Always generate tests
     prefer_readability: true # Favor clarity over cleverness
-  
+
   when_uncertain:
     - "Ask clarifying questions"
     - "Provide multiple options"
     - "Default to simpler solution"
     - "Reference constitution standards"
-  
+
   learning:
     track_preferences: true # Remember user coding style
     suggest_improvements: true # Suggest better patterns
     explain_reasoning: true # Explain why suggesting changes
-  
+
   security:
     - "Never include API keys or secrets in code"
     - "Always validate user input"
@@ -287,12 +287,12 @@ workflow:
       - "test" # Add/update tests
       - "chore" # Maintenance
     commit_message_max_length: 72
-  
+
   issues:
     auto_create: true # LEO Kit auto-creates issues
     status_updates: true # Comment on issues with progress
     link_to_commits: true # Reference issue numbers in commits
-  
+
   code_review:
     required_approvals: 1
     automated_checks:
@@ -324,7 +324,7 @@ deployment:
       url: "https://lionpack.studio"
       auto_deploy: false # Manual promotion from staging
       branch: "production"
-  
+
   ci_cd:
     tool: "GitHub Actions"
     on_pull_request:
@@ -336,7 +336,7 @@ deployment:
       - "Deploy to staging"
       - "Run E2E tests"
       - "Notify team"
-  
+
   monitoring:
     uptime: "Uptime Robot"
     errors: "Sentry"
@@ -351,12 +351,12 @@ documentation:
     - "TSDoc for TypeScript"
     - "Inline comments for complex logic"
     - "README in each package/"
-  
+
   api:
     - "OpenAPI/Swagger for REST APIs"
     - "GraphQL schema documentation"
     - "Example requests/responses"
-  
+
   user:
     - "Getting Started guide"
     - "Feature tutorials"
@@ -369,7 +369,7 @@ documentation:
 dependencies:
   policy: "Evaluate carefully, prefer well-maintained"
   updates: "Review monthly, security patches immediately"
-  
+
   approved:
     - "next"
     - "react"
@@ -377,7 +377,7 @@ dependencies:
     - "@types/*"
     - "jest"
     - "typescript"
-  
+
   restricted:
     - "moment.js (use date-fns instead - smaller)"
     - "lodash (use individual packages)"
@@ -391,7 +391,7 @@ custom_rules:
     - "Code generation must align with these standards"
     - "Users can customize this file for their projects"
     - "Community templates available in marketplace (planned)"
-  
+
   speed_meets_structure:
     - "Fast iteration does NOT mean low quality"
     - "Standards enforcement is automatic, not manual"

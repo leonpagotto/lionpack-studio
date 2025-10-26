@@ -4,6 +4,10 @@ import { TextEncoder, TextDecoder } from 'util';
 // Polyfills for Node environment
 Object.assign(global, { TextEncoder, TextDecoder });
 
+// Mock environment variables
+process.env.NEXT_PUBLIC_SUPABASE_URL = 'https://test.supabase.co';
+process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = 'test-anon-key';
+
 // Mock next/image
 jest.mock('next/image', () => ({
   __esModule: true,

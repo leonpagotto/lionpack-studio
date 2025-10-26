@@ -1,9 +1,9 @@
 /**
  * FilesystemService Tests
- * 
+ *
  * Comprehensive test suite for FilesystemService wrapper.
  * Tests source switching, error handling, and convenience methods.
- * 
+ *
  * Coverage target: 80%+
  */
 
