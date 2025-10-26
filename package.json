@@ -38,6 +38,8 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.67.0",
+    "@octokit/rest": "^22.0.0",
+    "@octokit/types": "^15.0.1",
     "@supabase/supabase-js": "^2.76.1",
     "leo-workflow-kit": "github:leonpagotto/leo-kit",
     "next": "^16.0.0",

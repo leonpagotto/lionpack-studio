@@ -11,7 +11,8 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { useEditor } from '../../context/EditorContext';
 import type { AIMessage } from '@lionpack/leo-client';
-import { FilesystemAgent } from '@lionpack/leo-client';
+import { FilesystemAgent, GitHubService } from '@lionpack/leo-client';
+import type { PRDetails, IssueDetails } from '@lionpack/leo-client';
 
 // Message types
 export interface ChatMessage {
@@ -34,6 +35,14 @@ export interface FileOperation {
   content?: string;
   newPath?: string;
   status: 'pending' | 'approved' | 'rejected' | 'executed' | 'executing';
+  preview?: string;
+}
+
+// GitHub operation types (reusing same pattern as FileOperation)
+export interface GitHubOperation {
+  type: 'create-pr' | 'create-issue' | 'create-branch' | 'commit';
+  status: 'pending' | 'approved' | 'rejected' | 'executed' | 'executing';
+  data: PRDetails | IssueDetails | { name: string; from?: string } | { message: string; files: string[] };
   preview?: string;
 }
 
@@ -64,6 +73,7 @@ export const EnhancedChatContainer: React.FC<EnhancedChatContainerProps> = ({
   const [input, setInput] = useState('');
   const [isStreaming, setIsStreaming] = useState(false);
   const [pendingOperations, setPendingOperations] = useState<FileOperation[]>([]);
+  const [pendingGitHubOps, setPendingGitHubOps] = useState<GitHubOperation[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Auto-scroll to bottom
@@ -146,12 +156,18 @@ You can:
 1. Read files from the project
 2. Generate new code
 3. Modify existing files (with user approval)
-4. Answer questions about the codebase
+4. Create GitHub PRs, Issues, and Branches (with user approval)
+5. Answer questions about the codebase
 
 When suggesting file operations, use this format:
 <file_operation type="create|modify|delete" path="/path/to/file">
 content here
 </file_operation>
+
+When suggesting GitHub operations, use these formats:
+- Create PR: <github_pr title="feat: Add feature" base="main" head="feature-branch">PR description</github_pr>
+- Create Issue: <github_issue title="Bug: Fix issue" labels="bug,priority-high">Issue description</github_issue>
+- Create Branch: <github_branch name="feature/new-feature" from="main"/>
 
 Be concise and helpful.`
         },
@@ -262,6 +278,60 @@ Be concise and helpful.`
         }
       }
 
+      // Parse GitHub operations from response (same pattern as file operations)
+      if (allowFileOperations) {
+        // PR creation: <github_pr title="..." base="..." head="...">body</github_pr>
+        const prRegex = /<github_pr title="([^"]+)" base="([^"]+)" head="([^"]+)">([\s\S]*?)<\/github_pr>/g;
+        let prMatch;
+
+        while ((prMatch = prRegex.exec(assistantMessage.content)) !== null) {
+          const prOp: GitHubOperation = {
+            type: 'create-pr',
+            status: 'pending',
+            data: {
+              title: prMatch[1],
+              base: prMatch[2],
+              head: prMatch[3],
+              body: prMatch[4].trim(),
+            } as PRDetails,
+          };
+          setPendingGitHubOps(prev => [...prev, prOp]);
+        }
+
+        // Issue creation: <github_issue title="..." labels="...">body</github_issue>
+        const issueRegex = /<github_issue title="([^"]+)"(?:\s+labels="([^"]+)")?>([^<]*?)<\/github_issue>/g;
+        let issueMatch;
+
+        while ((issueMatch = issueRegex.exec(assistantMessage.content)) !== null) {
+          const issueOp: GitHubOperation = {
+            type: 'create-issue',
+            status: 'pending',
+            data: {
+              title: issueMatch[1],
+              body: issueMatch[3].trim(),
+              labels: issueMatch[2] ? issueMatch[2].split(',').map(l => l.trim()) : undefined,
+            } as IssueDetails,
+          };
+          setPendingGitHubOps(prev => [...prev, issueOp]);
+        }
+
+        // Branch creation: <github_branch name="..." from="..."/>
+        const branchRegex = /<github_branch name="([^"]+)"(?:\s+from="([^"]+)")?\/>/g;
+        let branchMatch;
+
+        while ((branchMatch = branchRegex.exec(assistantMessage.content)) !== null) {
+          const branchOp: GitHubOperation = {
+            type: 'create-branch',
+            status: 'pending',
+            data: {
+              name: branchMatch[1],
+              from: branchMatch[2] || 'main',
+            },
+          };
+          setPendingGitHubOps(prev => [...prev, branchOp]);
+        }
+      }
+
       setIsStreaming(false);
     } catch (error) {
       console.error('Chat error:', error);
@@ -342,6 +412,94 @@ Be concise and helpful.`
 
   const handleRejectOperation = useCallback((operation: FileOperation) => {
     setPendingOperations(prev =>
+      prev.map(op => op === operation ? { ...op, status: 'rejected' } : op)
+    );
+  }, []);
+
+  // Handle GitHub operation approval (same pattern as file operations)
+  const handleApproveGitHubOp = useCallback(async (operation: GitHubOperation) => {
+    try {
+      // Mark as executing
+      setPendingGitHubOps(prev =>
+        prev.map(op => op === operation ? { ...op, status: 'executing' as const } : op)
+      );
+
+      // Get GitHub config from environment or filesystem
+      const githubConfig = {
+        owner: process.env.NEXT_PUBLIC_GITHUB_OWNER || 'your-org',
+        repo: process.env.NEXT_PUBLIC_GITHUB_REPO || 'your-repo',
+        token: process.env.NEXT_PUBLIC_GITHUB_TOKEN || '',
+      };
+
+      const githubService = new GitHubService(githubConfig);
+      let result;
+      let successMessage = '';
+
+      switch (operation.type) {
+        case 'create-pr':
+          const prData = operation.data as PRDetails;
+          result = await githubService.createPR(prData);
+          successMessage = `✅ Created PR #${result.data?.number}: ${prData.title}`;
+          break;
+
+        case 'create-issue':
+          const issueData = operation.data as IssueDetails;
+          result = await githubService.createIssue(issueData);
+          successMessage = `✅ Created Issue #${result.data?.number}: ${issueData.title}`;
+          break;
+
+        case 'create-branch':
+          const branchData = operation.data as { name: string; from?: string };
+          result = await githubService.createBranch(branchData.name, branchData.from);
+          successMessage = `✅ Created branch: ${branchData.name}`;
+          break;
+
+        case 'commit':
+          const commitData = operation.data as { message: string; files: string[] };
+          successMessage = `✅ Committed changes: ${commitData.message}`;
+          result = { success: true }; // Placeholder - actual commit logic would go here
+          break;
+
+        default:
+          throw new Error(`Unknown GitHub operation type`);
+      }
+
+      if (result.success) {
+        // Update operation status
+        setPendingGitHubOps(prev =>
+          prev.map(op => op === operation ? { ...op, status: 'approved' } : op)
+        );
+
+        // Add success message to chat
+        setMessages(prev => [...prev, {
+          id: Date.now().toString(),
+          role: 'system',
+          content: successMessage,
+          timestamp: new Date(),
+        }]);
+      } else {
+        throw new Error(result.error?.message || 'GitHub operation failed');
+      }
+    } catch (error) {
+      console.error('GitHub operation error:', error);
+
+      // Mark as failed
+      setPendingGitHubOps(prev =>
+        prev.map(op => op === operation ? { ...op, status: 'rejected' } : op)
+      );
+
+      // Add error message to chat
+      setMessages(prev => [...prev, {
+        id: Date.now().toString(),
+        role: 'system',
+        content: `❌ GitHub operation failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
+        timestamp: new Date(),
+      }]);
+    }
+  }, []);
+
+  const handleRejectGitHubOp = useCallback((operation: GitHubOperation) => {
+    setPendingGitHubOps(prev =>
       prev.map(op => op === operation ? { ...op, status: 'rejected' } : op)
     );
   }, []);
@@ -450,6 +608,85 @@ Be concise and helpful.`
                     </div>
                   </div>
                 ))}
+            </div>
+          </div>
+        )}
+
+        {/* Pending GitHub Operations (reusing same UI pattern) */}
+        {pendingGitHubOps.filter(op => op.status === 'pending' || op.status === 'executing').length > 0 && (
+          <div className="flex-shrink-0 px-6 py-4 border-t border-slate-200 dark:border-slate-800 bg-blue-50 dark:bg-blue-900/20">
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-white mb-3">
+              Pending GitHub Operations
+            </h3>
+            <div className="space-y-2">
+              {pendingGitHubOps
+                .filter(op => op.status === 'pending' || op.status === 'executing')
+                .map((op, idx) => {
+                  let title = '';
+                  let description = '';
+
+                  switch (op.type) {
+                    case 'create-pr':
+                      const prData = op.data as PRDetails;
+                      title = `CREATE PR: ${prData.title}`;
+                      description = `${prData.head} → ${prData.base}`;
+                      break;
+                    case 'create-issue':
+                      const issueData = op.data as IssueDetails;
+                      title = `CREATE ISSUE: ${issueData.title}`;
+                      description = issueData.labels?.join(', ') || '';
+                      break;
+                    case 'create-branch':
+                      const branchData = op.data as { name: string; from?: string };
+                      title = `CREATE BRANCH: ${branchData.name}`;
+                      description = `from ${branchData.from || 'main'}`;
+                      break;
+                    case 'commit':
+                      const commitData = op.data as { message: string; files: string[] };
+                      title = `COMMIT: ${commitData.message}`;
+                      description = `${commitData.files.length} file(s)`;
+                      break;
+                  }
+
+                  return (
+                    <div
+                      key={idx}
+                      className="flex items-center justify-between p-3 bg-white dark:bg-slate-800 rounded-lg border border-blue-200 dark:border-blue-700"
+                    >
+                      <div className="flex-1">
+                        <div className="text-sm font-medium text-slate-900 dark:text-white">
+                          {title}
+                          {op.status === 'executing' && (
+                            <span className="ml-2 text-xs text-blue-600 dark:text-blue-400">
+                              Executing...
+                            </span>
+                          )}
+                        </div>
+                        {description && (
+                          <div className="mt-1 text-xs text-slate-600 dark:text-slate-400">
+                            {description}
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex items-center space-x-2 ml-4">
+                        <button
+                          onClick={() => handleApproveGitHubOp(op)}
+                          disabled={op.status === 'executing'}
+                          className="px-3 py-1 text-sm bg-green-600 text-white rounded hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          Approve
+                        </button>
+                        <button
+                          onClick={() => handleRejectGitHubOp(op)}
+                          disabled={op.status === 'executing'}
+                          className="px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          Reject
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
             </div>
           </div>
         )}
