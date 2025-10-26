@@ -40,9 +40,27 @@ export interface FileOperation {
 
 // GitHub operation types (reusing same pattern as FileOperation)
 export interface GitHubOperation {
-  type: 'create-pr' | 'create-issue' | 'create-branch' | 'commit';
+  type:
+    | 'create-pr'
+    | 'create-issue'
+    | 'create-branch'
+    | 'commit'
+    | 'commit-group'           // Story 3.14: Multi-commit
+    | 'resolve-conflicts'      // Story 3.14: Conflict resolution
+    | 'cherry-pick'            // Story 3.14: Cherry-pick
+    | 'pr-review'              // Story 3.14: PR review
+    | 'view-diff';             // Story 3.14: Diff viewing
   status: 'pending' | 'approved' | 'rejected' | 'executed' | 'executing';
-  data: PRDetails | IssueDetails | { name: string; from?: string } | { message: string; files: string[] };
+  data:
+    | PRDetails
+    | IssueDetails
+    | { name: string; from?: string }
+    | { message: string; files: string[] }
+    | { branch: string; commits: Array<{ type: string; message: string; files: string[] }> }  // commit-group
+    | { branch: string; strategy: string; resolutions: Array<{ path: string; content: string }> }  // resolve-conflicts
+    | { commits: string[]; target: string; createPR?: boolean }  // cherry-pick
+    | { prNumber: number; event: string; comments?: Array<{ path: string; line: number; body: string }>; body: string }  // pr-review
+    | { base: string; head: string; files?: string[] };  // view-diff
   preview?: string;
 }
 
@@ -330,6 +348,159 @@ Be concise and helpful.`
           };
           setPendingGitHubOps(prev => [...prev, branchOp]);
         }
+
+        // Story 3.14: Advanced Git Operations
+
+        // Multi-commit group: <git_commit_group branch="...">
+        //   <commit type="feat" message="...">file1.js,file2.js</commit>
+        //   <commit type="fix" message="...">file3.js</commit>
+        // </git_commit_group>
+        const commitGroupRegex = /<git_commit_group branch="([^"]+)">([\s\S]*?)<\/git_commit_group>/g;
+        let commitGroupMatch;
+
+        while ((commitGroupMatch = commitGroupRegex.exec(assistantMessage.content)) !== null) {
+          const branch = commitGroupMatch[1];
+          const commitsContent = commitGroupMatch[2];
+
+          // Parse individual commits
+          const commitRegex = /<commit type="([^"]+)" message="([^"]+)">([^<]*?)<\/commit>/g;
+          const commits: Array<{ type: string; message: string; files: string[] }> = [];
+          let commitMatch;
+
+          while ((commitMatch = commitRegex.exec(commitsContent)) !== null) {
+            commits.push({
+              type: commitMatch[1],
+              message: commitMatch[2],
+              files: commitMatch[3].split(',').map(f => f.trim()).filter(f => f),
+            });
+          }
+
+          if (commits.length > 0) {
+            const commitGroupOp: GitHubOperation = {
+              type: 'commit-group',
+              status: 'pending',
+              data: {
+                branch,
+                commits,
+              },
+            };
+            setPendingGitHubOps(prev => [...prev, commitGroupOp]);
+          }
+        }
+
+        // Conflict resolution: <git_conflict_resolve branch="..." strategy="...">
+        //   <file path="...">resolved content</file>
+        // </git_conflict_resolve>
+        const conflictResolveRegex = /<git_conflict_resolve branch="([^"]+)" strategy="([^"]+)">([\s\S]*?)<\/git_conflict_resolve>/g;
+        let conflictMatch;
+
+        while ((conflictMatch = conflictResolveRegex.exec(assistantMessage.content)) !== null) {
+          const branch = conflictMatch[1];
+          const strategy = conflictMatch[2];
+          const filesContent = conflictMatch[3];
+
+          // Parse file resolutions
+          const fileRegex = /<file path="([^"]+)">([^<]*?)<\/file>/g;
+          const resolutions: Array<{ path: string; content: string }> = [];
+          let fileMatch;
+
+          while ((fileMatch = fileRegex.exec(filesContent)) !== null) {
+            resolutions.push({
+              path: fileMatch[1],
+              content: fileMatch[2],
+            });
+          }
+
+          if (resolutions.length > 0) {
+            const resolveOp: GitHubOperation = {
+              type: 'resolve-conflicts',
+              status: 'pending',
+              data: {
+                branch,
+                strategy,
+                resolutions,
+              },
+            };
+            setPendingGitHubOps(prev => [...prev, resolveOp]);
+          }
+        }
+
+        // Cherry-pick: <git_cherry_pick commits="sha1,sha2" target="branch-name" create_pr="true|false"/>
+        const cherryPickRegex = /<git_cherry_pick commits="([^"]+)" target="([^"]+)"(?:\s+create_pr="([^"]+)")?\/>/g;
+        let cherryPickMatch;
+
+        while ((cherryPickMatch = cherryPickRegex.exec(assistantMessage.content)) !== null) {
+          const cherryPickOp: GitHubOperation = {
+            type: 'cherry-pick',
+            status: 'pending',
+            data: {
+              commits: cherryPickMatch[1].split(',').map(c => c.trim()),
+              target: cherryPickMatch[2],
+              createPR: cherryPickMatch[3] === 'true',
+            },
+          };
+          setPendingGitHubOps(prev => [...prev, cherryPickOp]);
+        }
+
+        // PR Review: <pr_review pr="123" event="APPROVE|REQUEST_CHANGES|COMMENT">
+        //   <comment path="file.js" line="10">comment text</comment>
+        //   <summary>Overall review comment</summary>
+        // </pr_review>
+        const prReviewRegex = /<pr_review pr="(\d+)" event="([^"]+)">([\s\S]*?)<\/pr_review>/g;
+        let prReviewMatch;
+
+        while ((prReviewMatch = prReviewRegex.exec(assistantMessage.content)) !== null) {
+          const prNumber = parseInt(prReviewMatch[1], 10);
+          const event = prReviewMatch[2];
+          const reviewContent = prReviewMatch[3];
+
+          // Parse inline comments
+          const commentRegex = /<comment path="([^"]+)" line="(\d+)">([^<]*?)<\/comment>/g;
+          const comments: Array<{ path: string; line: number; body: string }> = [];
+          let commentMatch;
+
+          while ((commentMatch = commentRegex.exec(reviewContent)) !== null) {
+            comments.push({
+              path: commentMatch[1],
+              line: parseInt(commentMatch[2], 10),
+              body: commentMatch[3],
+            });
+          }
+
+          // Parse summary
+          const summaryRegex = /<summary>([^<]*?)<\/summary>/;
+          const summaryMatch = summaryRegex.exec(reviewContent);
+          const summary = summaryMatch ? summaryMatch[1] : '';
+
+          const reviewOp: GitHubOperation = {
+            type: 'pr-review',
+            status: 'pending',
+            data: {
+              prNumber,
+              event,
+              comments,
+              body: summary,
+            },
+          };
+          setPendingGitHubOps(prev => [...prev, reviewOp]);
+        }
+
+        // Diff view: <git_diff base="main" head="feature-branch" files="file1.js,file2.js"/>
+        const diffRegex = /<git_diff base="([^"]+)" head="([^"]+)"(?:\s+files="([^"]+)")?\/>/g;
+        let diffMatch;
+
+        while ((diffMatch = diffRegex.exec(assistantMessage.content)) !== null) {
+          const diffOp: GitHubOperation = {
+            type: 'view-diff',
+            status: 'pending',
+            data: {
+              base: diffMatch[1],
+              head: diffMatch[2],
+              files: diffMatch[3] ? diffMatch[3].split(',').map(f => f.trim()) : undefined,
+            },
+          };
+          setPendingGitHubOps(prev => [...prev, diffOp]);
+        }
       }
 
       setIsStreaming(false);
@@ -460,8 +631,83 @@ Be concise and helpful.`
           result = { success: true }; // Placeholder - actual commit logic would go here
           break;
 
+        // Story 3.14: Advanced Git Operations
+
+        case 'commit-group':
+          const commitGroupData = operation.data as { branch: string; commits: Array<{ type: string; message: string; files: string[] }> };
+          // Convert to CommitGroup format expected by GitHubService
+          const commitGroups = commitGroupData.commits.map(c => ({
+            type: c.type as any,
+            message: c.message,
+            files: c.files.map(f => ({ path: f, content: '' })), // Content would come from actual files
+          }));
+          result = await githubService.createCommitGroup(commitGroupData.branch, commitGroups);
+          successMessage = `✅ Created ${commitGroupData.commits.length} commits on ${commitGroupData.branch}`;
+          break;
+
+        case 'resolve-conflicts':
+          const resolveData = operation.data as { branch: string; strategy: string; resolutions: Array<{ path: string; content: string }> };
+          const resolutions = resolveData.resolutions.map(r => ({
+            file: r.path,
+            resolvedContent: r.content,
+            strategy: resolveData.strategy as any,
+          }));
+          result = await githubService.resolveConflicts(resolveData.branch, resolutions);
+          successMessage = `✅ Resolved ${resolveData.resolutions.length} conflict(s) on ${resolveData.branch}`;
+          break;
+
+        case 'cherry-pick':
+          const cherryPickData = operation.data as { commits: string[]; target: string; createPR?: boolean };
+          result = await githubService.cherryPick(
+            cherryPickData.commits,
+            cherryPickData.target,
+            cherryPickData.createPR
+          );
+          successMessage = `✅ Cherry-picked ${cherryPickData.commits.length} commit(s) to ${cherryPickData.target}`;
+          break;
+
+        case 'pr-review':
+          const reviewData = operation.data as { prNumber: number; event: string; comments?: Array<{ path: string; line: number; body: string }>; body: string };
+          const review = {
+            event: reviewData.event as any,
+            body: reviewData.body,
+            comments: reviewData.comments?.map(c => ({
+              path: c.path,
+              line: c.line,
+              body: c.body,
+            })),
+          };
+          result = await githubService.submitReview(reviewData.prNumber, review);
+          successMessage = `✅ Submitted ${reviewData.event} review on PR #${reviewData.prNumber}`;
+          break;
+
+        case 'view-diff':
+          const diffData = operation.data as { base: string; head: string; files?: string[] };
+          result = await githubService.getDiff(diffData.base, diffData.head, diffData.files);
+          successMessage = `✅ Retrieved diff between ${diffData.base}...${diffData.head}`;
+          
+          // Display diff in chat
+          if (result.success && result.data) {
+            const diffSummary = `
+**Diff Summary:**
+- Files changed: ${result.data.files.length}
+- Additions: +${result.data.totalAdditions}
+- Deletions: -${result.data.totalDeletions}
+
+${result.data.files.map((f: any) => `- ${f.status === 'added' ? '➕' : f.status === 'removed' ? '➖' : '📝'} ${f.filename} (+${f.additions}/-${f.deletions})`).join('\n')}
+            `.trim();
+            
+            setMessages(prev => [...prev, {
+              id: Date.now().toString(),
+              role: 'assistant',
+              content: diffSummary,
+              timestamp: new Date(),
+            }]);
+          }
+          break;
+
         default:
-          throw new Error(`Unknown GitHub operation type`);
+          throw new Error(`Unknown GitHub operation type: ${operation.type}`);
       }
 
       if (result.success) {
