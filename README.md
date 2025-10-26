@@ -182,7 +182,7 @@ open http://localhost:3000/demo/professional-workflow
 
 ### Coming Soon 🚀
 
-**Story 3.13: GitHub Integration Enhancement** 
+**Story 3.13: GitHub Integration Enhancement**
 
 - PR review directly in chat
 - Issue creation from chat conversations
