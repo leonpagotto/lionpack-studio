@@ -1,12 +1,13 @@
-# GitHub Copilot Instructions - LEO Workflow Kit
+# GitHub Copilot Instructions - LionPack Studio
 
 > **📖 MANDATORY: READ ALL INSTRUCTIONS FROM TOP TO BOTTOM**
 >
 > **BEFORE responding to ANY user message, you MUST:**
 > 1. **READ this ENTIRE file from beginning to end** (all sections, no skipping)
-> 2. **UNDERSTAND all rules, workflows, and requirements**
-> 3. **APPLY the rules to the current user request**
-> 4. **VERIFY you followed all mandatory workflows**
+> 2. **READ the project VISION** (docs/VISION.md) to understand our North Star
+> 3. **UNDERSTAND all rules, workflows, and requirements**
+> 4. **APPLY the rules to the current user request**
+> 5. **VERIFY you followed all mandatory workflows**
 >
 > **DO NOT skip sections. DO NOT assume you know the content.**
 > **These instructions change and update - READ THEM EVERY TIME.**
@@ -14,9 +15,71 @@
 
 ---
 
+## 🧭 LionPack Studio Vision Alignment
+
+> **Our North Star:** Speed meets Structure — Build high-quality software at the speed of thought.
+
+Before implementing ANY feature, ask yourself:
+
+### Vision Check Questions
+
+1. **Speed with Purpose** — Does this make developers faster WITHOUT sacrificing quality?
+2. **Facilitation over Complexity** — Does this feel like guidance, not governance?
+3. **Quality through Standards** — Does this align with Constitution-based development?
+4. **Creativity + Structure** — Does this balance automation with freedom to explore?
+5. **Empowerment** — Can a solo developer use this independently AND beautifully?
+
+### Core Principles
+
+**What LionPack Studio Is:**
+- ✅ Development culture in a box
+- ✅ AI that enforces standards automatically
+- ✅ Speed AND excellence (no compromise)
+- ✅ Constitution-driven consistency
+- ✅ Guidance that empowers creativity
+
+**What LionPack Studio Is NOT:**
+- ❌ Just another IDE
+- ❌ Rigid framework that limits creativity
+- ❌ AI that generates low-quality code
+- ❌ Tool that requires extensive setup
+- ❌ Platform that sacrifices speed for quality
+
+### Constitution Awareness
+
+**Every AI agent MUST:**
+- Read `.lionpack/constitution.yml` if it exists
+- Align all code generation with defined standards
+- Enforce UX principles from the constitution
+- Respect accessibility and performance requirements
+- Ask for clarification when constitution is ambiguous
+
+**Example Constitution-Aware Response:**
+```
+User: "Add a login button"
+
+Agent thinks:
+1. Check .lionpack/constitution.yml
+2. Found: component_architecture = "Atomic Design"
+3. Found: accessibility = "WCAG 2.1 AA"
+4. Found: dark_mode = true
+5. Generate button component following these standards
+
+Agent implements:
+✅ Button component in components/atoms/
+✅ Min 44x44px touch target
+✅ ARIA labels included
+✅ Dark mode variants
+✅ TypeScript strict types
+✅ Tests included (80%+ coverage requirement)
+```
+
+---
+
 > **AI Assistant:** GitHub Copilot
-> **Purpose:** Follow LEO's workflow standards for consistent, high-quality development
-> **Last Updated:** 2025-10-25
+> **Project:** LionPack Studio - Development Culture in a Box
+> **Purpose:** Follow LionPack's vision and workflow standards for consistent, high-quality development
+> **Last Updated:** 2025-10-26
 >
 > **⚡ ACTIVE ENFORCEMENT MODE: These instructions are ALWAYS ACTIVE ⚡**
 >

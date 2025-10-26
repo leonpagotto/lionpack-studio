@@ -8,35 +8,54 @@
 
 **LionPack Studio** is a collaborative web IDE that merges **LEO Kit workflow automation**, **OpenCode editor environment**, and **Morphy AI assistant** into one seamless creative space for teams and solo builders.
 
-> **Latest Update (Oct 26, 2025):** 
+> **Latest Update (Oct 26, 2025):**
+>
 > - ✅ **Story 3.9 Complete** — Morphic chat + Kilo Code editor UI with Tailwind CSS styling
 > - 🚀 **Next Up:** Story 3.10 (Multi-AI Provider Support - Gemini) & Story 3.11 (File System Integration)
 > - 🎨 **Demo:** http://localhost:3000/demo/professional-workflow
 
-## 🎯 Vision
+## 🧭 Vision
 
-_To empower creators and small teams to build and ship ideas at the speed of thought — harnessing AI and human collaboration to turn imagination into reality._
+> **To empower small teams and individual creators to build high-quality software at the speed of thought — combining human creativity, AI collaboration, and shared design standards.**
 
-## 🚀 Mission
+LionPack Studio is where _speed meets structure_. We envision a world where developers don't have to choose between moving fast and maintaining excellence — where AI helps teams stay consistent, creative, and confident in every line of code and every interface decision.
 
-_We design tools that remove friction between creativity and execution. LionPack Studio merges AI, collaboration, and automation into one seamless workspace — where ideas evolve naturally into products._
+## 🎯 Mission
+
+> **To simplify and accelerate the creative development process while keeping code, design, and user experience standards consistent across every project.**
+
+We're building an open, lovable, and AI-native development environment that unifies:
+
+- **LEO Kit automation** for instant workflow orchestration
+- **OpenCode** as a collaborative IDE foundation
+- **GitHub** as the trusted source of truth for code and tasks
+
+LionPack Studio helps creators:
+
+- Generate ideas, code, and UX flows faster
+- Stay aligned with best practices and team standards
+- Deliver applications that are consistent, clean, and user-centered
+
+Every pack — whether a solo developer or a team of four — can move from concept to deployment with flow, focus, and full creative control.
 
 ## 💎 Core Values
 
-| Value                       | Description                                                                                  |
-| --------------------------- | -------------------------------------------------------------------------------------------- |
-| **Facilitation**            | We simplify complexity — guiding teams to focus on what matters, not on managing tools.      |
-| **Speed**                   | We value flow and momentum; every feature should accelerate creative output.                 |
-| **Creativity**              | We celebrate experimentation and playful problem-solving — the spark that drives innovation. |
-| **Collaboration**           | We believe in the strength of small, tightly aligned teams — "packs" that hunt together.     |
-| **Autonomy**                | Tools should empower creators to work solo or in sync, without friction or dependency.       |
-| **Human + AI Synergy**      | We see AI not as a replacement, but as a co-creator that amplifies human capability.         |
-| **Transparency & Openness** | We build on open-source foundations and open collaboration.                                  |
+| Value                            | Description                                                                                                                |
+| -------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| **Speed with Purpose**           | Every tool and feature must help creators move from idea to impact — without friction or delay.                            |
+| **Facilitation over Complexity** | The platform should feel like guidance, not governance. We simplify the process so creators can focus on what matters.     |
+| **Quality through Standards**    | Built-in code and UX "constitutions" define best practices per language or framework, ensuring excellence and consistency. |
+| **Creativity + Structure**       | We balance AI-powered automation with the freedom to explore — order without rigidity.                                     |
+| **Collaboration**                | Small, tight-knit packs (1–4 creators) working in perfect sync — each playing a role in the flow.                          |
+| **Empowerment**                  | We believe everyone should be able to bring ideas to life — fast, independently, and beautifully.                          |
+| **Openness**                     | Built on open-source technologies, guided by transparency and shared progress.                                             |
 
-## 🧠 LionPack Ethos
+## 🌍 Our Promise
 
-> _We build tools for those who move fast, think freely, and create together._
-> _One pack, one flow, one hunt._
+> LionPack Studio exists to help humans and AI co-create — fast, consistent, and joyful.
+> It's not just a coding environment — it's a **creative ecosystem** where clarity, flow, and quality coexist.
+
+**Read the full vision:** [VISION.md](docs/VISION.md)
 
 ---
 
@@ -99,12 +118,14 @@ open http://localhost:3000/demo/professional-workflow
 ### Story 3.9: Professional Workflow UI ✅
 
 **Morphic-Style Chat (Left 40%)**
+
 - Clean chat interface for code generation prompts
 - Message history display
 - Streaming response support
 - Error handling with user-friendly messages
 
 **Kilo Code-Style Editor (Right 60%)**
+
 - Tabbed interface (Files / Code / Terminal)
 - File tree visualization
 - Code editor with syntax highlighting
@@ -112,6 +133,7 @@ open http://localhost:3000/demo/professional-workflow
 - Test results panel
 
 **Integrated Layout**
+
 - Split-pane responsive design
 - Dark mode support
 - Professional styling with Tailwind CSS
@@ -120,12 +142,14 @@ open http://localhost:3000/demo/professional-workflow
 ### Coming Soon 🚀
 
 **Story 3.10: Multi-AI Provider Support** ([#22](https://github.com/leonpagotto/lionpack-studio/issues/22))
+
 - Google Gemini integration (gemini-pro, gemini-flash, gemini-ultra)
 - Provider selection UI (Claude, Gemini, GPT-4)
 - Dynamic model selection based on provider
 - Unified AIProvider interface
 
 **Story 3.11: File System Integration** ([#23](https://github.com/leonpagotto/lionpack-studio/issues/23))
+
 - Local file system access (Browser File System API)
 - GitHub repository integration
 - Real-time file tree synchronization
