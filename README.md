@@ -12,8 +12,9 @@
 >
 > - ✅ **Story 3.9 Complete** — Morphic chat + Kilo Code editor UI with Tailwind CSS styling
 > - ✅ **Story 3.10 Complete** — Multi-AI Provider Support with Gemini integration
-> - 🚀 **Next Up:** Story 3.11 (File System Integration), GitHub Wiki setup, Constitution system
-> - 🎨 **Demo:** http://localhost:3000/demo/professional-workflow
+> - ✅ **Story 3.12 Complete** — Context-Aware AI Chat with FilesystemAgent integration (21/21 tests passing)
+> - 🚀 **Next Up:** Story 3.13 (GitHub Integration Enhancement), PR/Issue management in chat
+> - 🎨 **Demo:** http://localhost:3000/demo/ai-chat
 
 ## 🧭 Vision
 
@@ -140,7 +141,7 @@ open http://localhost:3000/demo/professional-workflow
 - Professional styling with Tailwind CSS
 - Real-time code generation workflow
 
-### Story 3.10: Multi-AI Provider Support ✅ (NEW!)
+### Story 3.10: Multi-AI Provider Support ✅
 
 **Provider Support**
 
@@ -159,7 +160,36 @@ open http://localhost:3000/demo/professional-workflow
 
 **Documentation:** [AI_PROVIDERS.md](docs/AI_PROVIDERS.md)
 
+### Story 3.12: Context-Aware AI Chat ✅ (NEW!)
+
+**Chat Features**
+
+- ✅ Full project context integration (files, active file, filesystem source)
+- ✅ Streaming AI responses with SSE
+- ✅ File operation workflow (create/modify/delete/rename)
+- ✅ User approval before execution
+- ✅ FilesystemAgent integration for safe file operations
+- ✅ Auto file tree refresh after operations
+- ✅ Success/error messaging in chat
+
+**Testing**
+
+- 21/21 tests passing (100%)
+- Comprehensive test coverage (UI, API, file ops, streaming)
+- Error handling and edge cases tested
+
+**Documentation:** [STORY_3.12_COMPLETE.md](STORY_3.12_COMPLETE.md)
+
 ### Coming Soon 🚀
+
+**Story 3.13: GitHub Integration Enhancement**
+
+- PR review directly in chat
+- Issue creation from chat conversations
+- Commit messages from chat
+- Branch management UI
+- GitHub Actions status in chat
+- Code review workflow integration
 
 **Story 3.11: File System Integration** ([#23](https://github.com/leonpagotto/lionpack-studio/issues/23))
 
@@ -341,24 +371,43 @@ Built with ❤️ by the LionPack community.
 
 ---
 
-**Status**: � Phase 4 Complete - Component Integration (Phase 5 Pending)
-**Current Story**: Story 3.9 - Professional Workflow Demo
-**Branch**: feature/story-3.9-coder-agent
-**Tests Passing**: 27/27 (100%) ✅
-**Latest Release**: v0.2.0-beta (Phase 4 Integration)
+**Status**: 🚀 Phase 4 Complete - Context-Aware AI Chat (Phase 5 In Progress)
+**Current Story**: Story 3.12 - AI Chat Interface ✅ Complete
+**Branch**: main
+**Tests Passing**: 21/21 (100%) ✅
+**Latest Release**: v0.3.0-beta (AI Chat Integration)
 **Last Updated**: October 26, 2025
 
 ---
 
-## 🚀 Demo Page
+## 🚀 Demo Pages
 
-Try the integrated professional workflow demo:
+### Context-Aware AI Chat (Story 3.12 ✅)
+
+Try the new context-aware AI chat with file operations:
 
 ```bash
 # Start dev server
 npm run dev
 
 # Open in browser
+open http://localhost:3000/demo/ai-chat
+```
+
+**Features:**
+
+- 💬 Context-aware AI chat with project understanding
+- 📁 Live file context sidebar (active file, filesystem source)
+- ✅ File operation workflow (approve/reject before execution)
+- 🔄 Auto file tree refresh after changes
+- ⚡ Streaming responses with SSE
+- 🛡️ FilesystemAgent for safe file operations
+- 🎨 Dark mode support
+- 📱 Mobile responsive design
+
+### Professional Workflow Demo (Story 3.9)
+
+```bash
 open http://localhost:3000/demo/professional-workflow
 ```
 
@@ -368,5 +417,3 @@ open http://localhost:3000/demo/professional-workflow
 - 📁 File tree with syntax-highlighted code display
 - 🧪 Terminal showing test results and output
 - ⚡ Resizable split-pane layout (40/60 split)
-- 🎨 Dark mode support
-- 📱 Mobile responsive design
