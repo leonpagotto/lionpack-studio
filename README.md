@@ -12,28 +12,28 @@
 
 ## 🎯 Vision
 
-*To empower creators and small teams to build and ship ideas at the speed of thought — harnessing AI and human collaboration to turn imagination into reality.*
+_To empower creators and small teams to build and ship ideas at the speed of thought — harnessing AI and human collaboration to turn imagination into reality._
 
 ## 🚀 Mission
 
-*We design tools that remove friction between creativity and execution. LionPack Studio merges AI, collaboration, and automation into one seamless workspace — where ideas evolve naturally into products.*
+_We design tools that remove friction between creativity and execution. LionPack Studio merges AI, collaboration, and automation into one seamless workspace — where ideas evolve naturally into products._
 
 ## 💎 Core Values
 
-| Value | Description |
-|-------|-------------|
-| **Facilitation** | We simplify complexity — guiding teams to focus on what matters, not on managing tools. |
-| **Speed** | We value flow and momentum; every feature should accelerate creative output. |
-| **Creativity** | We celebrate experimentation and playful problem-solving — the spark that drives innovation. |
-| **Collaboration** | We believe in the strength of small, tightly aligned teams — "packs" that hunt together. |
-| **Autonomy** | Tools should empower creators to work solo or in sync, without friction or dependency. |
-| **Human + AI Synergy** | We see AI not as a replacement, but as a co-creator that amplifies human capability. |
-| **Transparency & Openness** | We build on open-source foundations and open collaboration. |
+| Value                       | Description                                                                                  |
+| --------------------------- | -------------------------------------------------------------------------------------------- |
+| **Facilitation**            | We simplify complexity — guiding teams to focus on what matters, not on managing tools.      |
+| **Speed**                   | We value flow and momentum; every feature should accelerate creative output.                 |
+| **Creativity**              | We celebrate experimentation and playful problem-solving — the spark that drives innovation. |
+| **Collaboration**           | We believe in the strength of small, tightly aligned teams — "packs" that hunt together.     |
+| **Autonomy**                | Tools should empower creators to work solo or in sync, without friction or dependency.       |
+| **Human + AI Synergy**      | We see AI not as a replacement, but as a co-creator that amplifies human capability.         |
+| **Transparency & Openness** | We build on open-source foundations and open collaboration.                                  |
 
 ## 🧠 LionPack Ethos
 
-> *We build tools for those who move fast, think freely, and create together.*
-> *One pack, one flow, one hunt.*
+> _We build tools for those who move fast, think freely, and create together._
+> _One pack, one flow, one hunt._
 
 ---
 
@@ -94,28 +94,36 @@ open http://localhost:3000
 ## 🤖 Integration Points
 
 ### LEO Kit Integration
+
 LionPack Studio uses **leo-workflow-kit** (v5.0.0+) as the automation engine:
+
 - Workflow orchestration
 - Task routing
 - Specification management
 - GitHub Projects sync
 
 ### OpenCode Editor
+
 Embedded **OpenCode** web IDE for:
+
 - In-browser code editing
 - Real-time syntax highlighting
 - Project file navigation
 - Terminal integration
 
 ### Morphy AI Assistant
+
 AI-powered chat layer for:
+
 - Contextual code suggestions
 - Architecture recommendations
 - Workflow guidance
 - Pack management
 
 ### Real-time Collaboration
+
 **Yjs + Supabase Realtime** for:
+
 - Multi-user editing
 - Live presence awareness
 - Operational transformation
@@ -126,14 +134,18 @@ AI-powered chat layer for:
 ## 🧩 Core Components
 
 ### 1. **Leo Client** (`packages/leo-client/`)
+
 Wrapper around LEO Kit that exposes:
+
 - Workflow automation APIs
 - Task management
 - Specification generation
 - GitHub integration
 
 ### 2. **Web Frontend** (`apps/web/`)
+
 Next.js application with:
+
 - Integrated OpenCode editor
 - Morphy AI chat sidebar
 - Collaborative workspace
@@ -141,14 +153,18 @@ Next.js application with:
 - Real-time presence
 
 ### 3. **Shared Types** (`packages/types/`)
+
 TypeScript definitions for:
+
 - Pack structures
 - Workflow states
 - User roles
 - Collaboration events
 
 ### 4. **UI Library** (`packages/ui/`)
+
 Reusable components:
+
 - Editor sidebar
 - Chat interface
 - Workspace layouts
@@ -186,13 +202,13 @@ Reusable components:
 
 ## 🔄 Phased Approach
 
-| Phase | Focus | Status | Deliverable |
-|-------|-------|--------|-------------|
-| **Phase 1** | LEO integration as API | ✅ Complete | Working backend API + Mode Router (Story 3.8) |
-| **Phase 2** | OpenCode embedding | ✅ Complete | Editor + frontend shell + Coder Agent (Story 3.9 P1-3) |
-| **Phase 3** | Pack logic + Morphy | ✅ Complete | Full integration foundation |
-| **Phase 4** | Component Integration | ✅ Complete | Morphic chat + Kilo Editor + Professional Workflow (Story 3.9 P4) |
-| **Phase 5** | Polish & Performance | 🟡 In Progress | Performance optimization & accessibility |
+| Phase       | Focus                  | Status         | Deliverable                                                       |
+| ----------- | ---------------------- | -------------- | ----------------------------------------------------------------- |
+| **Phase 1** | LEO integration as API | ✅ Complete    | Working backend API + Mode Router (Story 3.8)                     |
+| **Phase 2** | OpenCode embedding     | ✅ Complete    | Editor + frontend shell + Coder Agent (Story 3.9 P1-3)            |
+| **Phase 3** | Pack logic + Morphy    | ✅ Complete    | Full integration foundation                                       |
+| **Phase 4** | Component Integration  | ✅ Complete    | Morphic chat + Kilo Editor + Professional Workflow (Story 3.9 P4) |
+| **Phase 5** | Polish & Performance   | 🟡 In Progress | Performance optimization & accessibility                          |
 
 ---
 
@@ -252,7 +268,7 @@ Built with ❤️ by the LionPack community.
 ---
 
 **Status**: � Phase 4 Complete - Component Integration (Phase 5 Pending)
-**Current Story**: Story 3.9 - Professional Workflow Demo  
+**Current Story**: Story 3.9 - Professional Workflow Demo
 **Branch**: feature/story-3.9-coder-agent
 **Tests Passing**: 27/27 (100%) ✅
 **Latest Release**: v0.2.0-beta (Phase 4 Integration)
@@ -273,6 +289,7 @@ open http://localhost:3000/demo/professional-workflow
 ```
 
 **Features:**
+
 - 💬 Live chat interface with code generation prompts
 - 📁 File tree with syntax-highlighted code display
 - 🧪 Terminal showing test results and output
