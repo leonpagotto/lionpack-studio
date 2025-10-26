@@ -1,6 +1,6 @@
 # 🚀 Local Deployment Guide - Story 3.9 (Coder Agent)
 
-**Date:** October 26, 2025  
+**Date:** October 26, 2025
 **Status:** ✅ Deployed Locally - Ready for Testing
 
 ---
@@ -18,15 +18,18 @@
 ### 2. Available Demo Pages
 
 **Coder Agent (Story 3.9):**
+
 - 🎨 Standalone Demo: `http://localhost:3000/demo/code-generator`
 - 🔄 Integrated Workflow: `http://localhost:3000/demo/integrated-workflow`
 
 **Mode Router (Story 3.8):**
+
 - 🧠 Mode Router Demo: `http://localhost:3000/demo/mode-router`
 
 ### 3. API Endpoints
 
 **Coder Agent:**
+
 ```bash
 POST http://localhost:3000/api/generate-code
 Content-Type: application/json
@@ -39,6 +42,7 @@ Content-Type: application/json
 ```
 
 **Mode Router:**
+
 ```bash
 POST http://localhost:3000/api/mode-router
 Content-Type: application/json
@@ -104,22 +108,26 @@ Content-Type: application/json
 ## 🔧 Development Commands
 
 ### Start Development Server
+
 ```bash
 cd apps/web
 npm run dev
 ```
 
 ### Build for Production
+
 ```bash
 npm run build
 ```
 
 ### Run Tests
+
 ```bash
 npm test
 ```
 
 ### Run Linting
+
 ```bash
 npm run lint
 ```
@@ -129,6 +137,7 @@ npm run lint
 ## 📊 Current Status
 
 ### Build Status
+
 ```
 ✅ TypeScript Compilation: PASSING
 ✅ Production Build: SUCCESS
@@ -137,6 +146,7 @@ npm run lint
 ```
 
 ### Recent Fixes Applied
+
 - ✅ Fixed Supabase type inference issues
 - ✅ Removed deprecated `auth.session` property
 - ✅ Added temporary orchestrator stub
@@ -144,6 +154,7 @@ npm run lint
 - ✅ Enabled successful production build
 
 ### Dependencies Installed
+
 ```
 Node.js: v24.5.0
 npm: Latest
@@ -157,18 +168,21 @@ TypeScript: 5+
 ## 🎯 Testing Strategy
 
 ### 1. Manual Testing (Now)
+
 - Test each demo page
 - Verify all features work
 - Check error handling
 - Validate performance
 
 ### 2. Automated Testing (Already Complete)
+
 - Unit tests: 12/12 passing ✅
 - API tests: 4/4 passing ✅
 - Integration tests: 8/8 passing ✅
 - Total: 24/24 passing (100% coverage)
 
 ### 3. User Acceptance Testing (Next)
+
 - Internal team testing
 - Collect feedback
 - Address minor issues
@@ -179,11 +193,13 @@ TypeScript: 5+
 ## 🚨 Known Issues
 
 ### Fixed
+
 - ✅ TypeScript compilation errors (resolved)
 - ✅ Supabase type issues (resolved)
 - ✅ Test file location (resolved)
 
 ### Outstanding
+
 - ⚠️ `leo-workflow-kit` package not installed (stub in place)
 - ⚠️ Environment variables need to be configured:
   - `ANTHROPIC_API_KEY` - Required for code generation
@@ -213,6 +229,7 @@ GITHUB_TOKEN=your-github-token
 ### Get API Keys
 
 **Anthropic API Key:**
+
 1. Visit: https://console.anthropic.com/
 2. Sign up or log in
 3. Go to API Keys section
@@ -220,6 +237,7 @@ GITHUB_TOKEN=your-github-token
 5. Copy key to `.env.local`
 
 **Supabase (Optional):**
+
 1. Visit: https://supabase.com/
 2. Create new project
 3. Copy URL and anon key
@@ -232,11 +250,13 @@ GITHUB_TOKEN=your-github-token
 ### Demo 1: Standalone Code Generator
 
 1. **Navigate to Demo**
+
    ```
    http://localhost:3000/demo/code-generator
    ```
 
 2. **Enter Prompt**
+
    ```
    "Create a React button component with primary and secondary variants"
    ```
@@ -253,11 +273,13 @@ GITHUB_TOKEN=your-github-token
 ### Demo 2: Integrated Workflow
 
 1. **Navigate to Demo**
+
    ```
    http://localhost:3000/demo/integrated-workflow
    ```
 
 2. **Enter Intent**
+
    ```
    "Generate a search input with autocomplete"
    ```
@@ -274,18 +296,21 @@ GITHUB_TOKEN=your-github-token
 ## 🎉 Success Criteria
 
 ### Local Deployment ✅
+
 - [x] Server starts without errors
 - [x] All demo pages load
 - [x] No console errors
 - [x] API endpoints respond
 
 ### Functional Testing (To Do)
+
 - [ ] Code generation works
 - [ ] Mode Router integration works
 - [ ] Error handling works
 - [ ] Performance meets targets (<3s generation)
 
 ### Quality Gates (Already Met)
+
 - [x] 24/24 tests passing
 - [x] 100% code coverage
 - [x] Zero type errors
@@ -296,40 +321,43 @@ GITHUB_TOKEN=your-github-token
 ## 🚀 Next Steps
 
 ### Immediate (Today)
+
 1. **Set up environment variables**
    - Get Anthropic API key
    - Add to `.env.local`
-   
+
 2. **Test all features**
    - Run through testing checklist
    - Document any issues
-   
+
 3. **Collect feedback**
    - Share with team
    - Get initial impressions
 
 ### Short-Term (Next Week)
+
 1. **Install leo-workflow-kit package**
    - Remove orchestrator stub
    - Enable full workflow features
-   
+
 2. **User Acceptance Testing**
    - Internal team review
    - Address feedback
-   
+
 3. **Performance optimization**
    - Monitor generation times
    - Optimize if needed
 
 ### Long-Term (Next Month)
+
 1. **Staging deployment**
    - Deploy to staging environment
    - Configure production settings
-   
+
 2. **Production deployment**
    - Final approval
    - Go live!
-   
+
 3. **Phase 2 planning**
    - Story 3.10: Multi-file generation
    - Story 3.11: Refactoring agent
@@ -342,6 +370,7 @@ GITHUB_TOKEN=your-github-token
 ### Questions or Issues?
 
 **Build Issues:**
+
 ```bash
 # Clean and rebuild
 rm -rf .next node_modules
@@ -350,6 +379,7 @@ npm run build
 ```
 
 **Server Issues:**
+
 ```bash
 # Restart server
 # Press Ctrl+C
@@ -357,12 +387,14 @@ npm run dev
 ```
 
 **Type Errors:**
+
 ```bash
 # Check TypeScript
 npm run type-check
 ```
 
 **Git Issues:**
+
 ```bash
 # Current branch
 git branch
