@@ -11,7 +11,8 @@
 > **Latest Update (Oct 26, 2025):**
 >
 > - ✅ **Story 3.9 Complete** — Morphic chat + Kilo Code editor UI with Tailwind CSS styling
-> - 🚀 **Next Up:** Story 3.10 (Multi-AI Provider Support - Gemini) & Story 3.11 (File System Integration)
+> - ✅ **Story 3.10 Complete** — Multi-AI Provider Support with Gemini integration
+> - 🚀 **Next Up:** Story 3.11 (File System Integration), GitHub Wiki setup, Constitution system
 > - 🎨 **Demo:** http://localhost:3000/demo/professional-workflow
 
 ## 🧭 Vision
@@ -139,14 +140,26 @@ open http://localhost:3000/demo/professional-workflow
 - Professional styling with Tailwind CSS
 - Real-time code generation workflow
 
+### Story 3.10: Multi-AI Provider Support ✅ (NEW!)
+
+**Provider Support**
+
+- ✅ Google Gemini (gemini-pro, gemini-flash, gemini-ultra)
+- 🚧 Anthropic Claude (coming soon)
+- 🚧 OpenAI GPT (coming soon)
+
+**Features**
+
+- AI Provider selector UI component
+- Dynamic model selection with cost visibility
+- Streaming and non-streaming responses
+- Unified AIProvider interface for extensibility
+- Cost tracking per request
+- Environment variable configuration
+
+**Documentation:** [AI_PROVIDERS.md](docs/AI_PROVIDERS.md)
+
 ### Coming Soon 🚀
-
-**Story 3.10: Multi-AI Provider Support** ([#22](https://github.com/leonpagotto/lionpack-studio/issues/22))
-
-- Google Gemini integration (gemini-pro, gemini-flash, gemini-ultra)
-- Provider selection UI (Claude, Gemini, GPT-4)
-- Dynamic model selection based on provider
-- Unified AIProvider interface
 
 **Story 3.11: File System Integration** ([#23](https://github.com/leonpagotto/lionpack-studio/issues/23))
 
@@ -168,13 +181,18 @@ LionPack Studio uses **leo-workflow-kit** (v5.0.0+) as the automation engine:
 - Specification management
 - GitHub Projects sync
 
-### AI Providers (Planned)
+### AI Providers
 
-Multi-provider support for flexibility:
+Multi-provider support for flexibility and cost optimization:
 
-- **Anthropic Claude** — claude-3-5-sonnet, claude-3-opus (current)
-- **Google Gemini** — gemini-pro, gemini-flash, gemini-ultra (Story 3.10)
-- **OpenAI GPT** — gpt-4, gpt-4-turbo (planned)
+- **Google Gemini** ✅ — gemini-pro, gemini-flash, gemini-ultra (Story 3.10 complete)
+  - Fast streaming responses
+  - Cost-effective models ($0.125/M tokens for gemini-flash)
+  - Function calling and vision support (gemini-ultra)
+- **Anthropic Claude** 🚧 — claude-3-5-sonnet, claude-3-opus (coming soon)
+- **OpenAI GPT** 🚧 — gpt-4, gpt-4-turbo (planned)
+
+**See:** [AI_PROVIDERS.md](docs/AI_PROVIDERS.md) for complete documentation
 
 ### Real-time Collaboration (Phase 3)
 

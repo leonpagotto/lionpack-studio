@@ -1,8 +1,8 @@
 /**
  * Multi-Provider AI Chat API
- * 
+ *
  * Supports multiple AI providers (Claude, GPT, Gemini) with streaming.
- * 
+ *
  * Constitution Alignment:
  * - Speed with Purpose: Streaming for instant feedback
  * - Facilitation over Complexity: Single endpoint, multiple providers
@@ -36,15 +36,15 @@ function getProvider(providerName: string) {
         throw new Error('GOOGLE_AI_API_KEY not configured');
       }
       return new GeminiProvider({ apiKey: geminiKey });
-    
+
     case 'claude':
       // TODO: Implement Claude provider
       throw new Error('Claude provider not yet implemented');
-    
+
     case 'gpt':
       // TODO: Implement GPT provider
       throw new Error('GPT provider not yet implemented');
-    
+
     default:
       throw new Error(`Unknown provider: ${providerName}`);
   }
@@ -95,7 +95,7 @@ export default async function handler(
 
     // Get provider instance
     const aiProvider = getProvider(provider);
-    
+
     // Use provided model or default
     const selectedModel = model || getDefaultModel(provider);
 
@@ -127,7 +127,7 @@ export default async function handler(
             res.write(`data: [DONE]\n\n`);
             break;
           }
-          
+
           res.write(`data: ${JSON.stringify({ content: chunk.content })}\n\n`);
         }
         res.end();
@@ -139,7 +139,7 @@ export default async function handler(
     } else {
       // Handle non-streaming response
       const response = await aiProvider.chat(messages, options);
-      
+
       return res.status(200).json({
         content: response.content,
         model: response.model,
@@ -149,7 +149,7 @@ export default async function handler(
     }
   } catch (error) {
     console.error('Chat API error:', error);
-    
+
     return res.status(500).json({
       error: error instanceof Error ? error.message : 'Internal server error'
     });
