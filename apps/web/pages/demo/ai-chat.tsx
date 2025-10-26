@@ -1,6 +1,6 @@
 /**
  * AI Chat Demo Page
- * 
+ *
  * Demonstrates the enhanced AI chat interface with:
  * - Full filesystem context
  * - Mode routing
@@ -30,7 +30,7 @@ const AIChatDemo: React.FC = () => {
                 Chat with AI that understands your entire project
               </p>
             </div>
-            
+
             <div className="flex items-center space-x-4">
               <OpenFolderButton />
               <button
@@ -41,7 +41,7 @@ const AIChatDemo: React.FC = () => {
               </button>
             </div>
           </div>
-          
+
           <div className="mt-4">
             <FilesystemStatus />
           </div>
@@ -49,7 +49,7 @@ const AIChatDemo: React.FC = () => {
 
         {/* Main Content */}
         <div className="flex-1 overflow-hidden">
-          <EnhancedChatContainer 
+          <EnhancedChatContainer
             showFileContext={true}
             allowFileOperations={true}
           />
@@ -90,7 +90,7 @@ const AIChatDemo: React.FC = () => {
         </div>
 
         {/* GitHub Modal */}
-        <ConnectGitHubModal 
+        <ConnectGitHubModal
           open={showGitHubModal}
           onClose={() => setShowGitHubModal(false)}
         />

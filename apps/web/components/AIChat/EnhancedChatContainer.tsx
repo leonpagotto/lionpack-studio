@@ -348,7 +348,7 @@ Be concise and helpful.`
 
         {/* Pending Operations */}
         {pendingOperations.filter(op => op.status === 'pending').length > 0 && (
-          <div className="flex-shrink-0 px-6 py-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900">
+          <div className="flex-shrink-0 px-6 py-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900" data-testid="pending-operations">
             <h3 className="text-sm font-semibold text-slate-900 dark:text-white mb-3">
               Pending File Operations
             </h3>
@@ -426,7 +426,7 @@ Be concise and helpful.`
 
       {/* File Context Sidebar */}
       {showFileContext && (
-        <div className="w-80 border-l border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 p-4 overflow-y-auto">
+        <div className="w-80 border-l border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 p-4 overflow-y-auto" data-testid="file-context-sidebar">
           <h3 className="text-sm font-semibold text-slate-900 dark:text-white mb-3">
             Project Context
           </h3>
@@ -437,7 +437,7 @@ Be concise and helpful.`
                 <div className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">
                   Source
                 </div>
-                <div className="text-sm text-slate-900 dark:text-white">
+                <div className="text-sm text-slate-900 dark:text-white" data-testid="filesystem-source">
                   {filesystem.source === 'local' ? '📁 Local Folder' : '🐙 GitHub'}
                 </div>
               </div>

@@ -1,6 +1,6 @@
 /**
  * AI Chat Components
- * 
+ *
  * Enhanced chat interface with full LionPack Studio integration
  */
 
