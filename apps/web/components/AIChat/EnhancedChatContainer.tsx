@@ -11,6 +11,7 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { useEditor } from '../../context/EditorContext';
 import type { AIMessage } from '@lionpack/leo-client';
+import { FilesystemAgent } from '@lionpack/leo-client';
 
 // Message types
 export interface ChatMessage {
@@ -32,7 +33,7 @@ export interface FileOperation {
   path: string;
   content?: string;
   newPath?: string;
-  status: 'pending' | 'approved' | 'rejected' | 'executed';
+  status: 'pending' | 'approved' | 'rejected' | 'executed' | 'executing';
   preview?: string;
 }
 
@@ -46,10 +47,11 @@ export const EnhancedChatContainer: React.FC<EnhancedChatContainerProps> = ({
   allowFileOperations = true,
 }) => {
   const {
-    filesystem,
     files,
     activeFile,
+    filesystem,
     filesystemService,
+    refreshFileTree,
   } = useEditor();
 
   const [messages, setMessages] = useState<ChatMessage[]>([{
@@ -278,11 +280,65 @@ Be concise and helpful.`
 
   // Handle file operation approval
   const handleApproveOperation = useCallback(async (operation: FileOperation) => {
-    // TODO: Execute file operation using FilesystemAgent
-    setPendingOperations(prev =>
-      prev.map(op => op === operation ? { ...op, status: 'approved' } : op)
-    );
-  }, []);
+    try {
+      // Mark as executing
+      setPendingOperations(prev =>
+        prev.map(op => op === operation ? { ...op, status: 'executing' as const } : op)
+      );
+
+      // Create FilesystemAgent with safe defaults
+      const agent = new FilesystemAgent(filesystemService, {
+        allowedPaths: ['/'], // Allow all paths for now (can be restricted later)
+        maxFileSize: 10 * 1024 * 1024, // 10MB max
+        trackHistory: true,
+      });
+
+      // Convert our FileOperation to agent's format
+      const agentOperation = {
+        type: operation.type === 'create' || operation.type === 'modify' ? 'write' as const : operation.type,
+        path: operation.path,
+        content: operation.content,
+      };
+
+      // Execute the operation
+      const result = await agent.execute(agentOperation);
+
+      if (result.success) {
+        // Update operation status
+        setPendingOperations(prev =>
+          prev.map(op => op === operation ? { ...op, status: 'approved' } : op)
+        );
+
+        // Refresh file tree to show new/modified files
+        await refreshFileTree();
+
+        // Add success message to chat
+        setMessages(prev => [...prev, {
+          id: Date.now().toString(),
+          role: 'system',
+          content: `✅ Successfully ${operation.type}d ${operation.path}`,
+          timestamp: new Date(),
+        }]);
+      } else {
+        throw new Error(result.error?.message || 'Operation failed');
+      }
+    } catch (error) {
+      console.error('File operation error:', error);
+
+      // Mark as failed
+      setPendingOperations(prev =>
+        prev.map(op => op === operation ? { ...op, status: 'rejected' } : op)
+      );
+
+      // Add error message to chat
+      setMessages(prev => [...prev, {
+        id: Date.now().toString(),
+        role: 'system',
+        content: `❌ Failed to ${operation.type} ${operation.path}: ${error instanceof Error ? error.message : 'Unknown error'}`,
+        timestamp: new Date(),
+      }]);
+    }
+  }, [filesystemService, refreshFileTree]);
 
   const handleRejectOperation = useCallback((operation: FileOperation) => {
     setPendingOperations(prev =>
@@ -354,7 +410,7 @@ Be concise and helpful.`
             </h3>
             <div className="space-y-2">
               {pendingOperations
-                .filter(op => op.status === 'pending')
+                .filter(op => op.status === 'pending' || op.status === 'executing')
                 .map((op, idx) => (
                   <div
                     key={idx}
@@ -363,6 +419,11 @@ Be concise and helpful.`
                     <div className="flex-1">
                       <div className="text-sm font-medium text-slate-900 dark:text-white">
                         {op.type.toUpperCase()} {op.path}
+                        {op.status === 'executing' && (
+                          <span className="ml-2 text-xs text-blue-600 dark:text-blue-400">
+                            Executing...
+                          </span>
+                        )}
                       </div>
                       {op.content && (
                         <div className="mt-1 text-xs text-slate-600 dark:text-slate-400 font-mono">
@@ -374,13 +435,15 @@ Be concise and helpful.`
                     <div className="flex items-center space-x-2 ml-4">
                       <button
                         onClick={() => handleApproveOperation(op)}
-                        className="px-3 py-1 text-sm bg-green-600 text-white rounded hover:bg-green-700"
+                        disabled={op.status === 'executing'}
+                        className="px-3 py-1 text-sm bg-green-600 text-white rounded hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         Approve
                       </button>
                       <button
                         onClick={() => handleRejectOperation(op)}
-                        className="px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700"
+                        disabled={op.status === 'executing'}
+                        className="px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         Reject
                       </button>

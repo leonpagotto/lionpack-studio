@@ -112,7 +112,7 @@ describe('EnhancedChatContainer', () => {
 
       // Check for sidebar presence
       expect(screen.getByTestId('file-context-sidebar')).toBeInTheDocument();
-      
+
       // Check for local folder text
       expect(screen.getByTestId('filesystem-source')).toHaveTextContent('Local Folder');
     });
@@ -211,7 +211,7 @@ describe('EnhancedChatContainer', () => {
 
     it('should add user message when send clicked', async () => {
       mockUseEditor.mockReturnValue(connectedContext);
-      
+
       // Mock successful fetch response
       const mockReader = {
         read: jest.fn()
@@ -275,7 +275,7 @@ describe('EnhancedChatContainer', () => {
 
       const callArgs = (global.fetch as jest.Mock).mock.calls[0][1];
       const body = JSON.parse(callArgs.body);
-      
+
       // Should include system message with context
       expect(body.messages[0].role).toBe('system');
       // Check that context includes project info (not exact "Filesystem: local" text)
@@ -301,7 +301,7 @@ describe('EnhancedChatContainer', () => {
 
       const textarea = screen.getByPlaceholderText(/Ask me anything about your project/) as HTMLTextAreaElement;
       fireEvent.change(textarea, { target: { value: 'Test' } });
-      
+
       const sendButton = screen.getByRole('button', { name: /send/i });
       fireEvent.click(sendButton);
 
@@ -331,13 +331,13 @@ describe('EnhancedChatContainer', () => {
 
       const mockReader = {
         read: jest.fn()
-          .mockResolvedValueOnce({ 
-            done: false, 
-            value: new TextEncoder().encode('data: {"content":"Hello "}\n\n') 
+          .mockResolvedValueOnce({
+            done: false,
+            value: new TextEncoder().encode('data: {"content":"Hello "}\n\n')
           })
-          .mockResolvedValueOnce({ 
-            done: false, 
-            value: new TextEncoder().encode('data: {"content":"World"}\n\n') 
+          .mockResolvedValueOnce({
+            done: false,
+            value: new TextEncoder().encode('data: {"content":"World"}\n\n')
           })
           .mockResolvedValueOnce({ done: true, value: undefined }),
       };
@@ -404,9 +404,9 @@ describe('EnhancedChatContainer', () => {
 
       const mockReader = {
         read: jest.fn()
-          .mockResolvedValueOnce({ 
-            done: false, 
-            value: new TextEncoder().encode(`data: ${JSON.stringify({ content: responseWithFileOp })}\n\n`) 
+          .mockResolvedValueOnce({
+            done: false,
+            value: new TextEncoder().encode(`data: ${JSON.stringify({ content: responseWithFileOp })}\n\n`)
           })
           .mockResolvedValueOnce({ done: true, value: undefined }),
       };
@@ -444,9 +444,9 @@ describe('EnhancedChatContainer', () => {
 
       const mockReader = {
         read: jest.fn()
-          .mockResolvedValueOnce({ 
-            done: false, 
-            value: new TextEncoder().encode(`data: {"content":"${responseWithFileOp}"}\n\n`) 
+          .mockResolvedValueOnce({
+            done: false,
+            value: new TextEncoder().encode(`data: {"content":"${responseWithFileOp}"}\n\n`)
           })
           .mockResolvedValueOnce({ done: true, value: undefined }),
       };
@@ -478,9 +478,9 @@ describe('EnhancedChatContainer', () => {
 
       const mockReader = {
         read: jest.fn()
-          .mockResolvedValueOnce({ 
-            done: false, 
-            value: new TextEncoder().encode(`data: ${JSON.stringify({ content: responseWithFileOp })}\n\n`) 
+          .mockResolvedValueOnce({
+            done: false,
+            value: new TextEncoder().encode(`data: ${JSON.stringify({ content: responseWithFileOp })}\n\n`)
           })
           .mockResolvedValueOnce({ done: true, value: undefined }),
       };
