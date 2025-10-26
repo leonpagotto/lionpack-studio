@@ -57,7 +57,7 @@ export const profileService = {
         .single();
 
       if (error) throw error;
-      return data;
+      return data as unknown as Profile;
     } catch (error: any) {
       if (error.code === 'PGRST116') return null; // Not found
       throw new DatabaseError(`Failed to get profile: ${error.message}`);
@@ -76,7 +76,7 @@ export const profileService = {
         .single();
 
       if (error) throw error;
-      return data;
+      return data as any;
     } catch (error: any) {
       throw new DatabaseError(`Failed to create profile: ${error.message}`);
     }
@@ -95,7 +95,7 @@ export const profileService = {
         .single();
 
       if (error) throw error;
-      return data;
+      return data as any;
     } catch (error: any) {
       throw new DatabaseError(`Failed to update profile: ${error.message}`);
     }
@@ -140,7 +140,7 @@ export const teamService = {
         .single();
 
       if (error) throw error;
-      return data;
+      return data as any;
     } catch (error: any) {
       if (error.code === 'PGRST116') return null;
       throw new DatabaseError(`Failed to get team: ${error.message}`);
@@ -173,7 +173,7 @@ export const teamService = {
         .single();
 
       if (error) throw error;
-      return data;
+      return data as any;
     } catch (error: any) {
       throw new DatabaseError(`Failed to create team: ${error.message}`);
     }
@@ -212,7 +212,7 @@ export const projectService = {
         .single();
 
       if (error) throw error;
-      return data;
+      return data as any;
     } catch (error: any) {
       if (error.code === 'PGRST116') return null;
       throw new DatabaseError(`Failed to get project: ${error.message}`);
@@ -252,7 +252,7 @@ export const projectService = {
         .single();
 
       if (error) throw error;
-      return data;
+      return data as any;
     } catch (error: any) {
       throw new DatabaseError(`Failed to create project: ${error.message}`);
     }
@@ -285,7 +285,7 @@ export const projectService = {
       if (error) throw error;
 
       return {
-        data: data || [],
+        data: (data || []) as any,
         total: count || 0,
         limit,
         offset,
@@ -314,7 +314,7 @@ export const workflowService = {
         .single();
 
       if (error) throw error;
-      return data;
+      return data as any;
     } catch (error: any) {
       if (error.code === 'PGRST116') return null;
       throw new DatabaseError(`Failed to get workflow: ${error.message}`);
@@ -352,7 +352,7 @@ export const workflowService = {
         .single();
 
       if (error) throw error;
-      return data;
+      return data as any;
     } catch (error: any) {
       throw new DatabaseError(`Failed to create workflow: ${error.message}`);
     }
@@ -385,7 +385,7 @@ export const workflowService = {
       if (error) throw error;
 
       return {
-        data: data || [],
+        data: (data || []) as any,
         total: count || 0,
         limit,
         offset,
@@ -414,7 +414,7 @@ export const specificationService = {
         .single();
 
       if (error) throw error;
-      return data;
+      return data as any;
     } catch (error: any) {
       if (error.code === 'PGRST116') return null;
       throw new DatabaseError(`Failed to get specification: ${error.message}`);
@@ -460,7 +460,7 @@ export const specificationService = {
         .single();
 
       if (error) throw error;
-      return data;
+      return data as any;
     } catch (error: any) {
       throw new DatabaseError(`Failed to create specification: ${error.message}`);
     }
@@ -479,7 +479,7 @@ export const specificationService = {
         .single();
 
       if (error) throw error;
-      return data;
+      return data as any;
     } catch (error: any) {
       throw new DatabaseError(`Failed to update specification: ${error.message}`);
     }
@@ -512,7 +512,7 @@ export const specificationService = {
       if (error) throw error;
 
       return {
-        data: data || [],
+        data: (data || []) as any,
         total: count || 0,
         limit,
         offset,
@@ -559,7 +559,7 @@ export const auditLogService = {
         .single();
 
       if (error) throw error;
-      return data;
+      return data as any;
     } catch (error: any) {
       console.error('Failed to create audit log:', error);
       // Don't throw - audit logs shouldn't block operations
