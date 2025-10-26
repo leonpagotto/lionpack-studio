@@ -14,7 +14,7 @@
 > - ✅ **Story 3.10 Complete** — Multi-AI Provider Support with Gemini integration
 > - ✅ **Story 3.12 Complete** — Context-Aware AI Chat with FilesystemAgent integration (21/21 tests passing)
 > - ✅ **Story 3.13 Complete** — GitHub Integration with PR/Issue/Branch management (41/41 tests passing)
-> - 🚀 **Next Up:** Story 3.14 (Advanced Git Operations), Commit management and conflict resolution
+> - ✅ **Story 3.14 Complete** — Advanced Git Operations with multi-commit, conflicts, cherry-pick, reviews (19/19 tests passing)
 > - 🎨 **Demo:** http://localhost:3000/demo/ai-chat
 
 ## 🧭 Vision
@@ -161,7 +161,95 @@ open http://localhost:3000/demo/professional-workflow
 
 **Documentation:** [AI_PROVIDERS.md](docs/AI_PROVIDERS.md)
 
-### Story 3.13: GitHub Integration Enhancement ✅ (NEW!)
+### Story 3.14: Advanced Git Operations ✅ (NEW!)
+
+**Advanced Git Operations in AI Chat**
+
+Powerful Git workflows with multi-commit operations, conflict resolution, cherry-picking, PR reviews, and diff visualization—all directly from AI chat.
+
+- ✅ **Multi-Commit Operations** — Create atomic commit groups
+  - Conventional commit validation
+  - Sequential commit creation
+  - Type-based color coding (feat/fix/docs/test/refactor)
+- ✅ **Conflict Detection & Resolution** — Visual conflict resolution UI
+  - Automatic conflict detection between branches
+  - 3 resolution strategies: Accept Ours, Accept Theirs, Manual Edit
+  - Side-by-side comparison view
+  - Conflict marker highlighting
+- ✅ **Cherry-Pick** — Migrate commits between branches
+  - Single or multiple commit cherry-picking
+  - Optional PR creation after cherry-pick
+  - Conflict detection during cherry-pick
+- ✅ **Enhanced PR Reviews** — Inline code review comments
+  - Add review comments to specific lines
+  - Submit reviews: APPROVE, REQUEST_CHANGES, COMMENT
+  - Review comment threads grouped by file
+- ✅ **Diff Visualization** — Syntax-highlighted diff viewer
+  - Branch-to-branch comparison
+  - Commit-specific diffs
+  - File filtering support
+  - Line-by-line highlighting (additions/deletions)
+  - Expandable/collapsible file sections
+- ✅ **Enhanced Commit History** — Paginated commit browsing
+  - Author filtering
+  - Date range filtering
+  - Efficient pagination for large repos
+
+**Example Usage:**
+
+```xml
+<!-- Multi-commit workflow -->
+<git_commit_group branch="feature/new-auth">
+  <commit type="feat" message="Add OAuth2 authentication">
+    <file path="auth/auth.ts">...</file>
+  </commit>
+  <commit type="test" message="Add auth tests">
+    <file path="auth/__tests__/auth.test.ts">...</file>
+  </commit>
+  <commit type="docs" message="Document authentication API">
+    <file path="docs/AUTH.md">...</file>
+  </commit>
+</git_commit_group>
+
+<!-- Resolve conflicts -->
+<git_conflict_resolve branch="feature/conflicted" strategy="manual">
+  <file path="config.ts">
+    const API_VERSION = 'v2'; // Resolved content
+  </file>
+</git_conflict_resolve>
+
+<!-- Cherry-pick commits -->
+<git_cherry_pick commits="abc123,def456" target="release/v1.0" create_pr="true"/>
+
+<!-- Submit PR review -->
+<pr_review pr="42" event="REQUEST_CHANGES">
+  <comment path="auth.ts" line="15">Add password validation</comment>
+  <comment path="config.ts" line="8">Move API key to .env</comment>
+  <summary>Please address security issues before merge</summary>
+</pr_review>
+
+<!-- View diff -->
+<git_diff base="main" head="feature/new-auth" files="auth.ts,config.ts"/>
+```
+
+**UI Components:**
+
+- **DiffViewer** — Syntax-highlighted diff display with line numbers
+- **ConflictResolutionPanel** — Interactive conflict resolution with 3 strategies
+- **CommitGroupPreview** — Multi-commit preview with validation
+- **ReviewCommentThread** — PR review comment display
+
+**Testing:**
+
+- 19/19 unit tests passing (100%)
+- Full Octokit API mocking
+- Happy path, error handling, and edge cases covered
+
+**Tech Stack:** @octokit/rest, diff, parse-diff, TypeScript, React
+
+**Documentation:** [STORY_3.14_COMPLETE.md](docs/STORY_3.14_COMPLETE.md)
+
+### Story 3.13: GitHub Integration Enhancement ✅
 
 **AI-Powered GitHub Operations**
 
@@ -229,14 +317,13 @@ Implements Google and GitHub OAuth providers...
 
 ### Coming Soon 🚀
 
-**Story 3.14: Advanced Git Operations**
+**Story 3.15: Code Intelligence** ([Planned](https://github.com/leonpagotto/lionpack-studio/issues))
 
-- Multi-commit operations in chat
-- Conflict resolution assistance
-- Cherry-pick and rebase support
-- PR review comments and suggestions
-- Code diff visualization
-- Commit history navigation
+- Smart code completion with AI
+- Context-aware suggestions
+- Refactoring assistance
+- Code analysis and optimization
+- Documentation generation
 
 **Story 3.11: File System Integration** ([#23](https://github.com/leonpagotto/lionpack-studio/issues/23))
 
