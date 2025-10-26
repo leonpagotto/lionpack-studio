@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useEditor, type GeneratedFile } from '../../context/EditorContext';
+import { FileTreeContextMenu } from '../FileSystem/FileTreeContextMenu';
 
 export interface FileNode {
   path: string;
@@ -9,9 +11,15 @@ export interface FileNode {
 }
 
 interface FileTreeProps {
-  files: FileNode[];
+  files?: FileNode[]; // Optional now - will use EditorContext if not provided
   activeFile?: string;
-  onSelectFile: (file: FileNode) => void;
+  onSelectFile?: (file: FileNode) => void; // Optional - will use EditorContext if not provided
+}
+
+interface ContextMenuState {
+  file: GeneratedFile;
+  x: number;
+  y: number;
 }
 
 const getFileIcon = (language: string | undefined): string => {
@@ -41,11 +49,20 @@ const getFileIcon = (language: string | undefined): string => {
 };
 
 const FileTree: React.FC<FileTreeProps> = ({
-  files,
-  activeFile,
-  onSelectFile,
+  files: propFiles,
+  activeFile: propActiveFile,
+  onSelectFile: propOnSelectFile,
 }) => {
+  const editor = useEditor();
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
+  const [contextMenu, setContextMenu] = useState<ContextMenuState | null>(null);
+
+  // Use props if provided, otherwise use EditorContext
+  const files = propFiles || editor.files;
+  const activeFile = propActiveFile || editor.activeFile?.path;
+  const onSelectFile = propOnSelectFile || ((file: FileNode) => {
+    editor.selectFile(file as GeneratedFile);
+  });
 
   const toggleExpand = (path: string) => {
     const newExpanded = new Set(expanded);
@@ -55,6 +72,33 @@ const FileTree: React.FC<FileTreeProps> = ({
       newExpanded.add(path);
     }
     setExpanded(newExpanded);
+  };
+
+  const handleContextMenu = (node: FileNode, e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    setContextMenu({
+      file: node as GeneratedFile,
+      x: e.clientX,
+      y: e.clientY,
+    });
+  };
+
+  const handleFileClick = async (node: FileNode) => {
+    if (!node.isDirectory && node.language !== 'directory') {
+      // Load file content from filesystem if using EditorContext
+      if (!propFiles && !propOnSelectFile) {
+        try {
+          await editor.loadFile(node.path);
+        } catch (error) {
+          console.error('Failed to load file:', error);
+        }
+      } else {
+        // Use the provided callback
+        onSelectFile(node);
+      }
+    }
   };
 
   const renderFileNode = (node: FileNode, level = 0) => {
@@ -71,10 +115,15 @@ const FileTree: React.FC<FileTreeProps> = ({
                 : 'hover:bg-slate-50 dark:hover:bg-slate-900'
             }`}
           style={{ paddingLeft: `${level * 16 + 12}px` }}
+          onClick={() => handleFileClick(node)}
+          onContextMenu={(e) => handleContextMenu(node, e)}
         >
           {hasChildren && (
             <button
-              onClick={() => toggleExpand(node.path)}
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleExpand(node.path);
+              }}
               className="flex-shrink-0 w-4 h-4 flex items-center justify-center"
             >
               {isExpanded ? '▼' : '▶'}
@@ -88,7 +137,6 @@ const FileTree: React.FC<FileTreeProps> = ({
 
           <span
             className="flex-1 text-sm text-slate-900 dark:text-white truncate"
-            onClick={() => !hasChildren && onSelectFile(node)}
           >
             {node.path.split('/').pop()}
           </span>
@@ -129,6 +177,15 @@ const FileTree: React.FC<FileTreeProps> = ({
           </div>
         )}
       </div>
+
+      {/* Context Menu */}
+      {contextMenu && (
+        <FileTreeContextMenu
+          file={contextMenu.file}
+          position={{ x: contextMenu.x, y: contextMenu.y }}
+          onClose={() => setContextMenu(null)}
+        />
+      )}
     </div>
   );
 };
