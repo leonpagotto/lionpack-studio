@@ -1,6 +1,8 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState, useEffect, useRef } from 'react';
 import { AnalysisEngine, CodeIssue, AnalysisResult } from '@lionpack/leo-client';
 import { DocumentationGenerator } from '../CodeIntelligence';
+import { useCopilotSuggestions } from '../../hooks/useCopilotSuggestions';
+import { InlineSuggestion } from '../Copilot/InlineSuggestion';
 
 export interface CodeFile {
   path: string;
@@ -183,14 +185,37 @@ interface CodeEditorProps {
   isLoading?: boolean;
   enableIntelligence?: boolean;
   onChange?: (content: string) => void;
+  enableCopilotSuggestions?: boolean;
 }
 
-const CodeEditor: React.FC<CodeEditorProps> = ({ file, isLoading, enableIntelligence = true, onChange }) => {
+const CodeEditor: React.FC<CodeEditorProps> = ({
+  file,
+  isLoading,
+  enableIntelligence = true,
+  onChange,
+  enableCopilotSuggestions = true
+}) => {
   const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [showDocGenerator, setShowDocGenerator] = useState(false);
   const [localContent, setLocalContent] = useState(file?.content || '');
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [cursorPosition, setCursorPosition] = useState({ line: 1, column: 0 });
   const analysisEngine = useMemo(() => new AnalysisEngine(), []);
+
+  // Copilot suggestions
+  const {
+    currentSuggestion,
+    isLoading: isSuggestionLoading,
+    triggerSuggestion,
+    acceptSuggestion,
+    rejectSuggestion,
+    clearSuggestion,
+  } = useCopilotSuggestions({
+    enabled: enableCopilotSuggestions && enableIntelligence,
+    debounceMs: 500,
+    minCharsBeforeSuggest: 3,
+  });
 
   // Update local content when file changes
   useEffect(() => {
@@ -229,6 +254,63 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ file, isLoading, enableIntellig
     const timeoutId = setTimeout(runAnalysis, 500);
     return () => clearTimeout(timeoutId);
   }, [file, localContent, enableIntelligence, analysisEngine]);
+
+  // Track cursor position
+  const updateCursorPosition = () => {
+    if (!textareaRef.current) return;
+
+    const textarea = textareaRef.current;
+    const cursorPos = textarea.selectionStart;
+    const textBeforeCursor = localContent.substring(0, cursorPos);
+    const lines = textBeforeCursor.split('\n');
+    const line = lines.length;
+    const column = lines[lines.length - 1].length;
+
+    setCursorPosition({ line, column });
+  };
+
+  // Trigger suggestion on content change
+  useEffect(() => {
+    if (!file || !enableCopilotSuggestions || !enableIntelligence) return;
+
+    triggerSuggestion({
+      code: localContent,
+      language: file.language,
+      cursorPosition,
+      context: {
+        fileName: file.path,
+      },
+    });
+  }, [localContent, cursorPosition, file, enableCopilotSuggestions, enableIntelligence, triggerSuggestion]);
+
+  // Handle keyboard shortcuts for suggestions
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Tab to accept suggestion
+      if (e.key === 'Tab' && currentSuggestion) {
+        e.preventDefault();
+        const accepted = acceptSuggestion();
+        if (accepted && textareaRef.current) {
+          const cursorPos = textareaRef.current.selectionStart;
+          const newContent =
+            localContent.substring(0, cursorPos) +
+            accepted +
+            localContent.substring(cursorPos);
+          setLocalContent(newContent);
+          onChange?.(newContent);
+        }
+      }
+
+      // Escape to reject suggestion
+      if (e.key === 'Escape' && currentSuggestion) {
+        e.preventDefault();
+        rejectSuggestion();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [currentSuggestion, acceptSuggestion, rejectSuggestion, localContent, onChange]);
 
   const highlightedLines = useMemo(() => {
     if (!file) return [];
@@ -280,11 +362,15 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ file, isLoading, enableIntellig
           <div className="relative h-full">
             {/* Editable textarea */}
             <textarea
+              ref={textareaRef}
               value={localContent}
               onChange={(e) => {
                 setLocalContent(e.target.value);
                 onChange?.(e.target.value);
+                updateCursorPosition();
               }}
+              onKeyUp={updateCursorPosition}
+              onClick={updateCursorPosition}
               className="absolute inset-0 w-full h-full font-mono text-sm text-slate-900 dark:text-white bg-transparent resize-none focus:outline-none p-4 leading-6"
               spellCheck={false}
               style={{
@@ -292,6 +378,36 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ file, isLoading, enableIntellig
                 fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
               }}
             />
+
+            {/* Inline Copilot suggestion */}
+            {currentSuggestion && (
+              <InlineSuggestion
+                suggestion={currentSuggestion.text}
+                position={currentSuggestion.position}
+                onAccept={() => {
+                  const accepted = acceptSuggestion();
+                  if (accepted && textareaRef.current) {
+                    const cursorPos = textareaRef.current.selectionStart;
+                    const newContent =
+                      localContent.substring(0, cursorPos) +
+                      accepted +
+                      localContent.substring(cursorPos);
+                    setLocalContent(newContent);
+                    onChange?.(newContent);
+                  }
+                }}
+                onReject={rejectSuggestion}
+                visible={!!currentSuggestion}
+              />
+            )}
+
+            {/* Suggestion loading indicator */}
+            {isSuggestionLoading && (
+              <div className="absolute top-2 right-2 text-xs text-slate-400 flex items-center gap-2 animate-pulse">
+                <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" />
+                <span>Getting suggestions...</span>
+              </div>
+            )}
 
             {/* Syntax highlighted overlay (read-only, for display) */}
             <div className="pointer-events-none absolute inset-0 font-mono text-sm text-transparent bg-transparent p-4 leading-6 overflow-hidden">

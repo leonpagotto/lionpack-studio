@@ -277,6 +277,7 @@ export default function Home() {
                 file={selectedFile}
                 isLoading={isLoadingFile}
                 enableIntelligence={true}
+                enableCopilotSuggestions={true}
                 onChange={(newContent) => {
                   if (selectedFile && newContent !== selectedFile.content) {
                     setSelectedFile({ ...selectedFile, content: newContent });
