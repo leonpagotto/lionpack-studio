@@ -54,7 +54,7 @@ export function getSupabaseClient(
 ): SupabaseClient<Database> {
   if (typeof window === 'undefined') {
     // Server-side
-    if (serverAuthToken && supabase.auth.session) {
+    if (serverAuthToken) {
       return supabase;
     }
     if (supabaseAdmin) {
@@ -133,7 +133,7 @@ export async function signOut() {
  * Listen to auth state changes
  */
 export function onAuthStateChange(
-  callback: (state: 'SIGNED_IN' | 'SIGNED_OUT' | 'TOKEN_REFRESHED' | 'USER_UPDATED', session: any) => void
+  callback: (event: any, session: any) => void
 ) {
   return supabase.auth.onAuthStateChange(callback);
 }

@@ -5,7 +5,20 @@
  * a convenient interface for workflow routing and execution.
  */
 
-import { Orchestrator as LEOOrchestrator } from 'leo-workflow-kit'
+// TODO: Install leo-workflow-kit package
+// import { Orchestrator as LEOOrchestrator } from 'leo-workflow-kit'
+
+// Temporary stub until leo-workflow-kit is installed
+class LEOOrchestratorStub {
+  constructor(_config: any) {}
+  analyzeTask(_input: string): any { return {}; }
+  routeToAgents(_decision: any): any { return {}; }
+  generateSpec(_input: string, _options?: any): any { return {}; }
+  classify(_request: any): any { return {}; }
+  executeWorkflow(_options: any): any { return {}; }
+  getWorkflow(_id: string): any { return {}; }
+}
+const LEOOrchestrator = LEOOrchestratorStub;
 
 export interface OrchestratorConfig {
   modelPreference?: 'sonnet' | '4' | '4-5' | 'haiku'

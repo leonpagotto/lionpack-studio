@@ -10,10 +10,11 @@
  * - Session state management
  */
 
+import '@testing-library/jest-dom';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { useRouter } from 'next/router';
-import LoginPage from './login';
-import GitHubCallbackPage from './callback';
+import LoginPage from '../../../pages/auth/login';
+import GitHubCallbackPage from '../../../pages/auth/callback';
 
 // Mock Next.js router
 jest.mock('next/router', () => ({

@@ -8,30 +8,55 @@
 
 **LionPack Studio** is a collaborative web IDE that merges **LEO Kit workflow automation**, **OpenCode editor environment**, and **Morphy AI assistant** into one seamless creative space for teams and solo builders.
 
-## 🎯 Vision
+> **Latest Update (Oct 26, 2025):**
+>
+> - ✅ **Story 3.9 Complete** — Morphic chat + Kilo Code editor UI with Tailwind CSS styling
+> - ✅ **Story 3.10 Complete** — Multi-AI Provider Support with Gemini integration
+> - 🚀 **Next Up:** Story 3.11 (File System Integration), GitHub Wiki setup, Constitution system
+> - 🎨 **Demo:** http://localhost:3000/demo/professional-workflow
 
-*To empower creators and small teams to build and ship ideas at the speed of thought — harnessing AI and human collaboration to turn imagination into reality.*
+## 🧭 Vision
 
-## 🚀 Mission
+> **To empower small teams and individual creators to build high-quality software at the speed of thought — combining human creativity, AI collaboration, and shared design standards.**
 
-*We design tools that remove friction between creativity and execution. LionPack Studio merges AI, collaboration, and automation into one seamless workspace — where ideas evolve naturally into products.*
+LionPack Studio is where _speed meets structure_. We envision a world where developers don't have to choose between moving fast and maintaining excellence — where AI helps teams stay consistent, creative, and confident in every line of code and every interface decision.
+
+## 🎯 Mission
+
+> **To simplify and accelerate the creative development process while keeping code, design, and user experience standards consistent across every project.**
+
+We're building an open, lovable, and AI-native development environment that unifies:
+
+- **LEO Kit automation** for instant workflow orchestration
+- **OpenCode** as a collaborative IDE foundation
+- **GitHub** as the trusted source of truth for code and tasks
+
+LionPack Studio helps creators:
+
+- Generate ideas, code, and UX flows faster
+- Stay aligned with best practices and team standards
+- Deliver applications that are consistent, clean, and user-centered
+
+Every pack — whether a solo developer or a team of four — can move from concept to deployment with flow, focus, and full creative control.
 
 ## 💎 Core Values
 
-| Value | Description |
-|-------|-------------|
-| **Facilitation** | We simplify complexity — guiding teams to focus on what matters, not on managing tools. |
-| **Speed** | We value flow and momentum; every feature should accelerate creative output. |
-| **Creativity** | We celebrate experimentation and playful problem-solving — the spark that drives innovation. |
-| **Collaboration** | We believe in the strength of small, tightly aligned teams — "packs" that hunt together. |
-| **Autonomy** | Tools should empower creators to work solo or in sync, without friction or dependency. |
-| **Human + AI Synergy** | We see AI not as a replacement, but as a co-creator that amplifies human capability. |
-| **Transparency & Openness** | We build on open-source foundations and open collaboration. |
+| Value                            | Description                                                                                                                |
+| -------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| **Speed with Purpose**           | Every tool and feature must help creators move from idea to impact — without friction or delay.                            |
+| **Facilitation over Complexity** | The platform should feel like guidance, not governance. We simplify the process so creators can focus on what matters.     |
+| **Quality through Standards**    | Built-in code and UX "constitutions" define best practices per language or framework, ensuring excellence and consistency. |
+| **Creativity + Structure**       | We balance AI-powered automation with the freedom to explore — order without rigidity.                                     |
+| **Collaboration**                | Small, tight-knit packs (1–4 creators) working in perfect sync — each playing a role in the flow.                          |
+| **Empowerment**                  | We believe everyone should be able to bring ideas to life — fast, independently, and beautifully.                          |
+| **Openness**                     | Built on open-source technologies, guided by transparency and shared progress.                                             |
 
-## 🧠 LionPack Ethos
+## 🌍 Our Promise
 
-> *We build tools for those who move fast, think freely, and create together.*
-> *One pack, one flow, one hunt.*
+> LionPack Studio exists to help humans and AI co-create — fast, consistent, and joyful.
+> It's not just a coding environment — it's a **creative ecosystem** where clarity, flow, and quality coexist.
+
+**Read the full vision:** [VISION.md](docs/VISION.md)
 
 ---
 
@@ -86,34 +111,93 @@ cp .env.example .env.local
 npm run dev
 
 # Open in browser
-open http://localhost:3000
+open http://localhost:3000/demo/professional-workflow
 ```
+
+## ✨ Current Features
+
+### Story 3.9: Professional Workflow UI ✅
+
+**Morphic-Style Chat (Left 40%)**
+
+- Clean chat interface for code generation prompts
+- Message history display
+- Streaming response support
+- Error handling with user-friendly messages
+
+**Kilo Code-Style Editor (Right 60%)**
+
+- Tabbed interface (Files / Code / Terminal)
+- File tree visualization
+- Code editor with syntax highlighting
+- Terminal output display
+- Test results panel
+
+**Integrated Layout**
+
+- Split-pane responsive design
+- Dark mode support
+- Professional styling with Tailwind CSS
+- Real-time code generation workflow
+
+### Story 3.10: Multi-AI Provider Support ✅ (NEW!)
+
+**Provider Support**
+
+- ✅ Google Gemini (gemini-pro, gemini-flash, gemini-ultra)
+- 🚧 Anthropic Claude (coming soon)
+- 🚧 OpenAI GPT (coming soon)
+
+**Features**
+
+- AI Provider selector UI component
+- Dynamic model selection with cost visibility
+- Streaming and non-streaming responses
+- Unified AIProvider interface for extensibility
+- Cost tracking per request
+- Environment variable configuration
+
+**Documentation:** [AI_PROVIDERS.md](docs/AI_PROVIDERS.md)
+
+### Coming Soon 🚀
+
+**Story 3.11: File System Integration** ([#23](https://github.com/leonpagotto/lionpack-studio/issues/23))
+
+- Local file system access (Browser File System API)
+- GitHub repository integration
+- Real-time file tree synchronization
+- File create/edit/delete operations
+- Commit and push to GitHub
+- Pull request creation
 
 ## 🤖 Integration Points
 
 ### LEO Kit Integration
+
 LionPack Studio uses **leo-workflow-kit** (v5.0.0+) as the automation engine:
+
 - Workflow orchestration
 - Task routing
 - Specification management
 - GitHub Projects sync
 
-### OpenCode Editor
-Embedded **OpenCode** web IDE for:
-- In-browser code editing
-- Real-time syntax highlighting
-- Project file navigation
-- Terminal integration
+### AI Providers
 
-### Morphy AI Assistant
-AI-powered chat layer for:
-- Contextual code suggestions
-- Architecture recommendations
-- Workflow guidance
-- Pack management
+Multi-provider support for flexibility and cost optimization:
 
-### Real-time Collaboration
+- **Google Gemini** ✅ — gemini-pro, gemini-flash, gemini-ultra (Story 3.10 complete)
+  - Fast streaming responses
+  - Cost-effective models ($0.125/M tokens for gemini-flash)
+  - Function calling and vision support (gemini-ultra)
+- **Anthropic Claude** 🚧 — claude-3-5-sonnet, claude-3-opus (coming soon)
+- **OpenAI GPT** 🚧 — gpt-4, gpt-4-turbo (planned)
+
+**See:** [AI_PROVIDERS.md](docs/AI_PROVIDERS.md) for complete documentation
+
+### Real-time Collaboration (Phase 3)
+
 **Yjs + Supabase Realtime** for:
+
 - Multi-user editing
 - Live presence awareness
 - Operational transformation
@@ -124,14 +208,18 @@ AI-powered chat layer for:
 ## 🧩 Core Components
 
 ### 1. **Leo Client** (`packages/leo-client/`)
+
 Wrapper around LEO Kit that exposes:
+
 - Workflow automation APIs
 - Task management
 - Specification generation
 - GitHub integration
 
 ### 2. **Web Frontend** (`apps/web/`)
+
 Next.js application with:
+
 - Integrated OpenCode editor
 - Morphy AI chat sidebar
 - Collaborative workspace
@@ -139,14 +227,18 @@ Next.js application with:
 - Real-time presence
 
 ### 3. **Shared Types** (`packages/types/`)
+
 TypeScript definitions for:
+
 - Pack structures
 - Workflow states
 - User roles
 - Collaboration events
 
 ### 4. **UI Library** (`packages/ui/`)
+
 Reusable components:
+
 - Editor sidebar
 - Chat interface
 - Workspace layouts
@@ -157,13 +249,15 @@ Reusable components:
 ## 🦁 Features
 
 - ✅ **AI-Powered Workflow** - Multi-agent orchestration via LEO Kit
-- ✅ **Code Editor** - OpenCode embedded IDE
+- ✅ **Code Editor** - OpenCode embedded IDE + Kilo Code split-view layout
 - ✅ **AI Assistant** - Morphy chat for guidance & suggestions
+- ✅ **Morphic Chat Interface** - Real-time code generation with streaming (Story 3.9 Phase 4)
 - ✅ **Real-time Collaboration** - Work solo or sync with team
 - ✅ **Pack Management** - Role-based task distribution
 - ✅ **Spec-First Development** - Guided planning before coding
 - ✅ **GitHub Sync** - Automatic issue & project tracking
 - ✅ **Multi-Model AI** - Claude 3.5/4/4.5/Haiku support
+- ✅ **Professional Workflow** - Integrated demo with 27/27 tests passing
 
 ---
 
@@ -171,6 +265,9 @@ Reusable components:
 
 - **[Architecture Overview](docs/ARCHITECTURE.md)** — System design & component interactions
 - **[Integration Guide](docs/INTEGRATION.md)** — LEO Kit + OpenCode + Morphy setup
+- **[Story 3.9 Verification](STORY_3.9_VERIFICATION_COMPLETE.md)** — Phase 4 component integration details
+- **[Story 3.9 Status](README_STORY_3.9_STATUS.md)** — Quick reference status guide
+- **[Phase 4 Report](PHASE_4_COMPLETION_REPORT.md)** — Comprehensive technical report
 - **[Development Roadmap](docs/ROADMAP.md)** — Phased approach (Phase 1-5)
 - **[Quick Start Guide](docs/QUICK_START.md)** — Local development setup
 - **[API Reference](docs/API.md)** — LEO Client API
@@ -179,13 +276,13 @@ Reusable components:
 
 ## 🔄 Phased Approach
 
-| Phase | Focus | Duration | Deliverable |
-|-------|-------|----------|-------------|
-| **Phase 1** | LEO integration as API | 2 weeks | Working backend API |
-| **Phase 2** | OpenCode embedding | 2 weeks | Editor + frontend shell |
-| **Phase 3** | Pack logic + Morphy | 3 weeks | Full collaboration |
-| **Phase 4** | Polish & themes | 2 weeks | Production UI |
-| **Phase 5** | Launch & feedback | 1 week | v1.0 Release |
+| Phase       | Focus                  | Status         | Deliverable                                                       |
+| ----------- | ---------------------- | -------------- | ----------------------------------------------------------------- |
+| **Phase 1** | LEO integration as API | ✅ Complete    | Working backend API + Mode Router (Story 3.8)                     |
+| **Phase 2** | OpenCode embedding     | ✅ Complete    | Editor + frontend shell + Coder Agent (Story 3.9 P1-3)            |
+| **Phase 3** | Pack logic + Morphy    | ✅ Complete    | Full integration foundation                                       |
+| **Phase 4** | Component Integration  | ✅ Complete    | Morphic chat + Kilo Editor + Professional Workflow (Story 3.9 P4) |
+| **Phase 5** | Polish & Performance   | 🟡 In Progress | Performance optimization & accessibility                          |
 
 ---
 
@@ -244,6 +341,32 @@ Built with ❤️ by the LionPack community.
 
 ---
 
-**Status**: 🚧 Early Access (Phase 1 - Backend Integration)
-**Latest Release**: v0.1.0
-**Last Updated**: October 24, 2025
+**Status**: � Phase 4 Complete - Component Integration (Phase 5 Pending)
+**Current Story**: Story 3.9 - Professional Workflow Demo
+**Branch**: feature/story-3.9-coder-agent
+**Tests Passing**: 27/27 (100%) ✅
+**Latest Release**: v0.2.0-beta (Phase 4 Integration)
+**Last Updated**: October 26, 2025
+
+---
+
+## 🚀 Demo Page
+
+Try the integrated professional workflow demo:
+
+```bash
+# Start dev server
+npm run dev
+
+# Open in browser
+open http://localhost:3000/demo/professional-workflow
+```
+
+**Features:**
+
+- 💬 Live chat interface with code generation prompts
+- 📁 File tree with syntax-highlighted code display
+- 🧪 Terminal showing test results and output
+- ⚡ Resizable split-pane layout (40/60 split)
+- 🎨 Dark mode support
+- 📱 Mobile responsive design
