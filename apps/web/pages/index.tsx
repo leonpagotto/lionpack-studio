@@ -15,6 +15,7 @@ import React, { useState } from 'react';
 import Head from 'next/head';
 import { SplitPane, FileTree, CodeEditor, Terminal } from '../components/KiloEditor';
 import { ChatContainer, type GeneratedCode } from '../components/MorphicChat';
+import { EditorProvider } from '../context/EditorContext';
 import type { CodeFile } from '../components/KiloEditor/CodeEditor';
 import type { FileNode } from '../components/KiloEditor/FileTree';
 
@@ -113,7 +114,7 @@ export default function Home() {
       ]);
     }
   };  return (
-    <>
+    <EditorProvider>
       <Head>
         <title>LionPack Studio - Development Culture in a Box</title>
         <meta
@@ -353,7 +354,7 @@ export default function Home() {
           </div>
         </footer>
       </div>
-    </>
+    </EditorProvider>
   );
 }
 
