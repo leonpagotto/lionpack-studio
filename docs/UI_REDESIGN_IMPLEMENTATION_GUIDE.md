@@ -1,7 +1,7 @@
 # UI Redesign Implementation Guide
 
-**Story 3.9 Enhancement: Morphic + Kilo Code Integration**  
-**Status:** Architecture & Planning Complete | Implementation Ready  
+**Story 3.9 Enhancement: Morphic + Kilo Code Integration**
+**Status:** Architecture & Planning Complete | Implementation Ready
 **Date:** January 2025
 
 ---
@@ -9,18 +9,21 @@
 ## 1. What We've Accomplished
 
 ### Phase 1: Analysis & Strategy ✅
+
 - [x] Analyzed Morphic chat architecture (248 lines, production-ready)
 - [x] Analyzed Kilo Code editor architecture (complex VS Code integration)
 - [x] Created integration strategy document (`MORPHIC_KILO_INTEGRATION_STRATEGY.md`)
 - [x] Planned component extraction and adaptation
 
 ### Phase 2: Architecture Documentation ✅
+
 - [x] Created detailed component tree structure
 - [x] Defined data flow patterns
 - [x] Documented styling strategy
 - [x] Identified code reuse opportunities (80%+)
 
 ### Phase 3: Skeleton Implementation ✅
+
 - [x] Created `ProfessionalWorkflow.tsx` blueprint component
 - [x] Created `/demo/professional-workflow` page
 - [x] Set up component structure ready for integration
@@ -72,6 +75,7 @@ morphic/components/
    - To: `/api/generate-code`
 
 2. **Response Parsing**
+
    ```typescript
    // Morphic response format
    {
@@ -106,26 +110,26 @@ apps/web/components/KiloEditor/
 ├── SplitPane.tsx (20 lines)
 │   - ResizablePanelGroup configuration
 │   - Horizontal/vertical splits
-│   
+│
 ├── FileTree.tsx (40 lines)
 │   - Hierarchical file display
 │   - Click to select
 │   - Icons for file types
-│   
+│
 ├── CodeEditor.tsx (60 lines)
 │   - Display selected file
 │   - Syntax highlighting
 │   - Line numbers
-│   
+│
 ├── Terminal.tsx (50 lines)
 │   - Test execution output
 │   - Command results
 │   - Color-coded (green/red)
-│   
+│
 ├── BrowserPreview.tsx (30 lines)
 │   - HTML/output preview
 │   - Fallback to code display
-│   
+│
 └── index.ts
     - Barrel export
 ```
@@ -133,27 +137,29 @@ apps/web/components/KiloEditor/
 **Key Features:**
 
 1. **File Tree**
+
    ```tsx
    interface FileTreeProps {
-     files: GeneratedFile[]
-     activeFile?: string
-     onSelectFile: (file: GeneratedFile) => void
+     files: GeneratedFile[];
+     activeFile?: string;
+     onSelectFile: (file: GeneratedFile) => void;
    }
    ```
 
 2. **Code Editor**
+
    ```tsx
    interface CodeEditorProps {
-     file: GeneratedFile
-     isLoading?: boolean
+     file: GeneratedFile;
+     isLoading?: boolean;
    }
    ```
 
 3. **Terminal**
    ```tsx
    interface TerminalProps {
-     output: string[]
-     testResults?: TestResult
+     output: string[];
+     testResults?: TestResult;
    }
    ```
 
@@ -163,18 +169,19 @@ apps/web/components/KiloEditor/
 
 ```typescript
 interface EditorContextType {
-  files: GeneratedFile[]
-  activeFile: GeneratedFile | null
-  testResults: TestResult | null
-  selectFile: (file: GeneratedFile) => void
-  updateFiles: (files: GeneratedFile[]) => void
+  files: GeneratedFile[];
+  activeFile: GeneratedFile | null;
+  testResults: TestResult | null;
+  selectFile: (file: GeneratedFile) => void;
+  updateFiles: (files: GeneratedFile[]) => void;
 }
 
-const EditorContext = createContext<EditorContextType>()
-export const useEditor = () => useContext(EditorContext)
+const EditorContext = createContext<EditorContextType>();
+export const useEditor = () => useContext(EditorContext);
 ```
 
 **Wire up data flow:**
+
 1. Chat sends prompt → API
 2. API returns files + tests
 3. Update context: `updateFiles()`
@@ -185,17 +192,20 @@ export const useEditor = () => useContext(EditorContext)
 ### Step 4: Styling & Responsiveness (1 hour)
 
 **Tailwind Configuration:**
+
 - Maintain consistent color scheme
 - Support dark/light themes
 - Mobile-first responsive design
 - Accessibility (a11y) compliance
 
 **Breakpoints:**
+
 - Mobile: Stack vertically
 - Tablet (768px+): 40/60 split
 - Desktop (1024px+): Default 40/60
 
 **Color Integration:**
+
 - Use existing Tailwind CSS theme
 - Code syntax highlighting colors
 - Test pass/fail indicators
@@ -205,18 +215,18 @@ export const useEditor = () => useContext(EditorContext)
 
 **Test Matrix:**
 
-| Test | Expected | Status |
-|------|----------|--------|
-| Chat input acceptance | ✓ | Pending |
-| API streaming | <3s generation | Pending |
-| File tree display | <100ms render | Pending |
-| Code editor display | <50ms syntax highlight | Pending |
-| Terminal output | Real-time streaming | Pending |
-| Test results | Pass/fail indicators | Pending |
-| Responsiveness | 60fps | Pending |
-| Accessibility | WCAG AA | Pending |
-| TypeScript errors | 0 | Pending |
-| Console errors | 0 | Pending |
+| Test                  | Expected               | Status  |
+| --------------------- | ---------------------- | ------- |
+| Chat input acceptance | ✓                      | Pending |
+| API streaming         | <3s generation         | Pending |
+| File tree display     | <100ms render          | Pending |
+| Code editor display   | <50ms syntax highlight | Pending |
+| Terminal output       | Real-time streaming    | Pending |
+| Test results          | Pass/fail indicators   | Pending |
+| Responsiveness        | 60fps                  | Pending |
+| Accessibility         | WCAG AA                | Pending |
+| TypeScript errors     | 0                      | Pending |
+| Console errors        | 0                      | Pending |
 
 ---
 
@@ -315,12 +325,14 @@ apps/web/
 ## 6. Key Dependencies
 
 **Already Available:**
+
 - React 18+
 - TypeScript 5+
 - Tailwind CSS
 - Next.js 14+
 
 **Need to Add (Optional):**
+
 - `react-resizable-panels` - For split pane resizing (Morphic uses this)
 - `react-textarea-autosize` - For auto-growing textarea (Morphic uses this)
 - `highlight.js` or `prism-react-renderer` - For code syntax highlighting
@@ -331,20 +343,21 @@ apps/web/
 
 ## 7. Risk Mitigation
 
-| Risk | Probability | Mitigation |
-|------|-------------|-----------|
-| Component incompatibilities | Medium | Test each component in isolation |
-| Breaking existing tests | Low | Run tests continuously |
-| State management complexity | Medium | Use React Context pattern |
-| Performance regression | Low | Profile with DevTools |
-| Styling conflicts | Low | Use CSS modules/BEM naming |
-| Streaming issues | Low | Keep our existing API implementation |
+| Risk                        | Probability | Mitigation                           |
+| --------------------------- | ----------- | ------------------------------------ |
+| Component incompatibilities | Medium      | Test each component in isolation     |
+| Breaking existing tests     | Low         | Run tests continuously               |
+| State management complexity | Medium      | Use React Context pattern            |
+| Performance regression      | Low         | Profile with DevTools                |
+| Styling conflicts           | Low         | Use CSS modules/BEM naming           |
+| Streaming issues            | Low         | Keep our existing API implementation |
 
 ---
 
 ## 8. Success Metrics
 
 ### Functionality ✓
+
 - [x] Story 3.9 Coder Agent (already complete)
 - [ ] Chat interface working
 - [ ] File editor displaying
@@ -352,12 +365,14 @@ apps/web/
 - [ ] Full end-to-end workflow
 
 ### Performance ✓
+
 - [ ] First message: <500ms
 - [ ] Code generation: <3s (existing)
 - [ ] UI responsiveness: 60fps
 - [ ] Memory: <200MB
 
 ### Quality ✓
+
 - [ ] 24/24 tests passing
 - [ ] 0 TypeScript errors
 - [ ] 0 console errors
@@ -365,6 +380,7 @@ apps/web/
 - [ ] 80%+ code reused from Morphic + Kilo
 
 ### User Experience ✓
+
 - [ ] Professional appearance matching open-source quality
 - [ ] Smooth transitions and animations
 - [ ] Clear visual hierarchy
@@ -376,18 +392,21 @@ apps/web/
 ## 9. References & Resources
 
 ### Morphic
+
 - Repository: https://github.com/miurla/morphic
 - Chat Component: `components/chat.tsx`
 - Streaming Logic: `lib/streaming/create-tool-calling-stream.ts`
 - Styling: Uses Tailwind CSS + shadcn/ui
 
 ### Kilo Code
+
 - Repository: https://github.com/Kilo-Org/kilocode
 - Editor Layout: `src/integrations/editor/`
 - Webview UI: `webview-ui/src/components/`
 - Diff View: `DiffViewProvider.ts` (734 lines)
 
 ### Our Implementation
+
 - Story 3.9: `packages/leo-client/src/coder/`
 - API: `apps/web/pages/api/generate-code.ts`
 - Tests: `packages/leo-client/src/__tests__/`
@@ -396,26 +415,26 @@ apps/web/
 
 ## 10. Questions & Answers
 
-**Q: Why not use Morphic directly?**  
+**Q: Why not use Morphic directly?**
 A: Morphic is designed for search/RAG, we need code generation-specific features. We extract and adapt components.
 
-**Q: Why not use Kilo Code directly?**  
+**Q: Why not use Kilo Code directly?**
 A: Kilo Code is a VS Code extension. We extract the layout/UI patterns and recreate them for web.
 
-**Q: Timeline realistic?**  
+**Q: Timeline realistic?**
 A: Yes - most code is copy-paste-adapt. Morphic components are well-written and reusable.
 
-**Q: Will this break existing features?**  
+**Q: Will this break existing features?**
 A: No - we're replacing the demo pages, not changing the core API or test suite.
 
-**Q: How much code reuse?**  
+**Q: How much code reuse?**
 A: ~80%+ from Morphic (Chat components) and ~60%+ from Kilo Code (Layout patterns).
 
 ---
 
-**Document Created:** January 2025  
-**Last Updated:** January 2025  
-**Next Phase:** Component Integration  
+**Document Created:** January 2025
+**Last Updated:** January 2025
+**Next Phase:** Component Integration
 **Estimated Completion:** 18 hours of focused work
 
 **Ready to proceed? Start with Step 1: Extract Morphic Chat Components** ✅
