@@ -1,6 +1,7 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { AnalysisEngine } from '@lionpack/leo-client/src/lib/intelligence/analysis-engine';
 import { CodeIssue, AnalysisResult } from '@lionpack/leo-client/src/lib/intelligence/types';
+import { DocumentationGenerator } from '../CodeIntelligence';
 
 export interface CodeFile {
   path: string;
@@ -187,6 +188,7 @@ interface CodeEditorProps {
 const CodeEditor: React.FC<CodeEditorProps> = ({ file, isLoading, enableIntelligence = true }) => {
   const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [showDocGenerator, setShowDocGenerator] = useState(false);
   const analysisEngine = useMemo(() => new AnalysisEngine(), []);
 
   // Run analysis when file changes
@@ -240,6 +242,19 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ file, isLoading, enableIntellig
             </p>
           )}
         </div>
+
+        {/* Actions */}
+        {file && enableIntelligence && (
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setShowDocGenerator(true)}
+              className="px-3 py-1.5 text-xs bg-blue-500 text-white rounded hover:bg-blue-600 flex items-center gap-1"
+              title="Generate documentation with AI"
+            >
+              📝 Generate Docs
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Code Content */}
@@ -325,6 +340,24 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ file, isLoading, enableIntellig
               </span>
             </>
           )}
+        </div>
+      )}
+
+      {/* Documentation Generator Modal */}
+      {showDocGenerator && file && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={() => setShowDocGenerator(false)}>
+          <div className="w-full max-w-4xl h-[80vh] m-4" onClick={(e) => e.stopPropagation()}>
+            <DocumentationGenerator
+              code={file.content}
+              language={file.language}
+              onApply={(docs) => {
+                navigator.clipboard.writeText(docs);
+                alert('Documentation copied to clipboard!');
+                setShowDocGenerator(false);
+              }}
+              onClose={() => setShowDocGenerator(false)}
+            />
+          </div>
         </div>
       )}
     </div>

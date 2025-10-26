@@ -1,6 +1,6 @@
 /**
  * AI Suggestions Provider
- * 
+ *
  * Leverages AI (Gemini/Claude) to provide intelligent code suggestions,
  * refactorings, and improvements.
  */
@@ -228,7 +228,7 @@ Format: Pure ${docFormat} without additional explanation.`;
    */
   private parseRefactoringSuggestions(response: string, _originalCode: string): QuickFix[] {
     const fixes: QuickFix[] = [];
-    
+
     // Parse OPTION blocks
     const optionRegex = /OPTION \d+:\s*(.+?)\s*Description:\s*(.+?)\s*Code:\s*```(?:typescript|javascript)?\s*([\s\S]+?)```/g;
     let match;
@@ -246,7 +246,7 @@ Format: Pure ${docFormat} without additional explanation.`;
     if (fixes.length === 0) {
       const codeBlockRegex = /```(?:typescript|javascript)?\s*([\s\S]+?)```/g;
       const codeBlocks = [];
-      
+
       while ((match = codeBlockRegex.exec(response)) !== null) {
         codeBlocks.push(match[1].trim());
       }
@@ -269,7 +269,7 @@ Format: Pure ${docFormat} without additional explanation.`;
    */
   private parseCompletionSuggestions(response: string, maxSuggestions: number): string[] {
     const suggestions: string[] = [];
-    
+
     // Try numbered list format
     const listRegex = /^\d+\.\s*(.+?)$/gm;
     let match;
@@ -283,7 +283,7 @@ Format: Pure ${docFormat} without additional explanation.`;
       const lines = response.split('\n')
         .map(line => line.trim())
         .filter(line => line && !line.startsWith('//') && !line.startsWith('#'));
-      
+
       suggestions.push(...lines.slice(0, maxSuggestions));
     }
 
@@ -297,7 +297,7 @@ Format: Pure ${docFormat} without additional explanation.`;
     // Remove any markdown code block wrappers if present
     const codeBlockRegex = /```(?:javascript|typescript|markdown)?\s*([\s\S]+?)```/;
     const match = response.match(codeBlockRegex);
-    
+
     if (match) {
       return match[1].trim();
     }

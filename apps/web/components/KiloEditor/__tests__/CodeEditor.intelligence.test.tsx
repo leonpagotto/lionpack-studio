@@ -1,6 +1,6 @@
 /**
  * Enhanced CodeEditor Tests
- * 
+ *
  * Tests for the CodeEditor with integrated code intelligence
  */
 
@@ -54,7 +54,7 @@ console.log(result);`,
 
   it('should render code editor', () => {
     render(<CodeEditor file={mockFile} />);
-    
+
     expect(screen.getByText('test.ts')).toBeInTheDocument();
     expect(screen.getByText('typescript')).toBeInTheDocument();
   });
