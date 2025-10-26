@@ -56,13 +56,13 @@ function getProvider(providerName: string) {
 function getDefaultModel(providerName: string): string {
   switch (providerName.toLowerCase()) {
     case 'gemini':
-      return 'gemini-flash'; // Most cost-effective
+      return 'gemini-2.5-flash'; // Most cost-effective
     case 'claude':
       return 'claude-3-sonnet-20240229';
     case 'gpt':
       return 'gpt-4-turbo';
     default:
-      return 'gemini-flash';
+      return 'gemini-2.5-flash';
   }
 }
 

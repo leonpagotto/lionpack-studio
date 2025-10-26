@@ -35,9 +35,9 @@ export class GeminiProvider extends AIProvider {
   readonly name = 'Gemini';
   readonly models: AIModel[] = [
     {
-      id: 'gemini-pro',
-      name: 'Gemini Pro',
-      description: 'Best for balanced performance and cost',
+      id: 'gemini-2.5-pro',
+      name: 'Gemini 2.5 Pro',
+      description: 'Most capable model for complex tasks',
       maxTokens: 32000,
       costPer1kTokens: {
         input: 0.00025,
@@ -46,13 +46,13 @@ export class GeminiProvider extends AIProvider {
       capabilities: {
         streaming: true,
         functionCalling: true,
-        vision: false
+        vision: true
       }
     },
     {
-      id: 'gemini-flash',
-      name: 'Gemini Flash',
-      description: 'Fastest and most cost-effective',
+      id: 'gemini-2.5-flash',
+      name: 'Gemini 2.5 Flash',
+      description: 'Fastest and most cost-effective (recommended)',
       maxTokens: 32000,
       costPer1kTokens: {
         input: 0.000125,
@@ -65,18 +65,18 @@ export class GeminiProvider extends AIProvider {
       }
     },
     {
-      id: 'gemini-ultra',
-      name: 'Gemini Ultra',
-      description: 'Most capable model for complex tasks',
+      id: 'gemini-2.0-flash',
+      name: 'Gemini 2.0 Flash',
+      description: 'Previous generation flash model',
       maxTokens: 32000,
       costPer1kTokens: {
-        input: 0.001,
-        output: 0.002
+        input: 0.000125,
+        output: 0.000375
       },
       capabilities: {
         streaming: true,
         functionCalling: true,
-        vision: true
+        vision: false
       }
     }
   ];
@@ -87,7 +87,7 @@ export class GeminiProvider extends AIProvider {
   constructor(config: GeminiConfig) {
     super(config);
     this.apiKey = config.apiKey;
-    this.baseURL = config.baseURL || 'https://generativelanguage.googleapis.com/v1beta';
+    this.baseURL = config.baseURL || 'https://generativelanguage.googleapis.com/v1';
 
     if (!this.apiKey) {
       throw new Error('Gemini API key is required');
