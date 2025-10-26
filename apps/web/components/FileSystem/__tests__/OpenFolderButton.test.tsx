@@ -104,7 +104,7 @@ describe('OpenFolderButton', () => {
     it('should call openLocalFolder when clicked', async () => {
       mockOpenLocalFolder.mockResolvedValue(undefined);
       mockUseEditor.mockReturnValue(createMockEditorContext());
-      
+
       render(<OpenFolderButton />);
       const button = screen.getByRole('button');
       fireEvent.click(button);
@@ -196,7 +196,7 @@ describe('OpenFolderButton', () => {
   describe('Icons', () => {
     it('should show folder icon when not connected', () => {
       mockUseEditor.mockReturnValue(createMockEditorContext());
-      
+
       render(<OpenFolderButton />);
       const button = screen.getByRole('button');
       const svg = button.querySelector('svg');
@@ -230,7 +230,7 @@ describe('OpenFolderButton', () => {
   describe('Accessibility', () => {
     it('should have appropriate title attribute', () => {
       mockUseEditor.mockReturnValue(createMockEditorContext());
-      
+
       render(<OpenFolderButton />);
       const button = screen.getByRole('button');
       expect(button).toHaveAttribute('title', 'Open a local folder');
