@@ -20,6 +20,7 @@ The following files are in `.gitignore` and should **NEVER** be committed:
 ### How to Set Up API Keys
 
 1. **Copy the template:**
+
    ```bash
    cp .env.example .env.local
    # OR
@@ -27,13 +28,14 @@ The following files are in `.gitignore` and should **NEVER** be committed:
    ```
 
 2. **Add your actual API keys** to `.env.local`:
+
    ```bash
    # Google Gemini API key
    GOOGLE_AI_API_KEY=AIzaSy... # Your actual key here
-   
+
    # Anthropic Claude API key
    LEO_ANTHROPIC_KEY=sk-ant-... # Your actual key here
-   
+
    # GitHub token
    LEO_GITHUB_TOKEN=ghp_... # Your actual token here
    ```
@@ -46,11 +48,11 @@ The following files are in `.gitignore` and should **NEVER** be committed:
 
 ### Getting API Keys
 
-| Service | Get API Key | Documentation |
-|---------|-------------|---------------|
-| **Google Gemini** | [Get Key](https://makersuite.google.com/app/apikey) | [Docs](https://ai.google.dev/docs) |
-| **Anthropic Claude** | [Get Key](https://console.anthropic.com/) | [Docs](https://docs.anthropic.com/) |
-| **GitHub** | [Create Token](https://github.com/settings/tokens?type=beta) | [Docs](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) |
+| Service              | Get API Key                                                  | Documentation                                                                                                           |
+| -------------------- | ------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
+| **Google Gemini**    | [Get Key](https://makersuite.google.com/app/apikey)          | [Docs](https://ai.google.dev/docs)                                                                                      |
+| **Anthropic Claude** | [Get Key](https://console.anthropic.com/)                    | [Docs](https://docs.anthropic.com/)                                                                                     |
+| **GitHub**           | [Create Token](https://github.com/settings/tokens?type=beta) | [Docs](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) |
 
 ## 🛡️ Pre-Commit Checklist
 
@@ -64,6 +66,7 @@ Before committing, always verify:
 ## 🔍 Scanning for Exposed Secrets
 
 ### Check your local files:
+
 ```bash
 # Search for Gemini API keys
 git grep -E "AIza[0-9A-Za-z_-]{35}" | grep -v ".example" | grep -v "truncated"
@@ -76,6 +79,7 @@ git grep -E "ghp_[0-9A-Za-z]{36}"
 ```
 
 ### Check git history:
+
 ```bash
 # Search entire git history for secrets
 git log -p -S "AIzaSy" | grep -v "truncated"
@@ -91,12 +95,13 @@ git log -p -S "AIzaSy" | grep -v "truncated"
    - GitHub: https://github.com/settings/tokens
 
 2. **Remove from git history:**
+
    ```bash
    # If in the last commit:
    git reset --soft HEAD~1
    git restore --staged .env.local
    git commit -m "Your commit message"
-   
+
    # If already pushed, you need to force push (⚠️ coordinate with team):
    git push --force
    ```
@@ -110,12 +115,14 @@ git log -p -S "AIzaSy" | grep -v "truncated"
 When documenting API usage:
 
 ✅ **GOOD - Use placeholders:**
+
 ```bash
 GOOGLE_AI_API_KEY=YOUR_GEMINI_API_KEY_HERE
 GOOGLE_AI_API_KEY=AIzaSy...  # Truncated example
 ```
 
 ❌ **BAD - Real keys:**
+
 ```bash
 GOOGLE_AI_API_KEY=AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  # Never commit real keys!
 ```
@@ -124,10 +131,10 @@ GOOGLE_AI_API_KEY=AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  # Never commit real key
 
 Understanding which variables are safe to expose:
 
-| Prefix | Exposure | Example |
-|--------|----------|---------|
-| `NEXT_PUBLIC_*` | **Public** (browser) | `NEXT_PUBLIC_SUPABASE_URL` |
-| No prefix | **Private** (server only) | `GOOGLE_AI_API_KEY` |
+| Prefix          | Exposure                  | Example                    |
+| --------------- | ------------------------- | -------------------------- |
+| `NEXT_PUBLIC_*` | **Public** (browser)      | `NEXT_PUBLIC_SUPABASE_URL` |
+| No prefix       | **Private** (server only) | `GOOGLE_AI_API_KEY`        |
 
 **Rule:** API keys and secrets should **NEVER** have `NEXT_PUBLIC_` prefix.
 
@@ -155,6 +162,7 @@ fi
 ```
 
 Make it executable:
+
 ```bash
 chmod +x .git/hooks/pre-commit
 ```

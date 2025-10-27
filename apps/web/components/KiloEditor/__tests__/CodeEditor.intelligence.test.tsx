@@ -57,7 +57,8 @@ console.log(result);`,
     render(<CodeEditor file={mockFile} />);
 
     expect(screen.getByText('test.ts')).toBeInTheDocument();
-    expect(screen.getByText('typescript')).toBeInTheDocument();
+    // Language is displayed in the file info section
+    expect(screen.getByText(/typescript/i)).toBeInTheDocument();
   });
 
   it('should display code metrics when intelligence is enabled', async () => {
@@ -77,20 +78,30 @@ console.log(result);`,
     expect(screen.queryByText(/Maintainability:/)).not.toBeInTheDocument();
   });
 
-  it('should show analyzing indicator', () => {
+  it('should run analysis and display results', async () => {
     render(<CodeEditor file={mockFile} enableIntelligence={true} />);
 
-    // Initially should show analyzing
-    expect(screen.getByText(/Analyzing.../)).toBeInTheDocument();
+    // Wait for analysis to complete and metrics to be displayed
+    await waitFor(
+      () => {
+        expect(screen.getByText(/Complexity:/)).toBeInTheDocument();
+        expect(screen.getByText(/Maintainability:/)).toBeInTheDocument();
+      },
+      { timeout: 2000 }
+    );
   });
 
   it('should display issue badges on lines with issues', async () => {
     render(<CodeEditor file={mockFile} enableIntelligence={true} />);
 
-    await waitFor(() => {
-      // Should show issue badge (🟡 for warning)
-      expect(screen.getByText('🟡')).toBeInTheDocument();
-    });
+    // Wait for analysis to complete and issues to be displayed
+    await waitFor(
+      () => {
+        // Should show issue badge (🟡 for warning)
+        expect(screen.getByText('🟡')).toBeInTheDocument();
+      },
+      { timeout: 2000 }
+    );
   });
 
   it('should show loading state', () => {

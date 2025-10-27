@@ -4,7 +4,7 @@
  * Unit tests for workflow CRUD operations and state management
  */
 
-import { WorkflowManager, type WorkflowFilter } from '../workflow-manager'
+import { WorkflowManager } from '../workflow-manager'
 import type { Workflow } from '../types'
 
 describe('WorkflowManager', () => {
