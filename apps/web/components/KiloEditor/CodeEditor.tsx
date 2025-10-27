@@ -348,7 +348,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
       </div>
 
       {/* Code Content */}
-      <div className="flex-1 overflow-auto bg-slate-50 dark:bg-slate-900 relative">
+      <div className="flex-1 overflow-hidden bg-slate-50 dark:bg-slate-900">
         {isLoading ? (
           <div className="flex items-center justify-center h-full">
             <div className="flex flex-col items-center gap-2">
@@ -359,60 +359,45 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
             </div>
           </div>
         ) : file ? (
-          <div className="relative h-full">
-            {/* Editable textarea */}
-            <textarea
-              ref={textareaRef}
-              value={localContent}
-              onChange={(e) => {
-                setLocalContent(e.target.value);
-                onChange?.(e.target.value);
-                updateCursorPosition();
-              }}
-              onKeyUp={updateCursorPosition}
-              onClick={updateCursorPosition}
-              className="absolute inset-0 w-full h-full font-mono text-sm text-slate-900 dark:text-white bg-transparent resize-none focus:outline-none p-4 leading-6"
-              spellCheck={false}
-              style={{
-                tabSize: 2,
-                fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
-              }}
-            />
+          <div className="h-full overflow-auto">
+            {/* Read-only display with line numbers and syntax highlighting */}
+            <div className="font-mono text-sm min-h-full">
+              {highlightedLines}
+            </div>
 
-            {/* Inline Copilot suggestion */}
+            {/* Inline Copilot suggestion overlay */}
             {currentSuggestion && (
-              <InlineSuggestion
-                suggestion={currentSuggestion.text}
-                position={currentSuggestion.position}
-                onAccept={() => {
-                  const accepted = acceptSuggestion();
-                  if (accepted && textareaRef.current) {
-                    const cursorPos = textareaRef.current.selectionStart;
-                    const newContent =
-                      localContent.substring(0, cursorPos) +
-                      accepted +
-                      localContent.substring(cursorPos);
-                    setLocalContent(newContent);
-                    onChange?.(newContent);
-                  }
-                }}
-                onReject={rejectSuggestion}
-                visible={!!currentSuggestion}
-              />
+              <div className="fixed z-50">
+                <InlineSuggestion
+                  suggestion={currentSuggestion.text}
+                  position={currentSuggestion.position}
+                  onAccept={() => {
+                    const accepted = acceptSuggestion();
+                    if (accepted) {
+                      const lines = localContent.split('\n');
+                      const lineIndex = cursorPosition.line - 1;
+                      lines[lineIndex] =
+                        lines[lineIndex].substring(0, cursorPosition.column) +
+                        accepted +
+                        lines[lineIndex].substring(cursorPosition.column);
+                      const newContent = lines.join('\n');
+                      setLocalContent(newContent);
+                      onChange?.(newContent);
+                    }
+                  }}
+                  onReject={rejectSuggestion}
+                  visible={!!currentSuggestion}
+                />
+              </div>
             )}
 
             {/* Suggestion loading indicator */}
             {isSuggestionLoading && (
-              <div className="absolute top-2 right-2 text-xs text-slate-400 flex items-center gap-2 animate-pulse">
+              <div className="fixed top-16 right-4 z-50 text-xs text-slate-400 dark:text-slate-500 flex items-center gap-2 animate-pulse bg-white dark:bg-slate-900 px-3 py-1.5 rounded-lg shadow-lg border border-slate-200 dark:border-slate-700">
                 <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" />
-                <span>Getting suggestions...</span>
+                <span>Getting Copilot suggestions...</span>
               </div>
             )}
-
-            {/* Syntax highlighted overlay (read-only, for display) */}
-            <div className="pointer-events-none absolute inset-0 font-mono text-sm text-transparent bg-transparent p-4 leading-6 overflow-hidden">
-              {highlightedLines}
-            </div>
           </div>
         ) : (
           <div className="flex items-center justify-center h-full">
