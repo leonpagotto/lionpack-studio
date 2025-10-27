@@ -362,7 +362,7 @@ export default function Home() {
                   </div>
                 </div>
               )}
-              
+
               <MonacoCodeEditor
                 file={selectedFile}
                 isLoading={isLoadingFile}
