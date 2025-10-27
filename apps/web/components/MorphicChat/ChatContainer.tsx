@@ -1,6 +1,7 @@
 import React, { useCallback, useRef, useEffect, useState } from 'react';
 import ChatInput from './ChatInput';
 import MessageDisplay from './MessageDisplay';
+import AIProviderSelector from '../AIProviderSelector';
 
 export interface Message {
   id: string;
@@ -37,13 +38,38 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
   onCodeGenerated,
   onGenerateStart,
   apiEndpoint = '/api/chat',
-  provider = 'gemini',
+  provider: initialProvider = 'gemini',
 }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesRef = useRef<Message[]>([]);
+  
+  // AI Provider selection state
+  const [selectedProvider, setSelectedProvider] = useState<'gemini' | 'claude' | 'gpt'>(initialProvider);
+  const [selectedModel, setSelectedModel] = useState<string | null>(null);
+  
+  // Load provider preferences from localStorage
+  useEffect(() => {
+    const savedProvider = localStorage.getItem('lionpack-ai-provider') as 'gemini' | 'claude' | 'gpt' | null;
+    const savedModel = localStorage.getItem('lionpack-ai-model');
+    
+    if (savedProvider) {
+      setSelectedProvider(savedProvider);
+    }
+    if (savedModel) {
+      setSelectedModel(savedModel);
+    }
+  }, []);
+  
+  // Save provider preferences to localStorage
+  useEffect(() => {
+    localStorage.setItem('lionpack-ai-provider', selectedProvider);
+    if (selectedModel) {
+      localStorage.setItem('lionpack-ai-model', selectedModel);
+    }
+  }, [selectedProvider, selectedModel]);
 
   // Suggested prompts for new users
   const suggestedPrompts = [
@@ -125,7 +151,8 @@ Be concise but thorough. Format code in markdown code blocks with language ident
           },
           body: JSON.stringify({
             messages: conversationMessages,
-            provider,
+            provider: selectedProvider,
+            model: selectedModel || undefined,
             stream: true,
             temperature: 0.7,
             maxTokens: 2048,
@@ -222,7 +249,7 @@ Be concise but thorough. Format code in markdown code blocks with language ident
         setMessages((prev) => [...prev, errorMsg]);
       }
     },
-    [apiEndpoint, provider, onCodeGenerated]
+    [apiEndpoint, selectedProvider, selectedModel, onCodeGenerated, onGenerateStart]
   );
 
   return (
@@ -252,6 +279,19 @@ Be concise but thorough. Format code in markdown code blocks with language ident
             </div>
           </div>
         </div>
+      </div>
+
+      {/* AI Provider Selector */}
+      <div className="flex-shrink-0 border-b border-slate-800 bg-slate-900/30">
+        <AIProviderSelector
+          currentProvider={selectedProvider}
+          currentModel={selectedModel || undefined}
+          onProviderChange={(provider, model) => {
+            setSelectedProvider(provider as 'gemini' | 'claude' | 'gpt');
+            setSelectedModel(model);
+          }}
+          compact={true}
+        />
       </div>
 
       {/* Messages Area */}
