@@ -93,7 +93,7 @@
 
 ```bash
 # Set Gemini API key in test environment
-export GOOGLE_AI_API_KEY=AIzaSyDx2-O0HJWiwaDHB-Y_8aMPs-DDLnDF-3o
+export GOOGLE_AI_API_KEY=YOUR_GEMINI_API_KEY_HERE
 
 # Run integration tests
 cd /Users/leo.de.souza1/lionpack-studio/packages/leo-client
