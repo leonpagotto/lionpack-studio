@@ -72,6 +72,36 @@ export default function Home() {
     }
   };
 
+  // Handle native folder picker
+  const handleOpenFolder = async () => {
+    try {
+      setTerminalOutput(prev => [...prev, '📂 Opening folder picker...']);
+
+      const fileList = await fileSystem.openFolderPicker();
+
+      // Convert to FileNode structure
+      const fileNodes: FileNode[] = fileList.map(file => ({
+        path: file.path,
+        content: '',
+        language: file.type === 'directory' ? 'folder' : getLanguageFromPath(file.path),
+        isDirectory: file.type === 'directory',
+        children: file.type === 'directory' ? [] : undefined,
+      }));
+
+      setFiles(fileNodes);
+
+      setTerminalOutput(prev => [
+        ...prev,
+        `✓ Opened folder with ${fileNodes.length} items`,
+      ]);
+    } catch (error) {
+      setTerminalOutput(prev => [
+        ...prev,
+        `✗ Failed to open folder: ${error instanceof Error ? error.message : 'Unknown error'}`,
+      ]);
+    }
+  };
+
   const handleFileSelect = async (file: FileNode) => {
     if (file.isDirectory) {
       // Load directory contents
@@ -178,7 +208,7 @@ export default function Home() {
             <MenuBar
               onNewFile={() => setTerminalOutput(prev => [...prev, '⚠ New File not yet implemented'])}
               onSaveFile={handleFileSave}
-              onOpenFolder={() => loadDirectory('.')}
+              onOpenFolder={handleOpenFolder}
               onToggleSidebar={() => setShowSidebar(!showSidebar)}
               onToggleTerminal={() => setShowBottomPanel(!showBottomPanel)}
               onToggleAIChat={() => setShowAIChat(!showAIChat)}
