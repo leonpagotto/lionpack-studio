@@ -13,13 +13,14 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import Head from 'next/head';
-import { SplitPane, FileTree, CodeEditor, Terminal } from '../components/KiloEditor';
+import { SplitPane, FileTree, Terminal } from '../components/KiloEditor';
+import MonacoCodeEditor from '../components/KiloEditor/MonacoCodeEditor';
 import { ChatContainer, type GeneratedCode } from '../components/MorphicChat';
 import { EditorProvider } from '../context/EditorContext';
 import { CopilotStatus } from '../components/Copilot/CopilotStatus';
 import { MenuBar } from '../components/MenuBar/MenuBar';
 import { useFileSystem } from '../hooks/useFileSystem';
-import type { CodeFile } from '../components/KiloEditor/CodeEditor';
+import type { CodeFile } from '../components/KiloEditor/MonacoCodeEditor';
 import type { FileNode } from '../components/KiloEditor/FileTree';
 
 export default function Home() {
@@ -273,11 +274,12 @@ export default function Home() {
 
             {/* Code Editor Area */}
             <div className="flex-1 overflow-hidden">
-              <CodeEditor
+              <MonacoCodeEditor
                 file={selectedFile}
                 isLoading={isLoadingFile}
                 enableIntelligence={true}
-                enableCopilotSuggestions={true}
+                readOnly={false}
+                theme="vs-dark"
                 onChange={(newContent) => {
                   if (selectedFile && newContent !== selectedFile.content) {
                     setSelectedFile({ ...selectedFile, content: newContent });

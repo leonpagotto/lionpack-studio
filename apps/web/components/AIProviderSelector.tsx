@@ -11,49 +11,52 @@
  */
 
 import React, { useState, useEffect } from 'react';
-
-// Type-only import to avoid bundling issues
-export interface AIModel {
-  id: string;
-  name: string;
-  description: string;
-  maxTokens: number;
-  costPer1kTokens: {
-    input: number;
-    output: number;
-  };
-  capabilities: {
-    streaming: boolean;
-    functionCalling: boolean;
-    vision: boolean;
-  };
-}
+import { providerRegistry, AIModel } from '@lionpack/leo-client';
 
 export interface AIProviderSelectorProps {
-  currentProvider: string;
-  currentModel: string;
+  /** Currently selected provider ID */
+  currentProvider?: string;
+
+  /** Currently selected model ID */
+  currentModel?: string;
+
+  /** Callback when provider/model changes */
   onProviderChange: (provider: string, model: string) => void;
-  providers: { provider: string; models: AIModel[] }[];
+
+  /** Disabled state */
   disabled?: boolean;
+
+  /** Show compact mode */
+  compact?: boolean;
 }
 
 export const AIProviderSelector: React.FC<AIProviderSelectorProps> = ({
-  currentProvider,
+  currentProvider = 'gemini',
   currentModel,
   onProviderChange,
-  providers,
-  disabled = false
+  disabled = false,
+  compact = false
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedProvider, setSelectedProvider] = useState(currentProvider);
   const [selectedModel, setSelectedModel] = useState(currentModel);
 
-  // Get current provider's models
-  const currentProviderData = providers.find(p => p.provider === selectedProvider);
-  const availableModels = currentProviderData?.models || [];
+  // Get all registered providers
+  const allProviders = providerRegistry.getAll();
+
+  // Build providers list with availability
+  const providers = [
+    { id: 'gemini', name: 'Gemini', icon: '✨', available: allProviders.some(p => p.name === 'gemini') },
+    { id: 'claude', name: 'Claude', icon: '🤖', available: allProviders.some(p => p.name === 'claude') },
+    { id: 'gpt', name: 'GPT', icon: '🧠', available: allProviders.some(p => p.name === 'gpt') },
+  ];
+
+  // Get current provider instance
+  const currentProviderInstance = providerRegistry.get(selectedProvider);
+  const availableModels: AIModel[] = currentProviderInstance?.getModels() || [];
 
   // Get current model details
-  const currentModelData = availableModels.find(m => m.id === selectedModel);
+  const currentModelData = currentProviderInstance?.getModel(selectedModel || '');
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -70,14 +73,17 @@ export const AIProviderSelector: React.FC<AIProviderSelectorProps> = ({
     }
   }, [isOpen]);
 
-  const handleProviderSelect = (providerName: string) => {
-    const provider = providers.find(p => p.provider === providerName);
-    if (provider && provider.models.length > 0) {
-      const firstModel = provider.models[0].id;
-      setSelectedProvider(providerName);
-      setSelectedModel(firstModel);
-      onProviderChange(providerName, firstModel);
-      setIsOpen(false);
+  const handleProviderSelect = (providerId: string) => {
+    const providerInstance = providerRegistry.get(providerId);
+    if (providerInstance) {
+      const models = providerInstance.getModels();
+      if (models.length > 0) {
+        const firstModel = models[0].id;
+        setSelectedProvider(providerId);
+        setSelectedModel(firstModel);
+        onProviderChange(providerId, firstModel);
+        setIsOpen(false);
+      }
     }
   };
 
@@ -106,14 +112,14 @@ export const AIProviderSelector: React.FC<AIProviderSelectorProps> = ({
       >
         {/* Provider Icon */}
         <div className="w-5 h-5 flex items-center justify-center">
-          {selectedProvider === 'Gemini' && <span>✨</span>}
-          {selectedProvider === 'Claude' && <span>🤖</span>}
-          {selectedProvider === 'GPT' && <span>🧠</span>}
+          {selectedProvider === 'gemini' && <span>✨</span>}
+          {selectedProvider === 'claude' && <span>🤖</span>}
+          {selectedProvider === 'gpt' && <span>🧠</span>}
         </div>
 
         {/* Provider and Model Name */}
         <div className="flex flex-col items-start">
-          <span className="text-xs text-slate-500 dark:text-slate-400">
+          <span className="text-xs text-slate-500 dark:text-slate-400 capitalize">
             {selectedProvider}
           </span>
           <span className="text-sm font-medium text-slate-900 dark:text-slate-100">
@@ -124,7 +130,7 @@ export const AIProviderSelector: React.FC<AIProviderSelectorProps> = ({
         {/* Cost Badge */}
         {currentModelData && (
           <span className="ml-2 px-2 py-0.5 text-xs rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">
-            ${currentModelData.costPer1kTokens.input * 1000}/M tokens
+            ${(currentModelData.costPer1kTokens.input * 1000).toFixed(2)}/M
           </span>
         )}
 
@@ -146,18 +152,22 @@ export const AIProviderSelector: React.FC<AIProviderSelectorProps> = ({
           <div className="flex border-b border-slate-200 dark:border-slate-700">
             {providers.map(provider => (
               <button
-                key={provider.provider}
-                onClick={() => handleProviderSelect(provider.provider)}
+                key={provider.id}
+                onClick={() => handleProviderSelect(provider.id)}
+                disabled={!provider.available}
                 className={`
                   flex-1 px-4 py-2 text-sm font-medium
                   transition-colors duration-200
-                  ${selectedProvider === provider.provider
+                  disabled:opacity-40 disabled:cursor-not-allowed
+                  ${selectedProvider === provider.id
                     ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400'
                     : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700'
                   }
                 `}
+                title={!provider.available ? 'Coming Soon' : ''}
               >
-                {provider.provider}
+                <span className="mr-1">{provider.icon}</span>
+                {provider.name}
               </button>
             ))}
           </div>
