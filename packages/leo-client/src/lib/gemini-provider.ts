@@ -293,7 +293,7 @@ export class GeminiProvider extends AIProvider {
         { role: 'user', content: 'Hello' }
       ];
 
-      await this.chat(testMessages, { model: 'gemini-flash' });
+      await this.chat(testMessages, { model: 'gemini-2.5-flash' });
       return true;
     } catch (error) {
       console.error('Gemini connection validation failed:', error);

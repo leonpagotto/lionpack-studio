@@ -269,17 +269,24 @@ describe('GeminiProvider', () => {
     ];
 
     it('should stream response chunks', async () => {
-      const mockStreamData = [
-        JSON.stringify({ candidates: [{ content: { parts: [{ text: 'One' }] } }] }),
-        JSON.stringify({ candidates: [{ content: { parts: [{ text: ' Two' }] } }] }),
-        JSON.stringify({ candidates: [{ content: { parts: [{ text: ' Three' }] } }] })
-      ].join('\n');
+      // Send each chunk separately with newlines
+      const chunk1 = JSON.stringify({ candidates: [{ content: { parts: [{ text: 'One' }] } }] }) + '\n';
+      const chunk2 = JSON.stringify({ candidates: [{ content: { parts: [{ text: ' Two' }] } }] }) + '\n';
+      const chunk3 = JSON.stringify({ candidates: [{ content: { parts: [{ text: ' Three' }] } }] }) + '\n';
 
       const mockReader = {
         read: jest.fn()
           .mockResolvedValueOnce({
             done: false,
-            value: new TextEncoder().encode(mockStreamData)
+            value: new TextEncoder().encode(chunk1)
+          })
+          .mockResolvedValueOnce({
+            done: false,
+            value: new TextEncoder().encode(chunk2)
+          })
+          .mockResolvedValueOnce({
+            done: false,
+            value: new TextEncoder().encode(chunk3)
           })
           .mockResolvedValueOnce({ done: true, value: undefined })
       };
@@ -342,17 +349,23 @@ describe('GeminiProvider', () => {
     });
 
     it('should skip malformed JSON chunks', async () => {
-      const mockStreamData = [
-        JSON.stringify({ candidates: [{ content: { parts: [{ text: 'Valid' }] } }] }),
-        'invalid json{{{',
-        JSON.stringify({ candidates: [{ content: { parts: [{ text: ' chunk' }] } }] })
-      ].join('\n');
+      const chunk1 = JSON.stringify({ candidates: [{ content: { parts: [{ text: 'Valid' }] } }] }) + '\n';
+      const chunk2 = 'invalid json{{{\n'; // Malformed - should be skipped
+      const chunk3 = JSON.stringify({ candidates: [{ content: { parts: [{ text: ' chunk' }] } }] }) + '\n';
 
       const mockReader = {
         read: jest.fn()
           .mockResolvedValueOnce({
             done: false,
-            value: new TextEncoder().encode(mockStreamData)
+            value: new TextEncoder().encode(chunk1)
+          })
+          .mockResolvedValueOnce({
+            done: false,
+            value: new TextEncoder().encode(chunk2)
+          })
+          .mockResolvedValueOnce({
+            done: false,
+            value: new TextEncoder().encode(chunk3)
           })
           .mockResolvedValueOnce({ done: true, value: undefined })
       };
@@ -377,16 +390,18 @@ describe('GeminiProvider', () => {
     });
 
     it('should handle empty content in chunks', async () => {
-      const mockStreamData = [
-        JSON.stringify({ candidates: [{ content: { parts: [{ text: '' }] } }] }), // Empty
-        JSON.stringify({ candidates: [{ content: { parts: [{ text: 'Content' }] } }] })
-      ].join('\n');
+      const chunk1 = JSON.stringify({ candidates: [{ content: { parts: [{ text: '' }] } }] }) + '\n'; // Empty
+      const chunk2 = JSON.stringify({ candidates: [{ content: { parts: [{ text: 'Content' }] } }] }) + '\n';
 
       const mockReader = {
         read: jest.fn()
           .mockResolvedValueOnce({
             done: false,
-            value: new TextEncoder().encode(mockStreamData)
+            value: new TextEncoder().encode(chunk1)
+          })
+          .mockResolvedValueOnce({
+            done: false,
+            value: new TextEncoder().encode(chunk2)
           })
           .mockResolvedValueOnce({ done: true, value: undefined })
       };
@@ -450,7 +465,7 @@ describe('GeminiProvider', () => {
       await provider.validateConnection();
 
       expect(global.fetch).toHaveBeenCalledWith(
-        expect.stringContaining('gemini-flash'),
+        expect.stringContaining('gemini-2.5-flash'),
         expect.anything()
       );
     });
