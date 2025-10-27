@@ -45,16 +45,16 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
   const [error, setError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesRef = useRef<Message[]>([]);
-  
+
   // AI Provider selection state
   const [selectedProvider, setSelectedProvider] = useState<'gemini' | 'claude' | 'gpt'>(initialProvider);
   const [selectedModel, setSelectedModel] = useState<string | null>(null);
-  
+
   // Load provider preferences from localStorage
   useEffect(() => {
     const savedProvider = localStorage.getItem('lionpack-ai-provider') as 'gemini' | 'claude' | 'gpt' | null;
     const savedModel = localStorage.getItem('lionpack-ai-model');
-    
+
     if (savedProvider) {
       setSelectedProvider(savedProvider);
     }
@@ -62,7 +62,7 @@ const ChatContainer: React.FC<ChatContainerProps> = ({
       setSelectedModel(savedModel);
     }
   }, []);
-  
+
   // Save provider preferences to localStorage
   useEffect(() => {
     localStorage.setItem('lionpack-ai-provider', selectedProvider);
