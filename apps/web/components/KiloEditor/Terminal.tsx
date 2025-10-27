@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useTerminal } from '../../hooks/useTerminal';
 
 export interface TestResult {
   passed: number;
@@ -12,25 +13,77 @@ export interface TestResult {
 }
 
 interface TerminalProps {
-  output: string[];
+  output?: string[];
   testResults?: TestResult | null;
   isLoading?: boolean;
+  onCommandExecute?: (command: string) => void;
 }
 
 const Terminal: React.FC<TerminalProps> = ({
-  output,
+  output: propOutput,
   testResults,
   isLoading = false,
+  onCommandExecute,
 }) => {
+  const terminal = useTerminal();
   const terminalRef = useRef<HTMLDivElement>(null);
   const outputEndRef = useRef<HTMLDivElement>(null);
+  const [commandInput, setCommandInput] = useState('');
+  const [commandHistory, setCommandHistory] = useState<string[]>([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
+
+  // Use prop output if provided, otherwise use hook output
+  const displayOutput = propOutput || terminal.output.map((o) => o.data);
+  const hasContent = displayOutput.length > 0 || testResults || isLoading;
 
   // Auto-scroll to bottom
   useEffect(() => {
     outputEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [output, testResults]);
+  }, [displayOutput, testResults]);
 
-  const hasContent = output.length > 0 || testResults || isLoading;
+  const handleCommandSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!commandInput.trim()) return;
+
+    // Add to history
+    setCommandHistory((prev) => [...prev, commandInput]);
+    setHistoryIndex(-1);
+
+    // Notify parent if callback provided
+    onCommandExecute?.(commandInput);
+
+    // Execute command using hook (if no prop output provided)
+    if (!propOutput) {
+      await terminal.executeCommand(commandInput);
+    }
+
+    setCommandInput('');
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (historyIndex < commandHistory.length - 1) {
+        const newIndex = historyIndex + 1;
+        setHistoryIndex(newIndex);
+        setCommandInput(commandHistory[commandHistory.length - 1 - newIndex]);
+      }
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (historyIndex > 0) {
+        const newIndex = historyIndex - 1;
+        setHistoryIndex(newIndex);
+        setCommandInput(commandHistory[commandHistory.length - 1 - newIndex]);
+      } else if (historyIndex === 0) {
+        setHistoryIndex(-1);
+        setCommandInput('');
+      }
+    } else if (e.key === 'c' && e.ctrlKey) {
+      e.preventDefault();
+      terminal.cancelExecution();
+    }
+  };
 
   return (
     <div className="flex flex-col h-full bg-slate-900 text-slate-100 rounded-lg border border-slate-700 font-mono text-sm">
@@ -57,7 +110,7 @@ const Terminal: React.FC<TerminalProps> = ({
         ) : (
           <>
             {/* Command Output */}
-            {output.map((line, idx) => (
+            {displayOutput.map((line, idx) => (
               <div key={`output-${idx}`} className="text-slate-300">
                 {line || '\u00A0'}
               </div>
@@ -117,13 +170,33 @@ const Terminal: React.FC<TerminalProps> = ({
         )}
       </div>
 
-      {/* Footer */}
-      <div className="flex-shrink-0 px-4 py-2 border-t border-slate-700 bg-slate-800 text-xs text-slate-500">
-        {hasContent ? (
-          <span>{output.length} lines of output</span>
-        ) : (
-          <span>Awaiting code generation...</span>
-        )}
+      {/* Footer / Command Input */}
+      <div className="flex-shrink-0 border-t border-slate-700 bg-slate-800">
+        <form onSubmit={handleCommandSubmit} className="flex items-center px-4 py-2">
+          <span className="text-green-400 mr-2">$</span>
+          <input
+            type="text"
+            value={commandInput}
+            onChange={(e) => setCommandInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="Enter command..."
+            className="flex-1 bg-transparent text-slate-100 text-sm focus:outline-none font-mono"
+            disabled={isLoading || terminal.isExecuting}
+          />
+          {(terminal.isExecuting || isLoading) && (
+            <div className="ml-2 flex items-center gap-2 text-xs text-slate-400">
+              <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
+              <span>Running...</span>
+            </div>
+          )}
+        </form>
+        <div className="px-4 pb-2 text-xs text-slate-500">
+          {hasContent ? (
+            <span>{displayOutput.length} lines of output</span>
+          ) : (
+            <span>Type a command and press Enter (↑↓ for history, Ctrl+C to cancel)</span>
+          )}
+        </div>
       </div>
     </div>
   );
