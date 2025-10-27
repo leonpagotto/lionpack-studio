@@ -36,6 +36,7 @@ export default function Home() {
   // Editor State
   const [selectedFile, setSelectedFile] = useState<CodeFile | null>(null);
   const [isLoadingFile, setIsLoadingFile] = useState(false);
+  const [isAIGenerating, setIsAIGenerating] = useState(false);
   const [terminalOutput, setTerminalOutput] = useState<string[]>([]);
   const [files, setFiles] = useState<FileNode[]>([]);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
@@ -169,6 +170,9 @@ export default function Home() {
   }, [handleFileSave]);
 
   const handleAIGenerate = (generatedCode: GeneratedCode) => {
+    // Clear AI generating state
+    setIsAIGenerating(false);
+
     // When AI generates code, update the editor with the first file
     if (generatedCode.files && generatedCode.files.length > 0) {
       const firstFile = generatedCode.files[0];
@@ -218,6 +222,14 @@ export default function Home() {
         '⚠️ AI generated no files - please try a different prompt',
       ]);
     }
+  };
+
+  const handleAIGenerateStart = () => {
+    setIsAIGenerating(true);
+    setTerminalOutput(prev => [
+      ...prev,
+      '🔄 AI is generating code...',
+    ]);
   };  return (
     <EditorProvider>
       <Head>
@@ -336,7 +348,21 @@ export default function Home() {
             )}
 
             {/* Code Editor Area */}
-            <div className="flex-1 overflow-hidden">
+            <div className="flex-1 overflow-hidden relative">
+              {/* AI Generating Banner */}
+              {isAIGenerating && (
+                <div className="absolute top-0 left-0 right-0 z-10 bg-blue-600/90 backdrop-blur-sm text-white px-4 py-2 flex items-center gap-3 shadow-lg">
+                  <div className="animate-spin">🔄</div>
+                  <span className="font-medium">AI is generating code...</span>
+                  <div className="flex-1" />
+                  <div className="flex gap-1">
+                    <div className="w-2 h-2 bg-white rounded-full animate-pulse" style={{ animationDelay: '0ms' }} />
+                    <div className="w-2 h-2 bg-white rounded-full animate-pulse" style={{ animationDelay: '150ms' }} />
+                    <div className="w-2 h-2 bg-white rounded-full animate-pulse" style={{ animationDelay: '300ms' }} />
+                  </div>
+                </div>
+              )}
+              
               <MonacoCodeEditor
                 file={selectedFile}
                 isLoading={isLoadingFile}
@@ -455,7 +481,10 @@ export default function Home() {
 
               {/* AI Chat Content */}
               <div className="flex-1 overflow-hidden">
-                <ChatContainer onCodeGenerated={handleAIGenerate} />
+                <ChatContainer
+                  onCodeGenerated={handleAIGenerate}
+                  onGenerateStart={handleAIGenerateStart}
+                />
               </div>
             </aside>
           )}

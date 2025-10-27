@@ -28,12 +28,14 @@ export interface GeneratedCode {
 
 interface ChatContainerProps {
   onCodeGenerated?: (code: GeneratedCode) => void;
+  onGenerateStart?: () => void;
   apiEndpoint?: string;
   provider?: 'gemini' | 'claude' | 'gpt';
 }
 
 const ChatContainer: React.FC<ChatContainerProps> = ({
   onCodeGenerated,
+  onGenerateStart,
   apiEndpoint = '/api/chat',
   provider = 'gemini',
 }) => {
@@ -97,6 +99,9 @@ Be concise but thorough. Format code in markdown code blocks with language ident
       setMessages((prev) => [...prev, userMessage]);
       setIsLoading(true);
       setError(null);
+
+      // Notify parent that generation has started
+      onGenerateStart?.();
 
       try {
         // Build conversation history using ref for current state
