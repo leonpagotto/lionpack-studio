@@ -172,17 +172,50 @@ export default function Home() {
     // When AI generates code, update the editor with the first file
     if (generatedCode.files && generatedCode.files.length > 0) {
       const firstFile = generatedCode.files[0];
+
+      // Update the selected file in the editor
       setSelectedFile({
         path: firstFile.path,
         content: firstFile.content,
         language: firstFile.language,
       });
 
-      // Add terminal output
+      // Mark as unsaved (user can choose to save)
+      setHasUnsavedChanges(true);
+
+      // Add all generated files to the file tree
+      const newFiles: FileNode[] = generatedCode.files.map(file => ({
+        path: file.path,
+        content: file.content,
+        language: file.language,
+        isDirectory: false,
+      }));
+
+      // Merge with existing files (avoid duplicates)
+      setFiles(prevFiles => {
+        const existingPaths = new Set(prevFiles.map(f => f.path));
+        const uniqueNewFiles = newFiles.filter(f => !existingPaths.has(f.path));
+        return [...prevFiles, ...uniqueNewFiles];
+      });
+
+      // Add comprehensive terminal output
       setTerminalOutput(prev => [
         ...prev,
-        `✓ Generated ${generatedCode.files.length} file(s)`,
-        ...generatedCode.files.map(f => `  - ${f.path}`),
+        `🤖 AI Generated ${generatedCode.files.length} file(s):`,
+        ...generatedCode.files.map((f, i) =>
+          `  ${i === 0 ? '✓' : '•'} ${f.path} (${f.content.length} bytes)${i === 0 ? ' [Opened in editor]' : ''}`
+        ),
+        generatedCode.files.length > 1 ? '💡 Tip: Check the file tree for all generated files' : '',
+      ].filter(Boolean));
+
+      // Show success notification in bottom panel
+      setActiveBottomTab('terminal');
+      setShowBottomPanel(true);
+    } else {
+      // Handle empty generation
+      setTerminalOutput(prev => [
+        ...prev,
+        '⚠️ AI generated no files - please try a different prompt',
       ]);
     }
   };  return (
