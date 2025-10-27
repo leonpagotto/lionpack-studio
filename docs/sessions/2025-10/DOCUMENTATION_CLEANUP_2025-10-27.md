@@ -7,6 +7,7 @@ Completed comprehensive documentation organization following LEO workflow standa
 ## Problem Statement
 
 **Before Cleanup:**
+
 - Root directory cluttered with 50+ markdown files
 - Session summaries, story completions, phase reports all mixed together
 - Unprofessional repository structure
@@ -44,6 +45,7 @@ archive/
 ### 2. Files Organized
 
 **Session Summaries** → `docs/sessions/YYYY-MM/`
+
 - SESSION_SUMMARY_2025-01-26_PHASE4.md
 - SESSION_SUMMARY_2025-10-26_STORY_3.10_COMPLETE.md
 - SESSION_SUMMARY_2025-10-26_TAILWIND_FIX.md
@@ -55,20 +57,23 @@ archive/
 - PHASE_4_COMPLETE_SUMMARY.md
 
 **Story Documentation** → `docs/stories/story-X.Y/`
-- STORY_3_8_*.md → docs/stories/story-3.8/
-- STORY_3_9_*.md → docs/stories/story-3.9/
+
+- STORY*3_8*\*.md → docs/stories/story-3.8/
+- STORY*3_9*\*.md → docs/stories/story-3.9/
 - STORY_3.11_COMPLETE.md → docs/stories/story-3.11/
-- STORY_3.12_*.md → docs/stories/story-3.12/
+- STORY*3.12*\*.md → docs/stories/story-3.12/
 - STORY_3.13_COMPLETE.md → docs/stories/story-3.13/
-- STORY_3.15_*.md → docs/stories/story-3.15/
+- STORY*3.15*\*.md → docs/stories/story-3.15/
 
 **Phase Documentation** → `docs/phases/phase-X/`
-- PHASE_2_*.md (8 files) → docs/phases/phase-2/
+
+- PHASE*2*\*.md (8 files) → docs/phases/phase-2/
 - PHASE_4_COMPLETION_REPORT.md → docs/phases/phase-4/
 
 **Archive** → `archive/`
-- CLEANUP_*.md → archive/cleanup-reports/
-- END_OF_DAY_*.md → archive/cleanup-reports/
+
+- CLEANUP\_\*.md → archive/cleanup-reports/
+- END*OF_DAY*\*.md → archive/cleanup-reports/
 - COMPLETION_CHECKLIST.md → archive/planning/
 - EXECUTION_CHECKLIST.md → archive/planning/
 - COPILOT_INTEGRATION_PLAN.md → archive/planning/
@@ -94,6 +99,7 @@ Root/
 ### 4. GitHub Issue Created
 
 **Issue #33:** Story 3.10 - Multi-AI Provider Support
+
 - URL: https://github.com/leonpagotto/lionpack-studio/issues/33
 - Properly tracks all 5 phases
 - 80% complete (4/5 phases done)
@@ -102,6 +108,7 @@ Root/
 ### 5. Documentation Index Updated
 
 Updated `INDEX.md` with:
+
 - Complete navigation structure
 - LEO workflow standards section
 - Story tracking requirements
@@ -142,6 +149,7 @@ Updated `INDEX.md` with:
 ## Automation Created
 
 **Script:** `scripts/organize-docs.sh`
+
 - Automated documentation organization
 - Creates proper directory structure
 - Moves files to correct locations
@@ -150,6 +158,7 @@ Updated `INDEX.md` with:
 ## Before vs After
 
 ### Before (Root Directory)
+
 ```
 CLEANUP_COMPLETE_FINAL_REPORT.md
 COMPLETION_CHECKLIST.md
@@ -197,6 +206,7 @@ STORY_3.9_VERIFICATION_COMPLETE.md
 ```
 
 ### After (Root Directory)
+
 ```
 CONTRIBUTING.md           ✅
 INDEX.md                  ✅
@@ -265,18 +275,21 @@ SECURITY.md              ✅
 ## Lessons Learned
 
 ### What Went Wrong
+
 - Creating too many markdown files during development
 - Not organizing as we go
 - Not using GitHub Issues for story tracking
 - Letting documentation accumulate in root
 
 ### What We Fixed
+
 - Systematic organization script
 - Clear folder structure
 - LEO workflow standards documented
 - GitHub Issue tracking enforced
 
 ### Prevention
+
 - **Rule:** No more than 5-6 markdown files in root ever
 - **Rule:** Create GitHub Issue before starting any story
 - **Rule:** Organize documentation immediately after creation
